@@ -16,6 +16,7 @@ function HomeNavBar() {
             <Nav.Link href="">Create Event</Nav.Link>
             <Nav.Link href="">About Us</Nav.Link>
             {/* Using my email address for the time being */}
+            <Nav.Link as={Link} to="/Profile">Profile</Nav.Link>
             <Nav.Link href="mailto:bhavya.jain@dal.ca">Contact Us</Nav.Link>
             <NavDropdown title="Sign in/Sign up" id="basic-nav-dropdown">
               <NavDropdown.Item as={Link} to="/Login">Login</NavDropdown.Item>

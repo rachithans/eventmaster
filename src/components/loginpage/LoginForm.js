@@ -4,10 +4,11 @@ import Form from 'react-bootstrap/Form';
 import './../../styles/LoginForm.css';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
+import axios from "axios";
 
 function LoginForm() {
     const navigate = useNavigate();
-    const passwordChecker = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/;
+    const passwordChecker = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])[0-9a-zA-Z@#$%^&+=]{4,}$/;
     // eslint-disable-next-line
     const emailChecker = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
@@ -18,7 +19,7 @@ function LoginForm() {
 
         if(!passwordChecker.test(formData.password)) {
             setInvalid((Invalid)=> ({...Invalid, password: true}));
-        
+            console.log("pass");
         }
         else{
             setInvalid((Invalid)=> ({...Invalid, password: false}));
@@ -33,7 +34,17 @@ function LoginForm() {
         }
         
         if(passwordChecker.test(formData.password) && emailChecker.test(formData.email)) {
-            navigate('/');
+            const postingData = {
+                username: formData.email,
+                password: formData.password
+            };
+            
+            axios.post('https://express-t4.onrender.com/api/login', postingData)
+            .then((response) => {
+                console.log(response.data);
+                navigate('/Profile');
+            })
+            
         }
 
 
@@ -82,7 +93,6 @@ function LoginForm() {
                             name='password' 
                             type="password"
                             value={formData.password}
-                            minLength={8}
                             placeholder="Password"
                             onChange={handleChange}
                         />
