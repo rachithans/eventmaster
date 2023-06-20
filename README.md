@@ -6,14 +6,18 @@
 
 - _Date Created_: 18 06 2023
 - _Last Modification Date_: 20 06 2023
-- _GitLab URL_: https://git.cs.dal.ca/bhavyaj/csci-4177-assignments/-/tree/assignment1
-- _Website URL_: https://assignment1csci4177.netlify.app/
+- _GitLab URL_: 
+- _Website URL_: 
 
 ## Authors
 
 This is an group deliverables
 
-- 
+- [Ayush Awasthi](Ayush.Awasthi@dal.ca) - *()*
+- [Bhavya Jain](Bhavya.jain@dal.ca ) - *()*
+- [Mohamed Eltazy](M.eltazy@dal.ca) - *()*
+- [Rachit Hans](rachit.hans@dal.ca) - *()*
+- [Sahil Sorathiya](sahil.sorathiya@dal.ca) - *()*
 
 ## Testing
 
@@ -490,3 +494,7 @@ root.render(<App />);
 
 - abhishekh305, his github page helped me learn a lot about how form validation works
 - react-bootstrap documentation helped me learn a lot about how to use react.
+-  [Esther Itolima](https://dev.to/esedev/how-to-pass-and-access-data-from-one-route-to-another-with-uselocation-usenavigate-usehistory-hooks-1g5m)'s post used to learn about how to redirect from one page to another and also how to pass the data.
+- [OriginalGriff](https://www.codeproject.com/Questions/1064433/Regex-which-will-accept-alphanumeric-with-special)'s post was used to to create regex for password that can also accept alpha numberics values and special characters.
+- [W3Schools](https://www.w3schools.com/tags/att_input_minlength.asp#:~:text=The%20minlength%20attribute%20specifies%20the,tel%2C%20email%2C%20and%20password.)'s tutorial was used to learned about how to apply lenght requirement in input field.
+- [tanguy_k](https://stackoverflow.com/questions/41936524/validation-of-form-input-fields-in-react)'s post was used to learn about to implement html validation.
