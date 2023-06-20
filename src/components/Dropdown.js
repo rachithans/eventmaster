@@ -15,8 +15,14 @@ const Dropdown = (props) => {
   return (
     <div className="container">
       <div className="card m-3" onClick={dropDownHandle}>
-        <h5 className="card-header d-flex justify-content-between align-items-center">{props.question} <span className="float-right">{open && (<>▲</>)}{!open && (<>▼</>)}</span></h5>
-    
+        <h5 className="card-header d-flex justify-content-between align-items-center">
+          {props.question}{" "}
+          <span className="float-right">
+            {open && <>▲</>}
+            {!open && <>▼</>}
+          </span>
+        </h5>
+
         {open && (
           <div className="card-body">
             <p className="card-text">{props.answer}</p>
