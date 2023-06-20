@@ -1,7 +1,7 @@
 import { Container } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import './../../styles/LoginForm.css';
+// import './../../styles/LoginForm.css';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 
@@ -56,7 +56,9 @@ function LoginForm() {
 
     return (
         <>
-            <Container className='loginForm'>
+            <div className='container m-auto'>
+                <div className='my-5 col-md-8  col-lg-6 p-4 rounded border mt-5 mx-auto'>
+                <h2 className='text-center'>Login</h2>
                 <Form onSubmit={handleSubmit} noValidate>
                     <Form.Group className="mb-3" controlId="emailField">
                         <Form.Label>Email address</Form.Label>
@@ -91,13 +93,14 @@ function LoginForm() {
                         </Form.Control.Feedback>
                     </Form.Group>
                     <Button variant="primary" type="submit">
-                        Submit
+                        Login Now
                     </Button>
-                    <Button variant="danger" type="reset" className='ms-2'>
+                    <Button variant="danger" type="reset" className='ms-0 d-block d-sm-inline ms-sm-2 mt-2 mt-sm-0 w-sm-50'>
                         Forgot Credentials?
                     </Button>
                 </Form>
-            </Container>
+                </div>
+            </div>
         </>
     );
 }
