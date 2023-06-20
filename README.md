@@ -1,23 +1,19 @@
 <!--- The following README.md sample file was adapted from https://gist.github.com/PurpleBooth/109311bb0361f32d87a2#file-readme-template-md by Gabriella Mosquera for academic use --->
 
-# Project Proposal
-
-**[Group Submission]** This is the submission for group project  of CSCI 4177
+# Project Proposal - Event Master
 
 - _Date Created_: 18 06 2023
 - _Last Modification Date_: 20 06 2023
-- _GitLab URL_: 
-- _Website URL_: 
+- _GitLab URL_: https://git.cs.dal.ca/sorathiya/csc-4177-group-20
+- _Website URL_: https://649220bf2d71390eac277e89--dancing-belekoy-fa22bd.netlify.app/
 
 ## Authors
 
-This is an group deliverables
-
-- [Ayush Awasthi](Ayush.Awasthi@dal.ca) - *()*
-- [Bhavya Jain](Bhavya.jain@dal.ca ) - *()*
-- [Mohamed Eltazy](M.eltazy@dal.ca) - *()*
-- [Rachit Hans](rachit.hans@dal.ca) - *()*
-- [Sahil Sorathiya](sahil.sorathiya@dal.ca) - *()*
+- [Ayush Awasthi](Ayush.Awasthi@dal.ca) - *(Full Stack Developer, Scrum Master)*
+- [Bhavya Jain](Bhavya.jain@dal.ca ) - *(Full Stack Developer, Database Manager)*
+- [Mohamed Eltazy](M.eltazy@dal.ca) - *(Full Stack Developer, Documents Manager)*
+- [Rachit Hans](rachit.hans@dal.ca) - *(Full Stack Developer, Testing)*
+- [Sahil Sorathiya](sahil.sorathiya@dal.ca) - *(Full Stack Developer, Designer and Integrator)*
 
 ## Testing
 
@@ -63,13 +59,13 @@ No, backend functions are implemented for this deliverables.
 12. https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp/test -- for learning how to test regex
 13. https://www.lipsum.com/feed/html -- for lorem ipsum text
 
-### File LoginForm.js
+### LoginForm.js
 
 General components are taken from the react-bootstrap website linked above. I will mention specific parts which are used from few websites.
 
-_Lines 10-13 && 50-53 && 59-97_
+_Lines 7-11 && 47-50 && 54-107_
 
-For line 10-13
+For line 47-50
 
 ```
 const passwordChecker = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/;
@@ -87,7 +83,7 @@ const handleChange = (event) => {
     };
 ```
 
-For line 57-101
+For line 54-107
 
 ```
 <div className='container m-auto'>
@@ -137,7 +133,7 @@ For line 57-101
 </div>
 ```
 
-The code above was created by adapting the code from line 10-13 [Github](https://github.com/abhishek305/simple-react-signup-form-with-validation/blob/main/src/Components/form-component.js) as shown below:
+The code above was created by adapting the code from line 7-11 [Github](https://github.com/abhishek305/simple-react-signup-form-with-validation/blob/main/src/Components/form-component.js) as shown below:
 
 ```
 const emailValidator = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -145,7 +141,7 @@ const passwordValidator = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/;
 
 ```
 
-The code above was created by adapting the code from line 52-55 [CodeBucks](https://dev.to/codebucks/form-validation-in-reactjs-by-building-reusable-custom-hook-1bg7) as shown below:
+The code above was created by adapting the code from line 47-50 [CodeBucks](https://dev.to/codebucks/form-validation-in-reactjs-by-building-reusable-custom-hook-1bg7) as shown below:
 
 ```
     const handleChange = (event) => {
@@ -166,7 +162,7 @@ The code above was created by adapting the code from line 52-55 [CodeBucks](http
     }
 ```
 
-The code above was created by adapting the code from line 59-97 [react-bootstrap](https://react-bootstrap.netlify.app/docs/forms/validation) as shown below:
+The code above was created by adapting the code from line 54-107 [react-bootstrap](https://react-bootstrap.netlify.app/docs/forms/validation) as shown below:
 
 ```
 import { useState } from 'react';
@@ -489,6 +485,119 @@ root.render(<App />);
 - <!---How---> The code in [W3Schools](https://www.w3schools.com/react/react_router.asp) was implemented by understading the usages of react router
 - <!---Why---> [W3Schools](https://www.w3schools.com/react/react_router.asp)'s Code was used because I wanted to implement the routing services in my website
 - <!---How---> [W3Schools](https://www.w3schools.com/react/react_router.asp)'s Code was modified by implementing in the my context of website and changing things where necessary.
+
+
+### ContactUs.js
+
+*Lines 22 - 106*
+
+```
+<div className="container col-lg-6 col-sm-9 bg-light p-4 rounded border mt-5">
+    <h2 className="mt-2 mb-4 text-center text-dark">Get in Touch Today</h2>
+    <form>
+    <div className="row my-3">
+        <div className="col-md-6 col mb-3 mb-md-0 ">
+        <label htmlFor="fname" className=" text-dark">
+            First Name <span className="text-danger">*</span>
+        </label>
+        <input
+            type="text"
+            className="form-control"
+            id="fname"
+            placeholder="First name"
+            pattern="[A-Za-z]+"
+            title="Enter only letters"
+            required
+        />
+        </div>
+        <div className="col-md-6">
+        <label htmlFor="fname" className=" text-dark">
+            Last Name <span className="text-danger">*</span>
+        </label>
+        <input
+            type="text"
+            className="form-control"
+            id="lname"
+            placeholder="Last name"
+            pattern="[A-Za-z]+"
+            title="Enter only letters"
+            required
+        />
+        </div>
+    </div>
+    <div className="form-row my-3">
+        <div className="col">
+        <label htmlFor="email" className=" text-dark">
+            Email <span className="text-danger">*</span>
+        </label>
+        <input
+            type="email"
+            className="form-control"
+            id="email"
+            placeholder="Email"
+            required
+        />
+        </div>
+    </div>
+    
+    <div className="form-row my-3">
+        <div className="col">
+        <label htmlFor="phone_number" className=" text-dark">
+            Phone Number <span className="text-danger">*</span>
+        </label>
+        <input
+            type="tel"
+            className="form-control"
+            id="phone_number"
+            placeholder="Phone Number"
+            pattern="[0-9]{10}"
+            title="Enter a 10-digit phone number"
+            required
+        />
+        </div>
+    </div>
+    <div className="form-row my-3">
+        <div className="col">
+        <label htmlFor="message" className=" text-dark">
+            Message
+        </label>
+        <textarea
+            type="text"
+            className="form-control"
+            id="message"
+            placeholder="Message"
+            pattern=".+"
+            title="Enter a message"
+            required
+        />
+        </div>
+    </div>
+    <div className="d-flex justify-content-center">
+        <button className="btn btn-primary">Send Message</button>
+    </div>
+    </form>
+</div>
+
+```
+
+The code above was created by adapting the code in [Bootstrap](https://getbootstrap.com/docs/4.0/components/forms/) as shown below: 
+
+```
+<form>
+  <div class="form-row">
+    <div class="col">
+      <input type="text" class="form-control" placeholder="First name">
+    </div>
+    <div class="col">
+      <input type="text" class="form-control" placeholder="Last name">
+    </div>
+  </div>
+</form>
+
+```
+- <!---How---> The code in [Bootstrap](https://getbootstrap.com/docs/4.0/components/forms/) was implemented by Bootstrap Team.
+- <!---Why---> [Bootstrap](https://getbootstrap.com/docs/4.0/components/forms/)'s Code was used to display the form for registration.
+- <!---How---> [Bootstrap](https://getbootstrap.com/docs/4.0/components/forms/)'s Code was modified by [Sahil Sorathiya](sahil.sorathiya@dal.ca).Few new input fields are added to it.
 
 ## Acknowledgments
 
