@@ -1,5 +1,4 @@
 import React from "react";
-import "./../../styles/DisplayEventCards.css";
 import Card from 'react-bootstrap/Card';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
@@ -11,8 +10,8 @@ function DisplayEvents(){
         <>
             <Container>
                 <Row xs={1} md={3} className="mt-4">
-                        <Col className="mb-4 colEvent">
-                            <Card style={{ width: '18rem' }}>
+                        <Col className="mb-4 colEvent ">
+                            <Card>
                                 <Card.Img variant="top" src={Holi} />
                                 <Card.Body>
                                     <Card.Title>Card Title</Card.Title>
@@ -24,7 +23,7 @@ function DisplayEvents(){
                         </Col>
 
                         <Col className="mb-4 colEvent">
-                            <Card style={{ width: '18rem' }}>
+                            <Card>
                                 <Card.Img variant="top" src={Holi} />
                                 <Card.Body>
                                     <Card.Title>Card Title</Card.Title>
@@ -36,7 +35,7 @@ function DisplayEvents(){
                         </Col>
 
                         <Col className="mb-4 colEvent">
-                            <Card style={{ width: '18rem' }}>
+                            <Card>
                                 <Card.Img variant="top" src={Holi} />
                                 <Card.Body>
                                     <Card.Title>Card Title</Card.Title>
@@ -49,7 +48,7 @@ function DisplayEvents(){
                     
                     
                         <Col className="mb-4 colEvent">
-                            <Card style={{ width: '18rem' }}>
+                            <Card>
                                 <Card.Img variant="top" src={Holi} />
                                 <Card.Body>
                                     <Card.Title>Card Title</Card.Title>
@@ -61,7 +60,7 @@ function DisplayEvents(){
                         </Col>
 
                         <Col className="mb-4 colEvent">
-                            <Card style={{ width: '18rem' }}>
+                            <Card>
                                 <Card.Img variant="top" src={Holi} />
                                 <Card.Body>
                                     <Card.Title>Card Title</Card.Title>
@@ -73,7 +72,7 @@ function DisplayEvents(){
                         </Col>
 
                         <Col className="mb-4 colEvent">
-                            <Card style={{ width: '18rem' }}>
+                            <Card>
                                 <Card.Img variant="top" src={Holi} />
                                 <Card.Body>
                                     <Card.Title>Card Title</Card.Title>

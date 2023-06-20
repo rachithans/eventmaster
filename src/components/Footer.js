@@ -1,19 +1,16 @@
 import Container from 'react-bootstrap/Container';
-import Navbar from 'react-bootstrap/Navbar';
 import React from "react";
 
 function createFooter(){
 
     return(
-        <>
-            <Navbar bg="dark" variant="dark" className='mt-5'>
-                <Container>
-                    <Navbar.Brand>
-                       &copy; EventMaster 2023
-                    </Navbar.Brand>
+    
+            <footer className="mt-auto py-3 bg-dark text-light">
+                <Container className="">
+                    <h4>&copy; EventMaster 2023</h4>
                 </Container>
-            </Navbar>
-        </>
+            </footer>
+    
     );
 }
 

@@ -4,7 +4,7 @@ import { Card } from "react-bootstrap";
 function Description(){
     return(
         <>
-            <Card  className="mt-4" text="light" bg="dark"style={{ height: '50vh' }}>
+            <Card  className="mt-4" text="light" bg="dark">
                 <Card.Body >
                     <Card.Title><h3>Welcome to EventMaster</h3></Card.Title>
                     <Card.Subtitle className="mb-2 text-warning">The new way to book events</Card.Subtitle>

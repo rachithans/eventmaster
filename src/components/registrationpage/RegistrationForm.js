@@ -1,7 +1,5 @@
-import { Container, DropdownButton, Dropdown } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import "./../../styles/RegistrationForm.css";
 import { useNavigate } from "react-router-dom";
 
 function RegistrationForm() {
@@ -36,15 +34,6 @@ function RegistrationForm() {
             <Form.Label>Password</Form.Label>
             <Form.Control required type="password" placeholder="Password" />
           </Form.Group>
-
-        {/* <Form.Group className="mb-3" controlId="formAccountType">
-            <Form.Label>Account Type</Form.Label>
-            <Form.Control
-              required
-              type="text"
-              placeholder="Select Account Type"
-            />
-          </Form.Group> */}
 
           <Form.Group className="mb-3" controlId="account_type">
             <Form.Label>User Type</Form.Label>
