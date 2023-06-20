@@ -5,7 +5,7 @@
 - _Date Created_: 18 06 2023
 - _Last Modification Date_: 20 06 2023
 - _GitLab URL_: https://git.cs.dal.ca/sorathiya/csc-4177-group-20
-- _Website URL_: https://649220bf2d71390eac277e89--dancing-belekoy-fa22bd.netlify.app/
+- _Website URL_: https://csci4177-eventmaster.netlify.app/
 
 ## Authors
 
