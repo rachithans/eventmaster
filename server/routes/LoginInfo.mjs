@@ -18,7 +18,12 @@ router.post("/register", async (req, res) => {
     }
 
     // Hash the password
-    console.log(req.body.password);
+    if(req.body.userType === "Organizer"){
+      req.body.userType = 1;
+    }
+    else{
+      req.body.userType = 0;
+    }
     const hashedPassword = await bcrypt.hash(req.body.password, saltRounds);
     let newDocument = {
     username: req.body.username,
