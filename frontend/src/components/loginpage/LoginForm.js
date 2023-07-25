@@ -2,6 +2,7 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import axios from "axios";
 
 function LoginForm() {
   const navigate = useNavigate();
@@ -26,12 +27,18 @@ function LoginForm() {
       setInvalid((Invalid) => ({ ...Invalid, email: false }));
     }
 
-    if (
-      passwordChecker.test(formData.password) &&
-      emailChecker.test(formData.email)
-    ) {
-      navigate("/");
-    }
+    if(passwordChecker.test(formData.password) && emailChecker.test(formData.email)) {
+      const postingData = {
+          username: formData.email,
+          password: formData.password
+      };
+      
+      axios.post('http://localhost:5050/login', postingData)
+      .then((response) => {
+          console.log(response.data);
+          navigate('/Profile');
+      })
+  }
   };
 
   const [formData, setFormData] = useState({

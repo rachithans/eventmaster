@@ -1,67 +1,67 @@
 import express from "express";
 import db from "../db/conn.mjs";
 import { ObjectId } from "mongodb";
+import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 
 const router = express.Router();
 
-// This section will help you get a list of all the records.
-router.get("/", async (req, res) => {
-  let collection = await db.collection("LoginInfo");
-  let results = await collection.find({}).toArray();
-  res.send(results).status(200);
-});
 
-// This section will help you get a single record by id
-router.get("/:id", async (req, res) => {
-  let collection = await db.collection("LoginInfo");
-  let query = {_id: new ObjectId(req.params.id)};
-  let result = await collection.findOne(query);
-
-  if (!result) res.send("Not found").status(404);
-  else res.send(result).status(200);
-});
 
 // This section will help you create a new record.
-router.post("/", async (req, res) => {
-  let newDocument = {
+router.post("/register", async (req, res) => {
+  
+  try{
+    // Check if the user already exists
+    let collection = await db.collection("LoginInfo");
+    const user = await collection.findOne({username: req.body.username});
+    if(user) {
+      return res.status(400).send("User already exists");
+    }
+
+    // Hash the password
+    const hashedPassword = await bcrypt.hash(req.body.password, 10);
+    let newDocument = {
     _id: req.body.id,
-    firstName: req.body.firstName,
-    lastName628: req.body.lastName628,
-    preferenceForTeams: req.body.preferenceForTeams,
-    phoneNo: req.body.phoneNo
+    username: req.body.username,
+    password: hashedPassword,
+    isAdmin: req.body.userType,
+    name: req.body.name,
+    email: req.body.email
   };
-  let collection = await db.collection("LoginInfo");
-  let result = await collection.insertOne(newDocument);
-  res.send(result).status(204);
+    let result = await collection.insertOne(newDocument);
+    res.send(result).status(204);
+  }
+  catch (error){
+    console.log(error);
+    res.send("Internal server error").status(500);
+  }
+ 
 });
 
 // This section will help you update a record by id.
-router.patch("/:id", async (req, res) => {
-  const query = { _id: new ObjectId(req.params.id) };
-  const updates =  {
-    $set: {
-      _id: req.body._id,
-      firstName: req.body.firstName,
-      lastName628: req.body.lastName628,
-      preferenceForTeams: req.body.preferenceForTeams,
-      phoneNo: req.body.phoneNo
+router.post("/login", async (req, res) => {
+  const {username, password} = req.body;
+  if (!username || !password) {
+    return res.status(400).send("Please provide username and password");
+  }
+  else{
+    try{
+      const user = await db.collection("LoginInfo").findOne({username});
+      if(!user) {
+        return res.status(400).send("Invalid username");
+      }
+      if(await bcrypt.compare(password, user.password)) {
+        const token = jwt.sign({id: user._id, isAdmin: user.isAdmin}, process.env.JWT_SECRET, {expiresIn: "1d"});
+        return res.status(200).json({token});
+      }
     }
-  };
-
-  let collection = await db.collection("LoginInfo");
-  let result = await collection.updateOne(query, updates);
-
-  res.send(result).status(200);
+    catch(error){
+      console.log(error);
+      res.send("Internal server error").status(500);
+    }
+  }
 });
 
-// This section will help you delete a record
-router.delete("/:id", async (req, res) => {
-  const query = { _id: new ObjectId(req.params.id) };
-
-  const collection = db.collection("LoginInfo");
-  let result = await collection.deleteOne(query);
-
-  res.send(result).status(200);
-});
 
 export default router;
