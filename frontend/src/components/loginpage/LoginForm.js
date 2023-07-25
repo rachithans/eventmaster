@@ -1,17 +1,15 @@
-import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
-import { useNavigate } from "react-router-dom";
-import { useState } from "react";
-import axios from "axios";
+import React, { useState } from 'react';
+import axios from 'axios';
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
 
-function LoginForm() {
-  const navigate = useNavigate();
+function LoginForm({ onLogin }) {
   // eslint-disable-next-line
-  const passwordChecker = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/;
+  const passwordChecker = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])[0-9a-zA-Z@#$%^&+=]{4,}$/;
   // eslint-disable-next-line
   const emailChecker = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     event.stopPropagation();
 
@@ -27,23 +25,26 @@ function LoginForm() {
       setInvalid((Invalid) => ({ ...Invalid, email: false }));
     }
 
-    if(passwordChecker.test(formData.password) && emailChecker.test(formData.email)) {
+    if (passwordChecker.test(formData.password) && emailChecker.test(formData.email)) {
       const postingData = {
-          username: formData.email,
-          password: formData.password
+        username: formData.email,
+        password: formData.password,
       };
-      
-      axios.post('http://localhost:5050/login', postingData)
-      .then((response) => {
-          console.log(response.data);
-          navigate('/Profile');
-      })
-  }
+
+      try {
+        const response = await axios.post('http://localhost:5050/login', postingData);
+        const token = response.data.token;
+        localStorage.setItem('token', token);
+        onLogin(token); // Call the onLogin function to handle successful login
+      } catch (error) {
+        console.error('Login error:', error);
+      }
+    }
   };
 
   const [formData, setFormData] = useState({
-    email: "",
-    password: "",
+    email: '',
+    password: '',
   });
 
   const [Invalid, setInvalid] = useState({
@@ -74,15 +75,11 @@ function LoginForm() {
                 onChange={handleChange}
               />
               <Form.Control.Feedback type="invalid">
-                "Incorrect Email! Please type again."
+                Incorrect Email! Please type again.
               </Form.Control.Feedback>
             </Form.Group>
 
-            <Form.Group
-              className="mb-3"
-              controlId="passwordField"
-              id="passwordGroup"
-            >
+            <Form.Group className="mb-3" controlId="passwordField" id="passwordGroup">
               <Form.Label>Password</Form.Label>
               <Form.Control
                 isInvalid={Invalid.password}
@@ -95,18 +92,13 @@ function LoginForm() {
                 onChange={handleChange}
               />
               <Form.Control.Feedback type="invalid">
-                "Password must contain at least 8 characters, 1 number, 1 upper
-                and 1 lowercase!"
+                Password must contain at least 8 characters, 1 number, 1 upper and 1 lowercase!
               </Form.Control.Feedback>
             </Form.Group>
             <Button variant="primary" type="submit">
               Login Now
             </Button>
-            <Button
-              variant="danger"
-              type="reset"
-              className="ms-0 d-block d-sm-inline ms-sm-2 mt-2 mt-sm-0 w-sm-50"
-            >
+            <Button variant="danger" type="reset" className="ms-0 d-block d-sm-inline ms-sm-2 mt-2 mt-sm-0 w-sm-50">
               Forgot Credentials?
             </Button>
           </Form>

@@ -5,9 +5,9 @@ import { Link, useLocation } from "react-router-dom";
 import React from "react";
 import { Button, ButtonGroup } from "react-bootstrap";
 
-function NavBar() {
+function NavBar({ loggedIn, isAdmin, onLogout }) {
   const location = useLocation().pathname;
-
+  console.log(loggedIn, isAdmin, location);
   return (
     <Navbar bg="dark" variant="dark" expand="lg">
       <Container>
@@ -28,22 +28,28 @@ function NavBar() {
                 <Nav.Link className="mx-3" as={Link} to="/ContactUs">
                   Contact Us
                 </Nav.Link>
-
-                <ButtonGroup>
+              </Nav>
+            </Navbar.Collapse>
+            <ButtonGroup>
+              {!loggedIn ? (
+                <>
                   {(location === "/register" || location === "/") && (
                     <Button variant="primary" as={Link} to="/login">
                       Log In
                     </Button>
                   )}
-
                   {(location === "/login" || location === "/") && (
                     <Button variant="primary" as={Link} to="/register">
                       Register
                     </Button>
                   )}
-                </ButtonGroup>
-              </Nav>
-            </Navbar.Collapse>
+                </>
+              ) : (
+                <Button variant="primary" onClick={onLogout}>
+                  Logout
+                </Button>
+              )}
+            </ButtonGroup>
           </div>
         </div>
       </Container>

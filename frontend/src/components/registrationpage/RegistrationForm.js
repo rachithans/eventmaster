@@ -1,3 +1,4 @@
+import React from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { useNavigate } from "react-router-dom";
@@ -5,9 +6,35 @@ import { useNavigate } from "react-router-dom";
 function RegistrationForm() {
   const navigate = useNavigate();
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    navigate("/");
+    const form = event.target;
+    const formData = new FormData(form);
+    
+    const postingData = {
+      username: formData.get("formUserName"),
+      password: formData.get("formPassword"),
+      userType: formData.get("account_type"),
+      name: formData.get("formName"),
+      email: formData.get("formEmail"),
+    };
+    console.log(postingData);
+    try {
+      const response = await fetch('http://localhost:5050/loginInfo/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(postingData),
+      });
+
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      navigate("/");
+    } catch (error) {
+      console.error('Registration error:', error);
+    }
   };
 
   return (
@@ -17,30 +44,30 @@ function RegistrationForm() {
         <Form onSubmit={handleSubmit}>
           <Form.Group className="mb-3" controlId="formName">
             <Form.Label>Name</Form.Label>
-            <Form.Control required type="text" placeholder="Enter Name" />
+            <Form.Control required type="text" placeholder="Enter Name" name="formName"/>
           </Form.Group>
 
           <Form.Group className="mb-3" controlId="formUserName">
             <Form.Label>UserName</Form.Label>
-            <Form.Control required type="text" placeholder="Enter UserName" />
+            <Form.Control required type="text" placeholder="Enter UserName" name="formUserName"/>
           </Form.Group>
 
           <Form.Group className="mb-3" controlId="formEmail">
             <Form.Label>Email Address</Form.Label>
-            <Form.Control required type="email" placeholder="Enter Email" />
+            <Form.Control required type="email" placeholder="Enter Email" name="formEmail"/>
           </Form.Group>
 
           <Form.Group className="mb-3" controlId="formPassword">
             <Form.Label>Password</Form.Label>
-            <Form.Control required type="password" placeholder="Password" />
+            <Form.Control required type="password" placeholder="Password" name="formPassword"/>
           </Form.Group>
 
           <Form.Group className="mb-3" controlId="account_type">
             <Form.Label>User Type</Form.Label>
-            <Form.Select>
+            <Form.Select required type="text" placeholder="Select User Type" name="account_type">
               <option value="">-- Select User Type --</option>
-              <option value="option1">Organizer</option>
-              <option value="option2">Attendee</option>
+              <option value="Organizer">Organizer</option>
+              <option value="Attendee">Attendee</option>
             </Form.Select>
           </Form.Group>
 

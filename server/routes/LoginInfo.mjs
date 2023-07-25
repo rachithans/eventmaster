@@ -1,12 +1,10 @@
 import express from "express";
 import db from "../db/conn.mjs";
-import { ObjectId } from "mongodb";
-import bcrypt from "bcrypt";
+import * as bcrypt from 'bcrypt';
 import jwt from "jsonwebtoken";
 
 const router = express.Router();
-
-
+const saltRounds = 10; // Number of rounds to use for hashing
 
 // This section will help you create a new record.
 router.post("/register", async (req, res) => {
@@ -20,9 +18,9 @@ router.post("/register", async (req, res) => {
     }
 
     // Hash the password
-    const hashedPassword = await bcrypt.hash(req.body.password, 10);
+    console.log(req.body.password);
+    const hashedPassword = await bcrypt.hash(req.body.password, saltRounds);
     let newDocument = {
-    _id: req.body.id,
     username: req.body.username,
     password: hashedPassword,
     isAdmin: req.body.userType,
@@ -40,7 +38,7 @@ router.post("/register", async (req, res) => {
 });
 
 // This section will help you update a record by id.
-router.post("/login", async (req, res) => {
+router.post("/loginUser", async (req, res) => {
   const {username, password} = req.body;
   if (!username || !password) {
     return res.status(400).send("Please provide username and password");
