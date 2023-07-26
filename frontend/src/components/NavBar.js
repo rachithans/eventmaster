@@ -28,9 +28,50 @@ function NavBar({ loggedIn, isAdmin, onLogout }) {
                 <Nav.Link className="mx-3" as={Link} to="/ContactUs">
                   Contact Us
                 </Nav.Link>
+                
+                {isAdmin === 1 && loggedIn ? (
+                  <>
+                    {(location === "/") && (
+                      <Nav.Link className="mx-3" as={Link} to="/Profile">
+                      Profile
+                      </Nav.Link>
+                    )}
+                    {(location === "/") && (
+                      <Nav.Link className="mx-3" as={Link} to="/Dashboard">
+                      Dashboard
+                      </Nav.Link>
+                    )}
+                    {(location === "/") && (
+                      <Nav.Link className="mx-3" as={Link} to="/ManageEvents">
+                      Manage Events
+                      </Nav.Link>
+                    )}
+                  </>
+                  ) : isAdmin === 0 && loggedIn ? (
+                    <>
+                    {(location === "/") && (
+                        <Nav.Link className="mx-3" as={Link} to="/Profile">
+                        Profile
+                        </Nav.Link>
+                      )}
+                      {(location === "/") && (
+                        <Nav.Link className="mx-3" as={Link} to="/MyBookings">
+                        MyBookings
+                        </Nav.Link>
+                      )}
+                      {(location === "/") && (
+                        <Nav.Link className="mx-3" as={Link} to="/EventsList">
+                        EventsList
+                        </Nav.Link>
+                      )}
+                    </>
+                  ) : (
+                    <>
+                    
+                    </>
+                  )}
               </Nav>
-            </Navbar.Collapse>
-            <ButtonGroup>
+              <ButtonGroup>
               {!loggedIn ? (
                 <>
                   {(location === "/register" || location === "/") && (
@@ -50,6 +91,7 @@ function NavBar({ loggedIn, isAdmin, onLogout }) {
                 </Button>
               )}
             </ButtonGroup>
+            </Navbar.Collapse>
           </div>
         </div>
       </Container>
