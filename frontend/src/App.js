@@ -8,7 +8,7 @@ import createFooter from "./components/Footer";
 import ContactUs from "./components/ContactUs";
 import jwt_decode from 'jwt-decode';
 import React, { useState } from 'react';
-import { Route,Routes } from 'react-router-dom';
+import { Route,Routes, useNavigate} from 'react-router-dom';
 import LoginForm from "./components/loginpage/LoginForm";
 import ForgotUser from "./components/loginpage/ForgotUser";
 
@@ -16,6 +16,7 @@ import ForgotUser from "./components/loginpage/ForgotUser";
 const App = () => {
   const [loggedIn, setLoggedIn] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
+  const navigate = useNavigate();
 
   // Function to handle login after successful authentication
   const handleLogin = (token) => {
@@ -29,6 +30,7 @@ const App = () => {
     localStorage.removeItem('token');
     setLoggedIn(false);
     setIsAdmin(false);
+    navigate("/");
   };
 
   return (
