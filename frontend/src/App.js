@@ -10,6 +10,7 @@ import jwt_decode from 'jwt-decode';
 import React, { useState } from 'react';
 import { Route,Routes } from 'react-router-dom';
 import LoginForm from "./components/loginpage/LoginForm";
+import ForgotUser from "./components/loginpage/ForgotUser";
 
 
 const App = () => {
@@ -44,6 +45,7 @@ const App = () => {
           <Route path="/register" Component={Register} />
           <Route path="/Faq" Component={Faq} />
           <Route path="/ContactUs" Component={ContactUs} />
+          <Route path="/forgotUserCredentials" Component={ForgotUser} />
         </Routes>
         {createFooter()}
       </div>

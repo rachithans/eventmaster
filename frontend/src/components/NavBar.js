@@ -7,7 +7,6 @@ import { Button, ButtonGroup } from "react-bootstrap";
 
 function NavBar({ loggedIn, isAdmin, onLogout }) {
   const location = useLocation().pathname;
-  console.log(loggedIn, isAdmin, location);
   return (
     <Navbar bg="dark" variant="dark" expand="lg">
       <Container>
@@ -21,7 +20,7 @@ function NavBar({ loggedIn, isAdmin, onLogout }) {
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
               <Nav className="me-auto">
-                <Nav.Link className="mx-3">Create Event</Nav.Link>
+                
                 <Nav.Link className="mx-3" as={Link} to="/Faq">
                   FAQs
                 </Nav.Link>
