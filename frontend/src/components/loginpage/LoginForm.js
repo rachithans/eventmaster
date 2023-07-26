@@ -7,7 +7,6 @@ function LoginForm({ onLogin }) {
   const location = useLocation();
   // Check for the password change message in the location state
   const passwordChangedMessage = location.state?.passwordChangedMessage;
-
   // eslint-disable-next-line
   const passwordChecker = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])[0-9a-zA-Z@#$%^&+=]{4,}$/;
   // eslint-disable-next-line

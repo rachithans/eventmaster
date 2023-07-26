@@ -7,7 +7,6 @@ import { Button, ButtonGroup } from "react-bootstrap";
 
 function NavBar({ loggedIn, isAdmin, onLogout }) {
   const location = useLocation().pathname;
-  console.log(loggedIn, isAdmin, location);
   return (
     <Navbar bg="dark" variant="dark" expand="lg">
       <Container>

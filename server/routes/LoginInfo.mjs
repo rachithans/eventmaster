@@ -79,7 +79,7 @@ router.post("/forgotPassword", async (req, res) => {
     // Hash the password
     const hashedPassword = await bcrypt.hash(req.body.password, saltRounds);
     // Update the user's password
-    await collection.updateOne({email: req.body.email}, {$set: {password: hashedPassword}});
+    let result = await collection.updateOne({email: req.body.email}, {$set: {password: hashedPassword}});
     res.send(result).status(204);
   }
   catch (error){

@@ -1,17 +1,18 @@
 import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import { Navigate } from 'react-router';
+import { useNavigate } from "react-router-dom";
 
 function ForgotUser() {
-  // eslint-disable-next-line
-  const passwordChecker = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])[0-9a-zA-Z@#$%^&+=]{4,}$/;
-  // eslint-disable-next-line
-  const emailChecker = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    const navigate = useNavigate();
+    // eslint-disable-next-line
+    const passwordChecker = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])[0-9a-zA-Z@#$%^&+=]{4,}$/;
+    // eslint-disable-next-line
+    const emailChecker = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    event.stopPropagation();
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        event.stopPropagation();
 
     if (!passwordChecker.test(formData.password)) {
       setInvalid((Invalid) => ({ ...Invalid, password: true }));
@@ -44,15 +45,13 @@ function ForgotUser() {
           throw new Error('Network response was not ok');
         }
         else{
-            setPassChangedMessage({message: "Password Changed Successfully", check: true});
+            navigate('/login', { state: { passwordChangedMessage: "Password Changed Successfully" } });
         }
       } catch (error) {
         console.error('Login error:', error);
       }
     }
   };
-
-  const [passChangedMessage, setPassChangedMessage] = useState({message: "Password Changed Successfully", check: false});
 
   const [formData, setFormData] = useState({
     email: '',
@@ -71,14 +70,6 @@ function ForgotUser() {
 
   return (
     <>
-        {passChangedMessage.check && (
-            <Navigate
-            to={{
-                pathname: '/login',
-                state: { passwordChangedMessage: passChangedMessage.message },
-            }}
-            />
-        )}
       <div className="container m-auto">
         <div className="my-5 col-md-8  col-lg-6 p-4 rounded border mt-5 mx-auto">
           <h2 className="text-center">Login</h2>
