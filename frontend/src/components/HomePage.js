@@ -1,3 +1,4 @@
+// Author: Bhavya Jain
 import React from "react";
 import DisplayEvents from "./homepage/DisplayEventCards";
 import Description from "./homepage/Description";
