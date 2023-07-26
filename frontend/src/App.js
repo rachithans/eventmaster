@@ -11,11 +11,13 @@ import React, { useState } from 'react';
 import { Route,Routes, useNavigate} from 'react-router-dom';
 import LoginForm from "./components/loginpage/LoginForm";
 import ForgotUser from "./components/loginpage/ForgotUser";
+import ProfilePage from "./components/Profile";
 
 
 const App = () => {
   const [loggedIn, setLoggedIn] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
+  const [userId, setUserId] = useState();
   const navigate = useNavigate();
 
   // Function to handle login after successful authentication
@@ -23,6 +25,7 @@ const App = () => {
     const decodedToken = jwt_decode(token);
     setLoggedIn(true);
     setIsAdmin(decodedToken.isAdmin);
+    setUserId(decodedToken.id);
   };
 
   // Function to handle logout
@@ -42,6 +45,11 @@ const App = () => {
             exact
             path="/login"
             element={<LoginForm onLogin={handleLogin} />}
+          />
+          <Route
+            exact
+            path="/Profile"
+            element={<ProfilePage loggedIn={loggedIn} isAdmin={isAdmin} userId={userId}/>}
           />
           <Route exact path="/" Component={HomePage} />
           <Route path="/register" Component={Register} />

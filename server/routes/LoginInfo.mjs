@@ -3,9 +3,33 @@ import express from "express";
 import db from "../db/conn.mjs";
 import * as bcrypt from 'bcrypt';
 import jwt from "jsonwebtoken";
+import { ObjectId } from 'mongodb';
 
 const router = express.Router();
 const saltRounds = 10; // Number of rounds to use for hashing
+
+// This section will help you get user details by id.
+router.get("/users/:id", async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const objectId = new ObjectId(id);
+    const collection = await db.collection("LoginInfo");
+    const user = await collection.findOne({ _id: objectId });
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    // Removing sensitive information
+    const { password, ...userData } = user;
+
+    res.json(userData);
+  } catch (error) {
+    console.error("Error fetching user details:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
 
 // This section will help you create a new record.
 router.post("/register", async (req, res) => {
