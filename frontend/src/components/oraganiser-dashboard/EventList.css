@@ -1,0 +1,54 @@
+.App {
+    text-align: center;
+  }
+ 
+
+body{
+    color: #388087;
+}
+.organiser-card-body{
+    background-color: #343a40;
+    color: white;
+
+}
+.organiser-card-title{
+    color: white;
+}
+.ReactCollapse--content{
+    background-color: lightgray;
+
+}
+.card{
+    margin-top: 30px;
+    margin-bottom: 30px;
+    margin-left: 5%;
+    margin-right: 5%;
+}
+
+.drop-icon{
+    text-align: end;
+}
+button{
+    padding: 10px;
+    background-color: #6FB3B8;
+      COLOR: #F6F6F2;
+      FONT-SIZE: 1.2REM !important;
+      FONT-WEIGHT: 600;
+      BORDER: NONE;
+      BORDER-RADIUS: 12PX !important;
+      BOX-SHADOW: 0PX 2PX 4PX #00000029;
+  }
+  
+  .jumbo{
+    background-color: #f6f6f2;
+  }
+  
+  .jumbotron{
+    margin-top: 40px;
+    background-color: #f6f6f2;
+  
+  }
+  body {
+    font-family: 'Poppins', sans-serif !important;
+  }
+  

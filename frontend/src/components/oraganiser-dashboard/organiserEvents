@@ -1,0 +1,43 @@
+import React, { useState, useEffect } from "react";
+
+function Organiser_events() {
+  const [data, setData] = useState(null);
+
+  useEffect(() => {
+    // Fetch data from the API when the component mounts
+    fetchEventsList();
+  }, []);
+
+  async function fetchEventsList() {
+    try {
+      const response = await fetch("http://localhost:5050/organiserDashboard/EventsList/");
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      const eventData = await response.json();
+      setData(eventData.data.events); // Set the data in the state
+    } catch (error) {
+      console.error("Error fetching events data:", error);
+    }
+  }
+
+  return (
+    <>
+      {data ? (
+        <div className="container EventList" style={{ marginBottom: "20%" }}>
+          {data.map((item, index) => (
+            <div key={index}>
+              <p>Total Events: {item.totalEvents}</p>
+              <p>Other Data: {item.otherData}</p>
+              {/* Add other JSX elements to render data from the JSON object */}
+            </div>
+          ))}
+        </div>
+      ) : (
+        <div>Loading...</div>
+      )}
+    </>
+  );
+}
+
+export default Organiser_events;

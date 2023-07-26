@@ -7,6 +7,7 @@ import Faq from "./components/Faq";
 import NavBar from "./components/NavBar";
 import createFooter from "./components/Footer";
 import ContactUs from "./components/ContactUs";
+import organiser_Dashboard from "./components/organiser-dashboard"
 
 function App() {
   return (
@@ -18,6 +19,8 @@ function App() {
         <Route path="/Register" Component={Register} />
         <Route path="/Faq" Component={Faq} />
         <Route path="/ContactUs" Component={ContactUs} />
+        <Route path="/organiser-dashboard" Component={organiser_Dashboard} />
+
       </Routes>
       {createFooter()}
     </div>
