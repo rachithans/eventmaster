@@ -1,4 +1,4 @@
-
+//Author: Bhavya Jain
 import "./App.css";
 import HomePage from "./components/HomePage";
 import Register from "./components/Register";
