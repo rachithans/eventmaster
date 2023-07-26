@@ -7,73 +7,48 @@ function LoginForm({ onLogin }) {
   const location = useLocation();
   // Check for the password change message in the location state
   const passwordChangedMessage = location.state?.passwordChangedMessage;
-  // eslint-disable-next-line
-  const passwordChecker = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])[0-9a-zA-Z@#$%^&+=]{4,}$/;
-  // eslint-disable-next-line
-  const emailChecker = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-
+  
   const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     event.stopPropagation();
+    const form = event.target;
+    const formData = new FormData(form);
+   
+    const postingData = {
+      email: formData.email,
+      password: formData.password,
+    };
 
-    if (!passwordChecker.test(formData.password)) {
-      setInvalid((Invalid) => ({ ...Invalid, password: true }));
-    } else {
-      setInvalid((Invalid) => ({ ...Invalid, password: false }));
-    }
+    try {
+      const response = await fetch('http://localhost:5050/loginInfo/loginUser', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(postingData),
+      });
 
-    if (!emailChecker.test(formData.email)) {
-      setInvalid((Invalid) => ({ ...Invalid, email: true }));
-    } else {
-      setInvalid((Invalid) => ({ ...Invalid, email: false }));
-    }
-
-    if (passwordChecker.test(formData.password) && emailChecker.test(formData.email)) {
-      const postingData = {
-        email: formData.email,
-        password: formData.password,
-      };
-
-      try {
-        const response = await fetch('http://localhost:5050/loginInfo/loginUser', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(postingData),
-        });
-
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-
-        const data = await response.json();
-        const token = data.token;
-        localStorage.setItem('token', token);
-        onLogin(token); // Call the onLogin function to handle successful login
-        navigate("/");
-      } catch (error) {
-        console.error('Login error:', error);
+      if (!response.ok) {
+        setInvalid((Invalid) => ({ ...Invalid, check: true }));
+        return;
       }
-    }
-  };
 
-  const [formData, setFormData] = useState({
-    email: '',
-    password: '',
-  });
+      const data = await response.json();
+      const token = data.token;
+      localStorage.setItem('token', token);
+      onLogin(token); // Call the onLogin function to handle successful login
+      navigate("/");
+    } catch (error) {
+      console.error('Login error:', error);
+    }
+    
+  };
 
   const [Invalid, setInvalid] = useState({
-    email: false,
-    password: false,
+    check: false
   });
-
-  const handleChange = (event) => {
-    const { name, value } = event.target;
-    setFormData((formData) => ({ ...formData, [name]: value }));
-  };
 
   return (
     <>
@@ -83,6 +58,7 @@ function LoginForm({ onLogin }) {
           {passwordChangedMessage && (
             <div className="alert alert-success">{passwordChangedMessage}</div>
           )}
+          {Invalid.check && (<div className="alert alert-success">Incorrect ID or Email</div>)}
           <Form onSubmit={handleSubmit} noValidate>
             <Form.Group className="mb-3" controlId="emailField">
               <Form.Label>Email address</Form.Label>
@@ -91,9 +67,7 @@ function LoginForm({ onLogin }) {
                 required
                 name="email"
                 type="email"
-                value={formData.email}
                 placeholder="Enter email"
-                onChange={handleChange}
               />
               <Form.Control.Feedback type="invalid">
                 Incorrect Email! Please type again.
@@ -107,10 +81,7 @@ function LoginForm({ onLogin }) {
                 required
                 name="password"
                 type="password"
-                value={formData.password}
-                minLength={8}
                 placeholder="Password"
-                onChange={handleChange}
               />
               <Form.Control.Feedback type="invalid">
                 Password must contain at least 8 characters, 1 number, 1 upper and 1 lowercase!
