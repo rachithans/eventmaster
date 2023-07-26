@@ -66,5 +66,29 @@ router.post("/loginUser", async (req, res) => {
   }
 });
 
+// This section will help you update your password
+router.post("/forgotPassword", async (req, res) => {
+  try{
+    // Check if the user already exists
+    let collection = await db.collection("LoginInfo");
+    const user = await collection.findOne({email: req.body.email});
+    if(!user) {
+      return res.status(400).send("User not found");
+    }
+
+    // Hash the password
+    const hashedPassword = await bcrypt.hash(req.body.password, saltRounds);
+    // Update the user's password
+    await collection.updateOne({email: req.body.email}, {$set: {password: hashedPassword}});
+    res.send(result).status(204);
+  }
+  catch (error){
+    console.log(error);
+    res.send("Internal server error").status(500);
+  }
+ 
+});
+
+
 
 export default router;

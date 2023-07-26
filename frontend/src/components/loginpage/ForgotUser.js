@@ -1,19 +1,13 @@
 import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import { useNavigate, Link, useLocation } from "react-router-dom";
+import { Navigate } from 'react-router';
 
-function LoginForm({ onLogin }) {
-  const location = useLocation();
-  // Check for the password change message in the location state
-  const passwordChangedMessage = location.state?.passwordChangedMessage;
-
+function ForgotUser() {
   // eslint-disable-next-line
   const passwordChecker = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])[0-9a-zA-Z@#$%^&+=]{4,}$/;
   // eslint-disable-next-line
   const emailChecker = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-
-  const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -38,7 +32,7 @@ function LoginForm({ onLogin }) {
       };
 
       try {
-        const response = await fetch('http://localhost:5050/loginInfo/loginUser', {
+        const response = await fetch('http://localhost:5050/loginInfo/forgotPassword', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -49,17 +43,16 @@ function LoginForm({ onLogin }) {
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
-
-        const data = await response.json();
-        const token = data.token;
-        localStorage.setItem('token', token);
-        onLogin(token); // Call the onLogin function to handle successful login
-        navigate("/");
+        else{
+            setPassChangedMessage({message: "Password Changed Successfully", check: true});
+        }
       } catch (error) {
         console.error('Login error:', error);
       }
     }
   };
+
+  const [passChangedMessage, setPassChangedMessage] = useState({message: "Password Changed Successfully", check: false});
 
   const [formData, setFormData] = useState({
     email: '',
@@ -78,12 +71,17 @@ function LoginForm({ onLogin }) {
 
   return (
     <>
+        {passChangedMessage.check && (
+            <Navigate
+            to={{
+                pathname: '/login',
+                state: { passwordChangedMessage: passChangedMessage.message },
+            }}
+            />
+        )}
       <div className="container m-auto">
         <div className="my-5 col-md-8  col-lg-6 p-4 rounded border mt-5 mx-auto">
           <h2 className="text-center">Login</h2>
-          {passwordChangedMessage && (
-            <div className="alert alert-success">{passwordChangedMessage}</div>
-          )}
           <Form onSubmit={handleSubmit} noValidate>
             <Form.Group className="mb-3" controlId="emailField">
               <Form.Label>Email address</Form.Label>
@@ -102,7 +100,7 @@ function LoginForm({ onLogin }) {
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="passwordField" id="passwordGroup">
-              <Form.Label>Password</Form.Label>
+              <Form.Label>Enter new password</Form.Label>
               <Form.Control
                 isInvalid={Invalid.password}
                 required
@@ -118,10 +116,7 @@ function LoginForm({ onLogin }) {
               </Form.Control.Feedback>
             </Form.Group>
             <Button variant="primary" type="submit">
-              Login Now
-            </Button>
-            <Button variant="danger" as={Link} to="/forgotUserCredentials" className="ms-0 d-block d-sm-inline ms-sm-2 mt-2 mt-sm-0 w-sm-50">
-              Forgot Credentials?
+              Update Password
             </Button>
           </Form>
         </div>
@@ -130,4 +125,4 @@ function LoginForm({ onLogin }) {
   );
 }
 
-export default LoginForm;
+export default ForgotUser;
