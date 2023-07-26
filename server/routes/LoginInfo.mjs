@@ -44,15 +44,15 @@ router.post("/register", async (req, res) => {
 
 // This section will help you update a record by id.
 router.post("/loginUser", async (req, res) => {
-  const {username, password} = req.body;
-  if (!username || !password) {
-    return res.status(400).send("Please provide username and password");
+  const {email, password} = req.body;
+  if (!email || !password) {
+    return res.status(400).send("Please provide email and password");
   }
   else{
     try{
-      const user = await db.collection("LoginInfo").findOne({username});
+      const user = await db.collection("LoginInfo").findOne({email});
       if(!user) {
-        return res.status(400).send("Invalid username");
+        return res.status(400).send("Invalid email");
       }
       if(await bcrypt.compare(password, user.password)) {
         const token = jwt.sign({id: user._id, isAdmin: user.isAdmin}, process.env.JWT_SECRET, {expiresIn: "1d"});

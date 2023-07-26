@@ -38,8 +38,7 @@ const App = () => {
           <Route
             exact
             path="/login"
-            Component={LoginForm}
-            render={(routeProps) => <LoginForm {...routeProps} onLogin={handleLogin} />}
+            element={<LoginForm onLogin={handleLogin} />}
           />
           <Route exact path="/" Component={HomePage} />
           <Route path="/register" Component={Register} />

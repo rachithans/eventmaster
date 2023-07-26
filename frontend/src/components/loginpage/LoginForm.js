@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import { useNavigate } from "react-router-dom";
 
 function LoginForm({ onLogin }) {
   // eslint-disable-next-line
   const passwordChecker = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])[0-9a-zA-Z@#$%^&+=]{4,}$/;
   // eslint-disable-next-line
   const emailChecker = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+  const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -27,15 +29,28 @@ function LoginForm({ onLogin }) {
 
     if (passwordChecker.test(formData.password) && emailChecker.test(formData.email)) {
       const postingData = {
-        username: formData.email,
+        email: formData.email,
         password: formData.password,
       };
 
       try {
-        const response = await axios.post('http://localhost:5050/login', postingData);
-        const token = response.data.token;
+        const response = await fetch('http://localhost:5050/loginInfo/loginUser', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(postingData),
+        });
+
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+
+        const data = await response.json();
+        const token = data.token;
         localStorage.setItem('token', token);
         onLogin(token); // Call the onLogin function to handle successful login
+        navigate("/");
       } catch (error) {
         console.error('Login error:', error);
       }
