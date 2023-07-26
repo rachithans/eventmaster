@@ -3,6 +3,11 @@ import Card from "react-bootstrap/Card";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import Holi from "./../../assets/Holi.jpg";
+import BeachParty from "./../../assets/BeachParty.jpg";
+import Conference from "./../../assets/Conference.jpg";
+import Diwali from "./../../assets/Diwali.jpg";
+import Soccer from "./../../assets/Soccer.jpg";
+import RetroNight from "./../../assets/RetroNight.jpg";
 import { Container } from "react-bootstrap";
 
 function DisplayEvents() {
@@ -22,50 +27,50 @@ function DisplayEvents() {
 
           <Col className="mb-4 colEvent">
             <Card>
-              <Card.Img variant="top" src={Holi} />
+              <Card.Img variant="top" src={BeachParty} />
               <Card.Body>
                 <Card.Title>Card Title</Card.Title>
-                <Card.Text>Festival of Colors</Card.Text>
+                <Card.Text>Beach Party</Card.Text>
               </Card.Body>
             </Card>
           </Col>
 
           <Col className="mb-4 colEvent">
             <Card>
-              <Card.Img variant="top" src={Holi} />
+              <Card.Img variant="top" src={Conference} />
               <Card.Body>
                 <Card.Title>Card Title</Card.Title>
-                <Card.Text>Festival of Colors</Card.Text>
+                <Card.Text>Conference</Card.Text>
               </Card.Body>
             </Card>
           </Col>
 
           <Col className="mb-4 colEvent">
             <Card>
-              <Card.Img variant="top" src={Holi} />
+              <Card.Img variant="top" src={Diwali} />
               <Card.Body>
                 <Card.Title>Card Title</Card.Title>
-                <Card.Text>Festival of Colors</Card.Text>
+                <Card.Text>Festival of lights</Card.Text>
               </Card.Body>
             </Card>
           </Col>
 
           <Col className="mb-4 colEvent">
             <Card>
-              <Card.Img variant="top" src={Holi} />
+              <Card.Img variant="top" src={Soccer} />
               <Card.Body>
                 <Card.Title>Card Title</Card.Title>
-                <Card.Text>Festival of Colors</Card.Text>
+                <Card.Text>Soccer Match</Card.Text>
               </Card.Body>
             </Card>
           </Col>
 
           <Col className="mb-4 colEvent">
             <Card>
-              <Card.Img variant="top" src={Holi} />
+              <Card.Img variant="top" src={RetroNight} />
               <Card.Body>
                 <Card.Title>Card Title</Card.Title>
-                <Card.Text>Festival of Colors</Card.Text>
+                <Card.Text>Join for a Retro Night</Card.Text>
               </Card.Body>
             </Card>
           </Col>
