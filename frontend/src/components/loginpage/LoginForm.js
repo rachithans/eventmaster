@@ -18,8 +18,8 @@ function LoginForm({ onLogin }) {
     const formData = new FormData(form);
    
     const postingData = {
-      email: formData.email,
-      password: formData.password,
+      email: formData.get("email"),
+      password: formData.get("password"),
     };
 
     try {
