@@ -6,6 +6,8 @@ import Faq from "./components/Faq";
 import NavBar from "./components/NavBar";
 import createFooter from "./components/Footer";
 import ContactUs from "./components/ContactUs";
+import organiser_Dashboard from "./components/organiser-dashboard"
+
 import jwt_decode from 'jwt-decode';
 import React, { useState } from 'react';
 import { Route,Routes, useNavigate} from 'react-router-dom';
@@ -56,6 +58,8 @@ const App = () => {
           <Route path="/Faq" Component={Faq} />
           <Route path="/ContactUs" Component={ContactUs} />
           <Route path="/forgotUserCredentials" Component={ForgotUser} />
+          <Route path="/organiser-dashboard" Component={organiser_Dashboard} />
+
         </Routes>
         {createFooter()}
       </div>
