@@ -12,6 +12,8 @@ function RegistrationForm() {
     password: false,
   });
 
+  const [userAlreadyPresent, setuserAlreadyPresent] = useState(false);
+
     // eslint-disable-next-line
     const passwordChecker = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])[0-9a-zA-Z@#$%^&+=]{4,}$/;
     // eslint-disable-next-line
@@ -55,10 +57,13 @@ function RegistrationForm() {
 
       if (!response.ok) {
         if(response.status === 400){
-          alert("User already exists");
+          setuserAlreadyPresent(true);
+          navigate("/register");
         }
       }
-      navigate("/");
+      else{
+        navigate("/");
+      }
     } catch (error) {
       console.error('Registration error:', error);
     }
@@ -73,6 +78,9 @@ function RegistrationForm() {
     <>
       <div className="container my-5 col-md-6  col-lg-6 p-4 rounded border mt-5">
         <h2 className="text-center">Registration</h2>
+        {userAlreadyPresent && (
+            <div className="alert alert-success">{"User already exists, please try again"}</div>
+          )}
         <Form onSubmit={handleSubmit} noValidate>
           <Form.Group className="mb-3" controlId="formName">
             <Form.Label>Name</Form.Label>
