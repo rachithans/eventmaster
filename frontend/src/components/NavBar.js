@@ -37,7 +37,7 @@ function NavBar({ loggedIn, isAdmin, onLogout }) {
                       </Nav.Link>
                     )}
                     {(location === "/") && (
-                      <Nav.Link className="mx-3" as={Link} to="/Dashboard">
+                      <Nav.Link className="mx-3" as={Link} to="/organiser-dashboard">
                       Dashboard
                       </Nav.Link>
                     )}
