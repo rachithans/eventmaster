@@ -37,7 +37,12 @@ router.post("/register", async (req, res) => {
   try{
     // Check if the user already exists
     let collection = await db.collection("LoginInfo");
-    const user = await collection.findOne({username: req.body.username});
+    let user = await collection.findOne({username: req.body.username});
+    if(user) {
+      return res.status(400).send("User already exists");
+    }
+
+    user = await collection.findOne({email: req.body.email});
     if(user) {
       return res.status(400).send("User already exists");
     }
