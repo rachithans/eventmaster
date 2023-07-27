@@ -23,6 +23,8 @@ function Organiser_Dashboard() {
     setTotalTickets(data.totalTickets);
     setTotalEvents(data.totalEvents);
     setTotalCollection(data.totalCollection)
+    setOverallRating(data.averageOverallRating)
+    console.log(data)
   }
  
   const [testVisible, setTestVisible] = useState(false);
@@ -32,38 +34,31 @@ function Organiser_Dashboard() {
   const [totalEvents, setTotalEvents] = useState(0); // Initialize with a default value
   const [totalCollection, setTotalCollection] = useState(0); // Initialize with a default value
   const [EventsData, setEventsData] = useState(null); // Initialize with a default value
+  const [overallRating, setOverallRating] =  useState(0); 
 
 
-
+  
   const toggleTestVisibility = () => {
-    setTestVisible(!testVisible);
-
-    if (revnueVisible) {
-      setRevenueVisible(!revnueVisible);
-    }
-    if (feedbackVisible) {
-      setfeedbackVisible(!feedbackVisible);
-    }
+    setTestVisible(true);
+    setRevenueVisible(false);
+    setfeedbackVisible(false);
   };
+  
   const toggleRevenueVisibility = () => {
-    setRevenueVisible(!revnueVisible);
-    if (feedbackVisible) {
-      setRevenueVisible(!feedbackVisible);
-    }
-    if (testVisible) {
-      setfeedbackVisible(!testVisible);
-    }
+    setRevenueVisible(true);
+    setTestVisible(false);
+    setfeedbackVisible(false);
   };
+  
   const toggleFeedbackVisibility = () => {
-    setfeedbackVisible(!feedbackVisible);
-    if (revnueVisible) {
-      setRevenueVisible(!revnueVisible);
-    }
-    if (testVisible) {
-      setfeedbackVisible(!testVisible);
-    }
+    setfeedbackVisible(true);
+    setTestVisible(false);
+    setRevenueVisible(false);
   };
-
+if(totalEvents==0){
+  return(  <p>Sorry You there is no Data to display as no event has been hosted yet</p>
+  )
+}else{
   return (
     <div className="App" style={{ minHeight: "100vh;" }}>
 
@@ -102,7 +97,42 @@ function Organiser_Dashboard() {
             </div>
           </div>
           <div class="card col-6" style={{ width: "18rem" }}>
-            <p style={{ fontSize: "3rem" }}> <FontAwesomeIcon icon={faStar} /><FontAwesomeIcon icon={faStar}/><FontAwesomeIcon icon={faStar}/></p>
+            <p style={{ fontSize: "3rem" }}>           {overallRating == 5 &&(
+          <span className="ms-2" >
+            <FontAwesomeIcon icon={faStar} />
+            <FontAwesomeIcon icon={faStar} />
+            <FontAwesomeIcon icon={faStar} />
+            <FontAwesomeIcon icon={faStar} />
+            <FontAwesomeIcon icon={faStar} />
+
+          </span>
+        )}{overallRating >= 4 && overallRating < 5 &&(
+          <span className="ms-2">
+            <FontAwesomeIcon icon={faStar} />
+            <FontAwesomeIcon icon={faStar} />
+            <FontAwesomeIcon icon={faStar} />
+            <FontAwesomeIcon icon={faStar} />
+     
+          </span>
+        )}{overallRating >= 3 && overallRating < 4 && (
+          <span className="ms-2">
+            <FontAwesomeIcon icon={faStar} />
+            <FontAwesomeIcon icon={faStar} />
+            <FontAwesomeIcon icon={faStar} />
+          </span>
+        )}{overallRating >= 2 && overallRating < 3 &&(
+          <span className="ms-2">
+            <FontAwesomeIcon icon={faStar} />
+            <FontAwesomeIcon icon={faStar} />
+
+          </span>
+        )}
+        {overallRating >= 1 &&  overallRating < 2 &&(
+          <span className="ms-2">
+            <FontAwesomeIcon icon={faStar} />
+
+          </span>
+        )}</p>
             <div class="card-body organiser-card-body">
               <h5 class="card-title organiser-card-title">Overall Ratings</h5>
             </div>
@@ -136,6 +166,7 @@ function Organiser_Dashboard() {
 
     </div>
   );
+        }
 }
 
 export default Organiser_Dashboard;
