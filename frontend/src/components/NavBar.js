@@ -1,3 +1,4 @@
+// Author: Bhavya Jain
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
@@ -5,9 +6,8 @@ import { Link, useLocation } from "react-router-dom";
 import React from "react";
 import { Button, ButtonGroup } from "react-bootstrap";
 
-function NavBar() {
+function NavBar({ loggedIn, isAdmin, onLogout }) {
   const location = useLocation().pathname;
-
   return (
     <Navbar bg="dark" variant="dark" expand="lg">
       <Container>
@@ -21,28 +21,76 @@ function NavBar() {
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
               <Nav className="me-auto">
-                <Nav.Link className="mx-3">Create Event</Nav.Link>
+                
                 <Nav.Link className="mx-3" as={Link} to="/Faq">
                   FAQs
                 </Nav.Link>
                 <Nav.Link className="mx-3" as={Link} to="/ContactUs">
                   Contact Us
                 </Nav.Link>
-
-                <ButtonGroup>
+                
+                {isAdmin === 1 && loggedIn ? (
+                  <>
+                    {(location === "/") && (
+                      <Nav.Link className="mx-3" as={Link} to="/Profile">
+                      Profile
+                      </Nav.Link>
+                    )}
+                    {(location === "/") && (
+                      <Nav.Link className="mx-3" as={Link} to="/Dashboard">
+                      Dashboard
+                      </Nav.Link>
+                    )}
+                    {(location === "/") && (
+                      <Nav.Link className="mx-3" as={Link} to="/ManageEvents">
+                      Manage Events
+                      </Nav.Link>
+                    )}
+                  </>
+                  ) : isAdmin === 0 && loggedIn ? (
+                    <>
+                    {(location === "/") && (
+                        <Nav.Link className="mx-3" as={Link} to="/Profile">
+                        Profile
+                        </Nav.Link>
+                      )}
+                      {(location === "/") && (
+                        <Nav.Link className="mx-3" as={Link} to="/MyBookings">
+                        MyBookings
+                        </Nav.Link>
+                      )}
+                      {(location === "/") && (
+                        <Nav.Link className="mx-3" as={Link} to="/EventsList">
+                        EventsList
+                        </Nav.Link>
+                      )}
+                    </>
+                  ) : (
+                    <>
+                    
+                    </>
+                  )}
+              </Nav>
+              <ButtonGroup>
+              {!loggedIn ? (
+                <>
                   {(location === "/register" || location === "/") && (
                     <Button variant="primary" as={Link} to="/login">
                       Log In
                     </Button>
                   )}
-
                   {(location === "/login" || location === "/") && (
                     <Button variant="primary" as={Link} to="/register">
                       Register
                     </Button>
                   )}
-                </ButtonGroup>
-              </Nav>
+                </>
+              ) : (
+                <Button variant="primary" onClick={onLogout}>
+                  Logout
+                </Button>
+              )}
+            </ButtonGroup>
             </Navbar.Collapse>
           </div>
         </div>

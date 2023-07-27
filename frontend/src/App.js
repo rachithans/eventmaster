@@ -1,7 +1,6 @@
-import { Route, Routes } from "react-router-dom";
+//Author: Bhavya Jain
 import "./App.css";
 import HomePage from "./components/HomePage";
-import LoginPage from "./components/Login";
 import Register from "./components/Register";
 import Faq from "./components/Faq";
 import NavBar from "./components/NavBar";
@@ -9,22 +8,63 @@ import createFooter from "./components/Footer";
 import ContactUs from "./components/ContactUs";
 import organiser_Dashboard from "./components/organiser-dashboard"
 
-function App() {
-  return (
-    <div className="d-flex flex-column min-vh-100">
-      {NavBar()}
-      <Routes>
-        <Route exact path="/" Component={HomePage} />
-        <Route path="/Login" Component={LoginPage} />
-        <Route path="/Register" Component={Register} />
-        <Route path="/Faq" Component={Faq} />
-        <Route path="/ContactUs" Component={ContactUs} />
-        <Route path="/organiser-dashboard" Component={organiser_Dashboard} />
+import jwt_decode from 'jwt-decode';
+import React, { useState } from 'react';
+import { Route,Routes, useNavigate} from 'react-router-dom';
+import LoginForm from "./components/loginpage/LoginForm";
+import ForgotUser from "./components/loginpage/ForgotUser";
+import ProfilePage from "./components/Profile";
 
-      </Routes>
-      {createFooter()}
-    </div>
+
+const App = () => {
+  const [loggedIn, setLoggedIn] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [userId, setUserId] = useState();
+  const navigate = useNavigate();
+
+  // Function to handle login after successful authentication
+  const handleLogin = (token) => {
+    const decodedToken = jwt_decode(token);
+    setLoggedIn(true);
+    setIsAdmin(decodedToken.isAdmin);
+    setUserId(decodedToken.id);
+  };
+
+  // Function to handle logout
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    setLoggedIn(false);
+    setIsAdmin(false);
+    navigate("/");
+  };
+
+  return (
+    
+      <div className="d-flex flex-column min-vh-100">
+        <NavBar loggedIn={loggedIn} isAdmin={isAdmin} onLogout={handleLogout} />
+        <Routes>
+          <Route
+            exact
+            path="/login"
+            element={<LoginForm onLogin={handleLogin} />}
+          />
+          <Route
+            exact
+            path="/Profile"
+            element={<ProfilePage loggedIn={loggedIn} isAdmin={isAdmin} userId={userId}/>}
+          />
+          <Route exact path="/" Component={HomePage} />
+          <Route path="/register" Component={Register} />
+          <Route path="/Faq" Component={Faq} />
+          <Route path="/ContactUs" Component={ContactUs} />
+          <Route path="/forgotUserCredentials" Component={ForgotUser} />
+          <Route path="/organiser-dashboard" Component={organiser_Dashboard} />
+
+        </Routes>
+        {createFooter()}
+      </div>
+    
   );
-}
+};
 
 export default App;
