@@ -54,7 +54,9 @@ function RegistrationForm() {
       });
 
       if (!response.ok) {
-        throw new Error('Network response was not ok');
+        if(response.status === 400){
+          alert("User already exists");
+        }
       }
       navigate("/");
     } catch (error) {
