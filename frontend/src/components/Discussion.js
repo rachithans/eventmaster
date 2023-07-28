@@ -4,7 +4,7 @@
 
 // https://dev.to/esedev/how-to-pass-and-access-data-from-one-route-to-another-with-uselocation-usenavigate-usehistory-hooks-1g5m
 // Accessed on: 10 Jun, 2023
-// Used to learn about how to redirect from one page to another and also how to pass the data
+// Used to learn about how to redirect from one page to another 
 
 // https://react-bootstrap.github.io/components 
 // Accessed on: 24th July, 2023
