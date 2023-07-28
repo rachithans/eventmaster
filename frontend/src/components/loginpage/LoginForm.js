@@ -35,6 +35,9 @@ function LoginForm({ onLogin }) {
         setInvalid((Invalid) => ({ ...Invalid, check: true }));
         return;
       }
+      else{
+        alert("Login Successful");
+      }
 
       const data = await response.json();
       const token = data.token;
