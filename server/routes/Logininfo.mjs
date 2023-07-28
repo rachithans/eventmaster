@@ -72,7 +72,7 @@ router.post("/register", async (req, res) => {
  
 });
 
-// This section will help you login.
+// This section will help you update a record by id.
 router.post("/loginUser", async (req, res) => {
   const {email, password} = req.body;
   if (!email || !password) {
