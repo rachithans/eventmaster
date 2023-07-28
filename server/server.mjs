@@ -1,7 +1,10 @@
 import express from "express";
 import cors from "cors";
-import LoginInfo from "./routes/Logininfo.mjs";
+import LoginInfo from "./routes/Login.mjs";
 import organiserDb from "./routes/organiser-events-dashboard.mjs"
+import Events from "./routes/Events.mjs";
+import Bookings from "./routes/Bookings.mjs";
+import NewEventInfo from "./routes/newEventInfo.mjs";
 import discussionDb from "./routes/discussions.mjs"
 
 const PORT = 5050;
@@ -12,7 +15,10 @@ app.use(express.json());
 
 app.use("/loginInfo", LoginInfo);
 app.use("/organiserDashboard", organiserDb);
-app.use("/discussion", discussionDb)
+app.use("/events", Events);
+app.use("/bookings", Bookings);
+app.use("/newEventInfo", NewEventInfo);
+app.use("/discussion", discussionDb);
 
 // start the Express server
 app.listen(PORT, () => {

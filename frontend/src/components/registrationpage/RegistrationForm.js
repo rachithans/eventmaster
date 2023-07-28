@@ -12,6 +12,8 @@ function RegistrationForm() {
     password: false,
   });
 
+  const [userAlreadyPresent, setuserAlreadyPresent] = useState(false);
+
     // eslint-disable-next-line
     const passwordChecker = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])[0-9a-zA-Z@#$%^&+=]{4,}$/;
     // eslint-disable-next-line
@@ -45,7 +47,7 @@ function RegistrationForm() {
     }
     
     try {
-      const response = await fetch('http://localhost:5050/loginInfo/register', {
+      const response = await fetch('https://eventmaster.onrender.com/loginInfo/register', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -54,9 +56,15 @@ function RegistrationForm() {
       });
 
       if (!response.ok) {
-        throw new Error('Network response was not ok');
+        if(response.status === 400){
+          setuserAlreadyPresent(true);
+          navigate("/register");
+        }
       }
-      navigate("/");
+      else{
+        alert("Registration Successful");
+        navigate("/");
+      }
     } catch (error) {
       console.error('Registration error:', error);
     }
@@ -71,6 +79,9 @@ function RegistrationForm() {
     <>
       <div className="container my-5 col-md-6  col-lg-6 p-4 rounded border mt-5">
         <h2 className="text-center">Registration</h2>
+        {userAlreadyPresent && (
+            <div className="alert alert-success">{"User already exists, please try again"}</div>
+          )}
         <Form onSubmit={handleSubmit} noValidate>
           <Form.Group className="mb-3" controlId="formName">
             <Form.Label>Name</Form.Label>
@@ -106,7 +117,7 @@ function RegistrationForm() {
                 placeholder="Password"
               />
               <Form.Control.Feedback type="invalid">
-                Password must contain at least 8 characters, 1 number, 1 upper and 1 lowercase!
+                Password must contain at least 8 characters,1 special character from '@#$%^&+=',  1 number, 1 upper and 1 lowercase!
               </Form.Control.Feedback>
             </Form.Group>
 

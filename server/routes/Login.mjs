@@ -1,4 +1,7 @@
 // Author: Bhavya Jain
+// https://www.mongodb.com/languages/mern-stack-tutorial
+// Accessed on: 27 July,2023
+// learned about MERN Stack
 import express from "express";
 import db from "../db/conn.mjs";
 import * as bcrypt from 'bcrypt';
@@ -37,7 +40,12 @@ router.post("/register", async (req, res) => {
   try{
     // Check if the user already exists
     let collection = await db.collection("LoginInfo");
-    const user = await collection.findOne({username: req.body.username});
+    let user = await collection.findOne({username: req.body.username});
+    if(user) {
+      return res.status(400).send("User already exists");
+    }
+
+    user = await collection.findOne({email: req.body.email});
     if(user) {
       return res.status(400).send("User already exists");
     }
@@ -67,7 +75,7 @@ router.post("/register", async (req, res) => {
  
 });
 
-// This section will help you update a record by id.
+// This section will help you login in.
 router.post("/loginUser", async (req, res) => {
   const {email, password} = req.body;
   if (!email || !password) {

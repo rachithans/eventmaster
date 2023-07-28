@@ -34,7 +34,7 @@ function ForgotUser() {
       };
 
       try {
-        const response = await fetch('http://localhost:5050/loginInfo/forgotPassword', {
+        const response = await fetch('https://eventmaster.onrender.com/loginInfo/forgotPassword', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -104,7 +104,7 @@ function ForgotUser() {
                 onChange={handleChange}
               />
               <Form.Control.Feedback type="invalid">
-                Password must contain at least 8 characters, 1 number, 1 upper and 1 lowercase!
+                Password must contain at least 8 characters,1 special character from '@#$%^&+=',  1 number, 1 upper and 1 lowercase!
               </Form.Control.Feedback>
             </Form.Group>
             <Button variant="primary" type="submit">
