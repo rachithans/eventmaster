@@ -6,6 +6,8 @@
 // Accessed on: 10 Jun, 2023
 // Used to learn about how to redirect from one page to another and also how to pass the data
 
+// https://react-bootstrap.github.io/components 
+// Accessed on: 25th July, 2023
 
 
 import React, { useState, useEffect } from "react";
@@ -21,22 +23,24 @@ const Discussion = ({ userId }) => {
     fetchComments();
   }, []);
 
+  //The following function helps to fetch all comments by previous users
   const fetchComments = async () => {
     try {
-      const response = await axios.get("http://localhost:5050/discussion/discussions");
+      const response = await axios.get("https://eventmaster.onrender.com/discussion/discussions");
       setComments(response.data);
     } catch (error) {
       console.error("Error fetching comments:", error);
     }
   };
 
+  //The following function helps to add the comment made by the user
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (newComment.trim() !== "") {
       try {
             const email = localStorage.getItem("email")
     
-        await axios.post("http://localhost:5050/discussion/discussions/${userId}", { content: newComment , email:email});
+        await axios.post("https://eventmaster.onrender.com/discussion/discussions/${userId}", { content: newComment , email:email});
         setNewComment("");
         fetchComments();
       } catch (error) {
