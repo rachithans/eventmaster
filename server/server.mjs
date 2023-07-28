@@ -1,6 +1,6 @@
 import express from "express";
 import cors from "cors";
-import LoginInfo from "./routes/Logininfo.mjs";
+import LoginInfo from "./routes/Login.mjs";
 import organiserDb from "./routes/organiser-events-dashboard.mjs"
 import Events from "./routes/Events.mjs";
 import Bookings from "./routes/Bookings.mjs";
