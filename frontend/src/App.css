@@ -1,0 +1,98 @@
+.booking-button {
+    background-color: #27AE60;
+    color: white;
+    border: none;
+    border-radius: 50px;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    margin: 10px;
+    transition: 0.3s ease;
+    border: 2px solid #27AE60;
+  }
+  .booking-button:hover {
+    background-color: white;
+    color: #27AE60;
+    border: 2px solid #27AE60;
+  }
+
+  .normal-button {
+    background-color: #2176FF;
+    color: white;
+    border: none;
+    border-radius: 50px;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    margin: 10px;
+    transition: 0.3s ease;
+    border: 2px solid #2176FF;
+  }
+
+  .normal-button:hover {
+    background-color: white;
+    color: #2176FF;
+    border: 2px solid #2176FF;
+  }
+
+  .cancel-button {
+    background-color: #E74C3C;
+    color: white;
+    border: none;
+    border-radius: 50px;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    margin: 10px;
+    transition: 0.3s ease;
+    border: 2px solid #E74C3C;
+  }
+
+  .cancel-button:hover {
+    background-color: white;
+    color: #E74C3C;
+    border: 2px solid #E74C3C;
+  }
+  
+  .input-count{
+    width: 50px;
+    text-align: center;
+    font-size: 18px;
+  }
+  
+  
+  .set-count-btn {
+    background-color: #f2f2f2;
+    border: none;
+    color: #333;
+    padding: 5px 10px;
+    font-size: 18px;
+    cursor: pointer;
+  } .set-count-btn {
+    background-color: #f2f2f2;
+    border: none;
+    color: #333;
+    padding: 5px 10px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: 0.3s ease;
+  }
+  .set-count-btn:hover {
+    background-color: #949494;
+    color: white;
+  }
+
+  .price{
+    font-size: 24px;
+  }
+
+
+  .no-result{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; 
+  }

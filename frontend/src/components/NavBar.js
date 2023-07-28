@@ -31,17 +31,17 @@ function NavBar({ loggedIn, isAdmin, onLogout }) {
                 
                 {isAdmin === 1 && loggedIn ? (
                   <>
-                    {(location === "/") && (
+                    {(
                       <Nav.Link className="mx-3" as={Link} to="/Profile">
                       Profile
                       </Nav.Link>
                     )}
-                    {(location === "/") && (
+                    {(
                       <Nav.Link className="mx-3" as={Link} to="/organiser-dashboard">
                       Dashboard
                       </Nav.Link>
                     )}
-                    {(location === "/") && (
+                    { (
                       <Nav.Link className="mx-3" as={Link} to="/ManageEvents">
                       Manage Events
                       </Nav.Link>
@@ -49,21 +49,22 @@ function NavBar({ loggedIn, isAdmin, onLogout }) {
                   </>
                   ) : isAdmin === 0 && loggedIn ? (
                     <>
-                    {(location === "/") && (
+                    {(
                         <Nav.Link className="mx-3" as={Link} to="/Profile">
                         Profile
                         </Nav.Link>
                       )}
-                      {(location === "/") && (
-                        <Nav.Link className="mx-3" as={Link} to="/MyBookings">
-                        MyBookings
-                        </Nav.Link>
-                      )}
-                      {(location === "/") && (
+                      {(
                         <Nav.Link className="mx-3" as={Link} to="/EventsList">
-                        EventsList
+                        Events List
                         </Nav.Link>
                       )}
+                      {(
+                        <Nav.Link className="mx-3" as={Link} to="/MyBookings">
+                        My Bookings
+                        </Nav.Link>
+                      )}
+                      
                     </>
                   ) : (
                     <>
