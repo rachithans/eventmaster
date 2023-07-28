@@ -1,0 +1,35 @@
+.booking-button {
+    background-color: #2176FF;
+    color: white;
+    border: none;
+    border-radius: 50px;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    margin: 10px;
+  }
+  
+  .green {
+    background-color: #27AE60;
+  }
+  
+  .input-count{
+    width: 50px;
+    text-align: center;
+    font-size: 18px;
+  }
+  
+  
+  .set-count-btn {
+    background-color: #f2f2f2;
+    border: none;
+    color: #333;
+    padding: 5px 10px;
+    font-size: 18px;
+    cursor: pointer;
+  }
+  
+  .red{
+    background-color: #E74C3C;
+  }

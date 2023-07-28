@@ -49,19 +49,19 @@ function NavBar({ loggedIn, isAdmin, onLogout }) {
                   </>
                   ) : isAdmin === 0 && loggedIn ? (
                     <>
-                    {(location === "/") && (
+                    {(
                         <Nav.Link className="mx-3" as={Link} to="/Profile">
                         Profile
                         </Nav.Link>
                       )}
-                      {(location === "/") && (
+                      {(
                         <Nav.Link className="mx-3" as={Link} to="/MyBookings">
-                        MyBookings
+                        My Bookings
                         </Nav.Link>
                       )}
-                      {(location === "/") && (
+                      {(
                         <Nav.Link className="mx-3" as={Link} to="/EventsList">
-                        EventsList
+                        Events List
                         </Nav.Link>
                       )}
                     </>
