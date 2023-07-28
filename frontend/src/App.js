@@ -16,6 +16,7 @@ import ForgotUser from "./components/loginpage/ForgotUser";
 import ProfilePage from "./components/Profile";
 import EventList from "./components/EventList";
 import MyBooking from "./components/MyBooking";
+import NewEvent from "./components/newevent/CreateEventForm";
 
 
 const App = () => {
@@ -64,6 +65,7 @@ const App = () => {
           <Route path="/organiser-dashboard" Component={organiser_Dashboard} />
           <Route path="/EventsList" element={<EventList userId={userId}/>}/>
           <Route path="/MyBookings" element={<MyBooking userId={userId}/>}/>
+          <Route path="/createEvent" element={<NewEvent userId={userId}/>} />
         </Routes>
         {createFooter()}
       </div>
