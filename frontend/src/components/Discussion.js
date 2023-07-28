@@ -7,7 +7,7 @@
 // Used to learn about how to redirect from one page to another and also how to pass the data
 
 // https://react-bootstrap.github.io/components 
-// Accessed on: 25th July, 2023
+// Accessed on: 24th July, 2023
 
 
 import React, { useState, useEffect } from "react";
@@ -48,6 +48,7 @@ const Discussion = ({ userId }) => {
       }
     }
   };
+
 
   return (
     <div className="container mt-5">
