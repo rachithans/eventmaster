@@ -126,7 +126,7 @@ export default function MyBooking({ userId }) {
 
   return (
     <div className="container my-4">
-      {(bookings == "False")&& (<h3 className="">No Bookings available!!</h3>)}
+      {(bookings == "False")&& (<h3 className="text-center">No Bookings available!!</h3>)}
       {records.map((record) => (
         <div className="card" key={record.eventId}>
           <div className="card-body">
