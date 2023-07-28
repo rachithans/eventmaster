@@ -23,7 +23,7 @@ function LoginForm({ onLogin }) {
     };
 
     try {
-      const response = await fetch('http://localhost:5050/loginInfo/loginUser', {
+      const response = await fetch('https://eventmaster.onrender.com/loginInfo/loginUser', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
