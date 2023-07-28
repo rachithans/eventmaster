@@ -14,6 +14,7 @@ import { Route,Routes, useNavigate} from 'react-router-dom';
 import LoginForm from "./components/loginpage/LoginForm";
 import ForgotUser from "./components/loginpage/ForgotUser";
 import ProfilePage from "./components/Profile";
+import Discussion from "./components/Discussion";
 
 
 const App = () => {
@@ -57,6 +58,7 @@ const App = () => {
           <Route path="/register" Component={Register} />
           <Route path="/Faq" Component={Faq} />
           <Route path="/ContactUs" Component={ContactUs} />
+          <Route path="/Discussion" element={<Discussion userId={userId}/>}/>
           <Route path="/forgotUserCredentials" Component={ForgotUser} />
           <Route path="/organiser-dashboard" Component={organiser_Dashboard} />
 

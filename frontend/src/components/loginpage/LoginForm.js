@@ -39,6 +39,7 @@ function LoginForm({ onLogin }) {
       const data = await response.json();
       const token = data.token;
       localStorage.setItem('token', token);
+      localStorage.setItem('email', formData.get("email"));
       onLogin(token); // Call the onLogin function to handle successful login
       navigate("/");
     } catch (error) {

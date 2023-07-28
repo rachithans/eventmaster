@@ -28,6 +28,9 @@ function NavBar({ loggedIn, isAdmin, onLogout }) {
                 <Nav.Link className="mx-3" as={Link} to="/ContactUs">
                   Contact Us
                 </Nav.Link>
+                <Nav.Link className="mx-3" as={Link} to="/Discussion">
+                  Discussion
+                </Nav.Link>
                 
                 {isAdmin === 1 && loggedIn ? (
                   <>
