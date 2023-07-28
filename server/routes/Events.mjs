@@ -28,6 +28,7 @@ router.get("/eventlist", async (req, res) => {
       await collectionAttnd.insertOne(createAttendee);
       attendee = await collectionAttnd.findOne({ userID: objUserId });
     }
+    
     const attended = attendee
       ? attendee.bookedTickets.map((ticket) => ticket.eventID)
       : [];
