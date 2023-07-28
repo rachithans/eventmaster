@@ -14,6 +14,8 @@ import { Route,Routes, useNavigate} from 'react-router-dom';
 import LoginForm from "./components/loginpage/LoginForm";
 import ForgotUser from "./components/loginpage/ForgotUser";
 import ProfilePage from "./components/Profile";
+import EventList from "./components/EventList";
+import MyBooking from "./components/MyBooking";
 
 
 const App = () => {
@@ -28,6 +30,7 @@ const App = () => {
     setLoggedIn(true);
     setIsAdmin(decodedToken.isAdmin);
     setUserId(decodedToken.id);
+    setTimeout(100);
   };
 
   // Function to handle logout
@@ -59,6 +62,8 @@ const App = () => {
           <Route path="/ContactUs" Component={ContactUs} />
           <Route path="/forgotUserCredentials" Component={ForgotUser} />
           <Route path="/organiser-dashboard" Component={organiser_Dashboard} />
+          <Route path="/EventsList" element={<EventList userId={userId}/>}/>
+          <Route path="/MyBookings" element={<MyBooking userId={userId}/>}/>
 
         </Routes>
         {createFooter()}
