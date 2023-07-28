@@ -11,7 +11,7 @@ export default function EventList({ userId }) {
   //function is used to get all the events
   const getRecords = async () => {
     const response = await fetch(
-      `http://localhost:5050/events/eventlist?userId=${userId}`
+      `https://eventmaster.onrender.com/events/eventlist?userId=${userId}`
     );
     const records = await response.json();
     setRecords(records);
@@ -58,7 +58,7 @@ export default function EventList({ userId }) {
 
       try {
         const response = await fetch(
-          "http://localhost:5050/events/eventbooking",
+          "https://eventmaster.onrender.com/events/eventbooking",
           {
             method: "POST",
             headers: {
