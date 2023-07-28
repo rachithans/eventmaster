@@ -26,7 +26,7 @@ function Organiser_Feedback() {
 
   async function fetchReviews() {
     try {
-      const response = await fetch('http://localhost:5050/organiserDashboard/eventsList/')
+      const response = await fetch('https://eventmaster.onrender.com/organiserDashboard/eventsList/')
       const jsonData = await response.json();
       setData(jsonData.events);
       setLoading(false); // Set loading to false once data is fetched

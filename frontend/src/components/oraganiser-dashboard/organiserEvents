@@ -10,7 +10,7 @@ function Organiser_events() {
 
   async function fetchEventsList() {
     try {
-      const response = await fetch("http://localhost:5050/organiserDashboard/EventsList/");
+      const response = await fetch("https://eventmaster.onrender.com/organiserDashboard/EventsList/");
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }
