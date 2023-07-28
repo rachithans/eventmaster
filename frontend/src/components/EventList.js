@@ -25,7 +25,7 @@ export default function EventList({ userId }) {
 
   useEffect(() => {
     getRecords();
-  }, []);
+  },[userId]);
 
   // https://stackoverflow.com/questions/55342406/updating-and-merging-state-object-using-react-usestate-hook
   // https://stackoverflow.com/questions/47647269/how-to-get-spread-operator-updating-state-with-react
@@ -57,7 +57,7 @@ export default function EventList({ userId }) {
       };
 
       try {
-        const response = await fetch(
+        await fetch(
           "https://eventmaster.onrender.com/events/eventbooking",
           {
             method: "POST",
@@ -122,10 +122,10 @@ export default function EventList({ userId }) {
                 <div className="">
                   <div className="d-flex justify-content-between flex-column flex-sm-row">
                     <h2>{record.eventName}</h2>
-                    <p className="mx-sm-3 d-sm-block">
+                    <span className="mx-sm-3">
                       {splitdate(record.eventDate)[0]}&nbsp;&nbsp;&nbsp;&nbsp;
                       {splitdate(record.eventDate)[1]}
-                    </p>
+                    </span>
                   </div>
                   <h5>{record.eventVenue}</h5>
                 </div>
@@ -136,7 +136,7 @@ export default function EventList({ userId }) {
               Accessed On: 30 May, 2023*/}
 
               <div className="d-flex justify-content-between align-items-center">
-                <div className=" text-center mx-5">
+                <div className=" text-center">
                   <button
                     onClick={() => countDecrease(record.eventId)}
                     className="set-count-btn"
@@ -157,7 +157,7 @@ export default function EventList({ userId }) {
                   </button>
                 </div>
                 <button className="normal-button">Ask Questions</button>
-                <button
+                <div className=""><button
                   className="booking-button"
                   onClick={() =>
                     handleBooking(
@@ -170,13 +170,14 @@ export default function EventList({ userId }) {
                   data-bs-target="#exampleModal"
                 >
                   Book Now
-                </button>
+                </button></div>
+                
 
                 {/* https://getbootstrap.com/docs/5.3/components/modal/ */}
                 <div
                   className="modal fade"
                   id="exampleModal"
-                  tabindex="-1"
+                  tabIndex="-1"
                   aria-labelledby="exampleModalLabel"
                   aria-hidden="true"
                 >

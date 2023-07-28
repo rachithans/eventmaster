@@ -18,7 +18,6 @@ export default function MyBooking({ userId }) {
     if (records.length === 0) {
       setBookings("False");
     }
-    console.log(records.length);
     setRecords(records);
 
     const initialCount = [];
@@ -31,7 +30,7 @@ export default function MyBooking({ userId }) {
 
   useEffect(() => {
     getRecords();
-  }, []);
+  },[userId]);
 
   // https://stackoverflow.com/questions/55342406/updating-and-merging-state-object-using-react-usestate-hook
   const countDecrease = (eventId) => {
@@ -57,7 +56,7 @@ export default function MyBooking({ userId }) {
     };
 
     try {
-      const response = await fetch(
+      await fetch(
         "https://eventmaster.onrender.com/bookings/eventcancellation",
         {
           method: "POST",
@@ -95,7 +94,7 @@ export default function MyBooking({ userId }) {
       };
 
       try {
-        const response = await fetch(
+        await fetch(
           "https://eventmaster.onrender.com/bookings/eventmodification",
           {
             method: "POST",
@@ -155,7 +154,7 @@ export default function MyBooking({ userId }) {
 
   return (
     <div className="container my-4">
-      {bookings == "False" && (
+      {bookings === "False" && (
         <h3 className="text-center">No Bookings available!!</h3>
       )}
       {records.map((record) => (
@@ -218,7 +217,7 @@ export default function MyBooking({ userId }) {
                 <div
                   className="modal fade"
                   id="modifyButton"
-                  tabindex="-1"
+                  tabIndex="-1"
                   aria-labelledby="modifyButtonLabel"
                   aria-hidden="true"
                 >
@@ -263,7 +262,7 @@ export default function MyBooking({ userId }) {
                 <div
                   className="modal fade"
                   id="cancelButton"
-                  tabindex="-1"
+                  tabIndex="-1"
                   aria-labelledby="cancelButtonLabel"
                   aria-hidden="true"
                 >
