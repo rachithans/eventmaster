@@ -47,7 +47,7 @@ function RegistrationForm() {
     }
     
     try {
-      const response = await fetch('http://localhost:5050/loginInfo/register', {
+      const response = await fetch('https://eventmaster.onrender.com/loginInfo/register', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
