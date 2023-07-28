@@ -46,6 +46,11 @@ function NavBar({ loggedIn, isAdmin, onLogout }) {
                       Manage Events
                       </Nav.Link>
                     )}
+                    {(location === "/") && (
+                      <Nav.Link className="mx-3" as={Link} to="/createEvent">
+                      Create Event
+                      </Nav.Link>
+                    )}
                   </>
                   ) : isAdmin === 0 && loggedIn ? (
                     <>

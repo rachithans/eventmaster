@@ -1,0 +1,77 @@
+import express from "express";
+import db from "../db/conn.mjs";
+import { ObjectId } from "mongodb";
+
+
+const router = express.Router();
+
+const generateRandomEventID = () => {
+    return Math.floor(1000 + Math.random() * 9000); // Generates a random 4-digit number
+};
+
+async function updateOrganizerWithEventId(organizerId, eventId) {
+  
+    try {
+      
+      const organizerCollection = db.collection('Organizers');
+  
+      // Convert the organizerId to an ObjectId for querying MongoDB
+      const objectId = new ObjectId(organizerId);
+  
+      // Update the Organizer document with the event ID
+      await organizerCollection.updateOne(
+        { userID: objectId },
+        { $addToSet: { eventIDs: eventId } }
+      );
+  
+      console.log('Organizer document updated successfully.');
+    } catch (error) {
+      console.error('Error updating Organizer document:', error);
+    } 
+  }
+
+// This section will help you create a new record.
+router.post("/create", async (req, res) => {
+
+    try{
+        
+        const collection = await db.collection("Events");
+        let isUnique = false;
+         let newEventID;
+
+        while (!isUnique) {
+            newEventID = generateRandomEventID();
+
+            const existingEvent = await collection.findOne({ eventID: newEventID });
+
+            if (!existingEvent) {
+                isUnique = true;
+            }
+        }
+
+        const newDocument = {
+            eventID: newEventID,
+            eventVenue: req.body.location,
+            eventDate: new Date(req.body.date),
+            ticketsBooked: 0,
+            totalTickets: req.body.capacity,
+            eventStatus: "upcoming",
+            totalCollection: 0,
+            ticketPrice: req.body.price,
+            eventReviews: [],
+            overallRating: 0,
+            eventName: req.body.eventName,
+            description: req.body.description
+        };
+        let result = await collection.insertOne(newDocument);
+        res.send(result).status(204);
+        await updateOrganizerWithEventId(req.body.organizerID, newEventID);
+        }catch(error){
+            console.log(error);
+            res.send("Internal server error").status(500);
+        }
+    
+    });
+    
+
+export default router;
