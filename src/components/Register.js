@@ -1,4 +1,3 @@
-// Author: Bhavya Jain
 import React from "react";
 import RegistrationForm from "./registrationpage/RegistrationForm";
 

@@ -1,19 +1,18 @@
-// Author: Bhavya Jain
-import React, { useState } from 'react';
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
+import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
-function ForgotUser() {
-    const navigate = useNavigate();
-    // eslint-disable-next-line
-    const passwordChecker = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])[0-9a-zA-Z@#$%^&+=]{4,}$/;
-    // eslint-disable-next-line
-    const emailChecker = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+function LoginForm() {
+  const navigate = useNavigate();
+  const passwordChecker = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/;
+  // eslint-disable-next-line
+  const emailChecker =
+    /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
-    const handleSubmit = async (event) => {
-        event.preventDefault();
-        event.stopPropagation();
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    event.stopPropagation();
 
     if (!passwordChecker.test(formData.password)) {
       setInvalid((Invalid) => ({ ...Invalid, password: true }));
@@ -27,36 +26,17 @@ function ForgotUser() {
       setInvalid((Invalid) => ({ ...Invalid, email: false }));
     }
 
-    if (passwordChecker.test(formData.password) && emailChecker.test(formData.email)) {
-      const postingData = {
-        email: formData.email,
-        password: formData.password,
-      };
-
-      try {
-        const response = await fetch('http://localhost:5050/loginInfo/forgotPassword', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(postingData),
-        });
-
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-        else{
-            navigate('/login', { state: { passwordChangedMessage: "Password Changed Successfully" } });
-        }
-      } catch (error) {
-        console.error('Login error:', error);
-      }
+    if (
+      passwordChecker.test(formData.password) &&
+      emailChecker.test(formData.email)
+    ) {
+      navigate("/");
     }
   };
 
   const [formData, setFormData] = useState({
-    email: '',
-    password: '',
+    email: "",
+    password: "",
   });
 
   const [Invalid, setInvalid] = useState({
@@ -87,12 +67,16 @@ function ForgotUser() {
                 onChange={handleChange}
               />
               <Form.Control.Feedback type="invalid">
-                Incorrect Email! Please type again.
+                "Incorrect Email! Please type again."
               </Form.Control.Feedback>
             </Form.Group>
 
-            <Form.Group className="mb-3" controlId="passwordField" id="passwordGroup">
-              <Form.Label>Enter new password</Form.Label>
+            <Form.Group
+              className="mb-3"
+              controlId="passwordField"
+              id="passwordGroup"
+            >
+              <Form.Label>Password</Form.Label>
               <Form.Control
                 isInvalid={Invalid.password}
                 required
@@ -104,11 +88,19 @@ function ForgotUser() {
                 onChange={handleChange}
               />
               <Form.Control.Feedback type="invalid">
-                Password must contain at least 8 characters, 1 number, 1 upper and 1 lowercase!
+                "Password must contain at least 8 characters, 1 number, 1 upper
+                and 1 lowercase!"
               </Form.Control.Feedback>
             </Form.Group>
             <Button variant="primary" type="submit">
-              Update Password
+              Login Now
+            </Button>
+            <Button
+              variant="danger"
+              type="reset"
+              className="ms-0 d-block d-sm-inline ms-sm-2 mt-2 mt-sm-0 w-sm-50"
+            >
+              Forgot Credentials?
             </Button>
           </Form>
         </div>
@@ -117,4 +109,4 @@ function ForgotUser() {
   );
 }
 
-export default ForgotUser;
+export default LoginForm;

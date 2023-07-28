@@ -12,7 +12,6 @@ const Dropdown = (props) => {
     console.log(open);
   };
 
-
   return (
     <div className="container">
       <div className="card m-3" onClick={dropDownHandle}>

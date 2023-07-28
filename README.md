@@ -9,11 +9,11 @@
 
 ## Authors
 
-- [Ayush Awasthi](Ayush.Awasthi@dal.ca) - _(Full Stack Developer, Scrum Master)_
-- [Bhavya Jain](Bhavya.jain@dal.ca) - _(Full Stack Developer, Database Manager)_
-- [Mohamed Eltazy](M.eltazy@dal.ca) - _(Full Stack Developer, Documents Manager)_
-- [Rachit Hans](rachit.hans@dal.ca) - _(Full Stack Developer, Testing)_
-- [Sahil Sorathiya](sahil.sorathiya@dal.ca) - _(Full Stack Developer, Designer and Integrator)_
+- [Ayush Awasthi](Ayush.Awasthi@dal.ca) - *(Full Stack Developer, Scrum Master)*
+- [Bhavya Jain](Bhavya.jain@dal.ca ) - *(Full Stack Developer, Database Manager)*
+- [Mohamed Eltazy](M.eltazy@dal.ca) - *(Full Stack Developer, Documents Manager)*
+- [Rachit Hans](rachit.hans@dal.ca) - *(Full Stack Developer, Testing)*
+- [Sahil Sorathiya](sahil.sorathiya@dal.ca) - *(Full Stack Developer, Designer and Integrator)*
 
 ## Testing
 
@@ -30,18 +30,18 @@ No, backend functions are implemented for this deliverables.
 
 ## Deployment
 
-1. Create a react app using `npx create-reate-app my-app` in terminal.
+1. Create a react app using ```npx create-reate-app my-app``` in terminal.
 2. Make changes or add file to the main folder.
-3. Run `npm run build` to build the app from which build folder will be published.
+3. Run ```npm run build``` to build the app from which build folder will be published.
 4. Open an account on https://www.netlify.com. Upload the build folder to your account using add new site.
 5. Click on open production delopy button to check the deployment.
 
 ## Built With
 
-- [React.js](https://react.dev/) - Used to create user interface.
-- [Netlify](https://www.netlify.com/) - Used for deployment of the project.
-- [Bootstrap](https://getbootstrap.com/) - Used for CSS framework.
-- [React Bootstrap](https://react-bootstrap.netlify.app/) - Used for CSS framework
+* [React.js](https://react.dev/) - Used to create user interface.
+* [Netlify](https://www.netlify.com/) - Used for deployment of the project.
+* [Bootstrap](https://getbootstrap.com/) - Used for CSS framework.
+* [React Bootstrap](https://react-bootstrap.netlify.app/) - Used for CSS framework
 
 ## Sources Used
 
@@ -58,7 +58,6 @@ No, backend functions are implemented for this deliverables.
 11. https://react.dev/learn/tutorial-tic-tac-toe -- for learning about spread operator and hooks and useState.
 12. https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp/test -- for learning how to test regex
 13. https://www.lipsum.com/feed/html -- for lorem ipsum text
-14. https://unsplash.com/s/photos/events -- for photos
 
 ### LoginForm.js
 
@@ -95,8 +94,8 @@ For line 54-107
             <Form.Label>Email address</Form.Label>
             <Form.Control
                 isInvalid={Invalid.email}
-                required
-                name='email'
+                required 
+                name='email' 
                 type="email"
                 value={formData.email}
                 placeholder="Enter email"
@@ -111,8 +110,8 @@ For line 54-107
             <Form.Label>Password</Form.Label>
             <Form.Control
                 isInvalid={Invalid.password}
-                required
-                name='password'
+                required 
+                name='password' 
                 type="password"
                 value={formData.password}
                 minLength={8}
@@ -487,9 +486,10 @@ root.render(<App />);
 - <!---Why---> [W3Schools](https://www.w3schools.com/react/react_router.asp)'s Code was used because I wanted to implement the routing services in my website
 - <!---How---> [W3Schools](https://www.w3schools.com/react/react_router.asp)'s Code was modified by implementing in the my context of website and changing things where necessary.
 
+
 ### ContactUs.js
 
-_Lines 22 - 106_
+*Lines 22 - 106*
 
 ```
 <div className="container col-lg-6 col-sm-9 bg-light p-4 rounded border mt-5">
@@ -539,6 +539,7 @@ _Lines 22 - 106_
         />
         </div>
     </div>
+    
     <div className="form-row my-3">
         <div className="col">
         <label htmlFor="phone_number" className=" text-dark">
@@ -579,7 +580,7 @@ _Lines 22 - 106_
 
 ```
 
-The code above was created by adapting the code in [Bootstrap](https://getbootstrap.com/docs/4.0/components/forms/) as shown below:
+The code above was created by adapting the code in [Bootstrap](https://getbootstrap.com/docs/4.0/components/forms/) as shown below: 
 
 ```
 <form>
@@ -594,7 +595,6 @@ The code above was created by adapting the code in [Bootstrap](https://getbootst
 </form>
 
 ```
-
 - <!---How---> The code in [Bootstrap](https://getbootstrap.com/docs/4.0/components/forms/) was implemented by Bootstrap Team.
 - <!---Why---> [Bootstrap](https://getbootstrap.com/docs/4.0/components/forms/)'s Code was used to display the form for registration.
 - <!---How---> [Bootstrap](https://getbootstrap.com/docs/4.0/components/forms/)'s Code was modified by [Sahil Sorathiya](sahil.sorathiya@dal.ca).Few new input fields are added to it.
@@ -603,10 +603,11 @@ The code above was created by adapting the code in [Bootstrap](https://getbootst
 
 - abhishekh305, his github page helped me learn a lot about how form validation works
 - react-bootstrap documentation helped me learn a lot about how to use react.
-- [Esther Itolima](https://dev.to/esedev/how-to-pass-and-access-data-from-one-route-to-another-with-uselocation-usenavigate-usehistory-hooks-1g5m)'s post used to learn about how to redirect from one page to another and also how to pass the data.
+-  [Esther Itolima](https://dev.to/esedev/how-to-pass-and-access-data-from-one-route-to-another-with-uselocation-usenavigate-usehistory-hooks-1g5m)'s post used to learn about how to redirect from one page to another and also how to pass the data.
 - [OriginalGriff](https://www.codeproject.com/Questions/1064433/Regex-which-will-accept-alphanumeric-with-special)'s post was used to to create regex for password that can also accept alpha numberics values and special characters.
 - [W3Schools](https://www.w3schools.com/tags/att_input_minlength.asp#:~:text=The%20minlength%20attribute%20specifies%20the,tel%2C%20email%2C%20and%20password.)'s tutorial was used to learned about how to apply lenght requirement in input field.
 - [tanguy_k](https://stackoverflow.com/questions/41936524/validation-of-form-input-fields-in-react)'s post was used to learn about to implement html validation.
+
 
 ## References
 
