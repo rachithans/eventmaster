@@ -38,6 +38,7 @@ router.post("/eventcancellation", async (req, res) => {
     attendee.bookedTickets = attendee.bookedTickets.filter((ticket) => ticket.eventID !== eventId)
     await collection.updateOne({ _id: attendee._id }, { $set: attendee });
     res.send(attendee).status(200);
+
   });
 
 

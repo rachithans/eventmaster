@@ -21,7 +21,7 @@ import MyBooking from "./components/MyBooking";
 const App = () => {
   const [loggedIn, setLoggedIn] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
-  const [userId, setUserId] = useState();
+  const [userId, setUserId] = useState("");
   const navigate = useNavigate();
 
   // Function to handle login after successful authentication
@@ -64,7 +64,6 @@ const App = () => {
           <Route path="/organiser-dashboard" Component={organiser_Dashboard} />
           <Route path="/EventsList" element={<EventList userId={userId}/>}/>
           <Route path="/MyBookings" element={<MyBooking userId={userId}/>}/>
-
         </Routes>
         {createFooter()}
       </div>
