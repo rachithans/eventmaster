@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 
 export default function EventList({ userId }) {
   const [records, setRecords] = useState([]);
+  const [modalTitle, setModalTitle] = useState("");
+  const [modalBody, setModalBody] = useState("");
 
   const getRecords = async () => {
     const response = await fetch(
@@ -19,9 +21,8 @@ export default function EventList({ userId }) {
 
   useEffect(() => {
     getRecords();
-  }, []);
+  }, [userId]);
 
-  const btn1 = "Ask Questions";
 
   const [count, setCount] = useState([]);
 
@@ -42,41 +43,63 @@ export default function EventList({ userId }) {
     }));
   };
 
-  const handleBooking = async (eventId, qty) => {
-    const data = {
-      userId: userId,
-      eventId: eventId,
-      qty: qty,
-    };
+  const handleBooking = async (eventId, qty, price) => {
 
-    try {
-      const response = await fetch(
-        "http://localhost:5050/events/eventbooking",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(data),
-        }
-      );
-      console.log("Booking Successful!!");
+    if(qty>0){
+      const data = {
+        userId: userId,
+        eventId: eventId,
+        qty: qty,
+      };
+  
+      try {
+        const response = await fetch(
+          "http://localhost:5050/events/eventbooking",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+          }
+        );
+        setModalTitle("Booking Successful!!");
+        setModalBody(["Your ticket are booked. Enjoy your  event.", `Total Price ($${price*qty}) = Qty(${qty}) X Price($${price})`])
+        
+      } catch (error) {
+        setModalTitle("Booking Failed!!");
+        setModalBody(["Please try again.", ``])
+      }
       
-    } catch (error) {
-      console.log("Booking Failed!!", error);
     }
+    else{
+      setModalTitle("Please Enter Number of Tickets");
+      setModalBody(["Use '+' button to enter number of tickets.", ``])
+    }
+    
   };
+
+  // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date
+  // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/padStart
+  const splitdate = (date) => {
+    var eventDate = new Date(date);
+    const months = ["January","February","March", "April", "May", "June","July", "August", "September", "October", "November", "December"]
+
+    return [`${eventDate.getUTCFullYear()}, ${months[eventDate.getUTCMonth()]} ${eventDate.getUTCDate()}`, `${eventDate.getUTCHours()}:${eventDate.getUTCMinutes().toString().padStart(2, '0')}`]
+
+  }
 
   return (
     <div className="container my-4">
       {records.map((record) => (
         <div className="card" key={record.eventId}>
-          <div className="card-body d-flex flex-column flex-lg-row justify-content-between align-items-lg-center">
+          <div className="card-body">
+            <div className="d-flex flex-column flex-lg-row justify-content-between align-items-lg-center">
             <div className="d-flex flex-column flex-lg-row justify-content-between">
               <div className="">
                 <div className="d-flex justify-content-between flex-column flex-sm-row">
                   <h2>{record.eventName}</h2>
-                  <p className="mx-sm-3 d-sm-block">{record.eventDate}</p>
+                  <p className="mx-sm-3 d-sm-block">{splitdate(record.eventDate)[0]}&nbsp;&nbsp;&nbsp;&nbsp;{splitdate(record.eventDate)[1]}</p>
                 </div>
                 <h5>{record.eventVenue}</h5>
               </div>
@@ -108,36 +131,42 @@ export default function EventList({ userId }) {
                 +
               </button>
             </div>
-              <button className="booking-button bg-primary">Ask Questions</button>
+              <button className="normal-button">Ask Questions</button>
               <button
-                className="booking-button green"
+                className="booking-button"
                 onClick={() =>
-                  handleBooking(record.eventId, count[record.eventId])
+                  handleBooking(record.eventId, count[record.eventId], record.ticketPrice)
                 }
                 data-bs-toggle="modal" data-bs-target="#exampleModal"
               >
                 Book Now
               </button>
 
+              
+              {/* https://getbootstrap.com/docs/5.3/components/modal/ */}
               <div className="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div className="modal-dialog">
                   <div className="modal-content">
                     <div className="modal-header">
-                      <h1 className="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
-                      <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      <h1 className="modal-title fs-5" id="exampleModalLabel">{modalTitle}</h1>
+                      {/* <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> */}
                     </div>
                     <div className="modal-body">
-                      ...
+                      <p>{modalBody[0]}</p>
+                      <p>{modalBody[1]}</p>
+                      
                     </div>
                     <div className="modal-footer">
-                      <button type="button" className="btn btn-secondary" data-bs-dismiss="modal" onClick={getRecords}>Close</button>
+                      <button type="button" className="bg-primary" data-bs-dismiss="modal" onClick={getRecords}>Close</button>
                     </div>
                   </div>
                 </div>
               </div>
-
-
             </div>
+            
+          </div>
+          <p className="mt-2">{record.description}</p>
+          <p><b className="price">${record.ticketPrice}</b>/ticket</p>
           </div>
         </div>
       ))}
