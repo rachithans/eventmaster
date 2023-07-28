@@ -17,6 +17,7 @@ import ProfilePage from "./components/Profile";
 import EventList from "./components/EventList";
 import MyBooking from "./components/MyBooking";
 import NewEvent from "./components/newevent/CreateEventForm";
+import Discussion from "./components/Discussion";
 
 
 const App = () => {
@@ -61,6 +62,7 @@ const App = () => {
           <Route path="/register" Component={Register} />
           <Route path="/Faq" Component={Faq} />
           <Route path="/ContactUs" Component={ContactUs} />
+          <Route path="/Discussion" element={<Discussion userId={userId}/>}/>
           <Route path="/forgotUserCredentials" Component={ForgotUser} />
           <Route path="/organiser-dashboard" Component={organiser_Dashboard} />
           <Route path="/EventsList" element={<EventList userId={userId}/>}/>
