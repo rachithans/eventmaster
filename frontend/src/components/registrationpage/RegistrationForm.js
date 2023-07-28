@@ -62,6 +62,7 @@ function RegistrationForm() {
         }
       }
       else{
+        alert("Registration Successful");
         navigate("/");
       }
     } catch (error) {
