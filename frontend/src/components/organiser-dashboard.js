@@ -18,7 +18,7 @@ function Organiser_Dashboard() {
   });
 
   async function fetchOverallDetails(){
-   const response = await fetch('http://localhost:5050/organiserDashboard/organiser-dashboard/')
+   const response = await fetch('https://eventmaster.onrender.com/organiserDashboard/organiser-dashboard/')
     const data = await response.json()
     setTotalTickets(data.totalTickets);
     setTotalEvents(data.totalEvents);

@@ -13,7 +13,7 @@ const ChartComponent = () => {
 
   const fetchChartData = async () => {
     try {
-      const response = await fetch('http://localhost:5050/organiserDashboard/eventRevenue/');
+      const response = await fetch('https://eventmaster.onrender.com/organiserDashboard/eventRevenue/');
       const jsonData = await response.json();
       // Assuming your API response has the same format as your static data
       setChartData({
