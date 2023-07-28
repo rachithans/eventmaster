@@ -1,3 +1,7 @@
+// https://chat.openai.com/
+// Accessed on: 28 July, 2023
+// Createdquestion and answers for faq
+
 import React from "react";
 import Dropdown from "./Dropdown";
 
@@ -5,50 +9,30 @@ const Faq = () => {
   const faqData = [
     {
       question:
-        "Eos consequatur quas qui voluptatibus voluptas qui tempora galisum?",
+        "How do I book tickets for an event?",
       answer:
-        "At consequatur quam a dolores repudiandae qui nisi enim et similique provident in deleniti ipsum ut ipsam quibusdam sit dolorem ratione. Id molestias optio qui laborum alias et iure impedit ab sunt quia eos eius doloribus est voluptas alias qui voluptatum repellendus.",
+        "To book tickets for an event, simply navigate to the event list, select the desired ticket type and quantity, and click book now button.",
     },
     {
-      question: "Qui ipsam ullam 33 dolorem aut laboriosam rerum?",
+      question: "Can I cancel or refund my ticket purchase?",
       answer:
-        "At consequatur quam a dolores repudiandae qui nisi enim et similique provident in deleniti ipsum ut ipsam quibusdam sit dolorem ratione. Id molestias optio qui laborum alias et iure impedit ab sunt quia eos eius doloribus est voluptas alias qui voluptatum repellendus.",
+        "Ticket cancellation and refund policies are there for event. You can modify and cancel the ticket bookings.",
     },
     {
-      question: "Ullam dolorem reprehenderit qui?",
+      question: "What payment methods are accepted?",
       answer:
-        "At consequatur quam a dolores repudiandae qui nisi enim et similique provident in deleniti ipsum ut ipsam quibusdam sit dolorem ratione. Id molestias optio qui laborum alias et iure impedit ab sunt quia eos eius doloribus est voluptas alias qui voluptatum repellendus.",
+        "We accept various payment methods, including credit cards, debit cards, and online payment platforms like PayPal. Rest assured, your payment information is kept secure.",
     },
     {
       question:
-        "Qui ipsam ullam dolorem reprehenderit qui maxime nihil aut laboriosam rerum?",
+        "Can I get a refund if I can't attend the event?",
       answer:
-        "At consequatur quam a dolores repudiandae qui nisi enim et similique provident in deleniti ipsum ut ipsam quibusdam sit dolorem ratione. Id molestias optio qui laborum alias et iure impedit ab sunt quia eos eius doloribus est voluptas alias qui voluptatum repellendus.",
+        "Refund policies vary for each event. Some events offer refunds if canceled within a specified period, while others may have a no-refund policy. Check the event details or contact our support team for more information.",
     },
     {
-      question: "Eos oluptas qui tempora galisum?",
+      question: "How will I receive my tickets?",
       answer:
-        "At consequatur quam a dolores repudiandae qui nisi enim et similique provident in deleniti ipsum ut ipsam quibusdam sit dolorem ratione. Id molestias optio qui laborum alias et iure impedit ab sunt quia eos eius doloribus est voluptas alias qui voluptatum repellendus.",
-    },
-    {
-      question: "Eos consequatur quas qui voluptatibus?",
-      answer:
-        "At consequatur quam a dolores repudiandae qui nisi enim et similique provident in deleniti ipsum ut ipsam quibusdam sit dolorem ratione. Id molestias optio qui laborum alias et iure impedit ab sunt quia eos eius doloribus est voluptas alias qui voluptatum repellendus.",
-    },
-    {
-      question: "Eos consequatur quas qui voluptatibus?",
-      answer:
-        "At consequatur quam a dolores repudiandae qui nisi enim et similique provident in deleniti ipsum ut ipsam quibusdam sit dolorem ratione. Id molestias optio qui laborum alias et iure impedit ab sunt quia eos eius doloribus est voluptas alias qui voluptatum repellendus.",
-    },
-    {
-      question: "Eos consequatur quas quias qui tempora galisum?",
-      answer:
-        "At consequatur quam a dolores repudiandae qui nisi enim et similique provident in deleniti ipsum ut ipsam quibusdam sit dolorem ratione. Id molestias optio qui laborum alias et iure impedit ab sunt quia eos eius doloribus est voluptas alias qui voluptatum repellendus.",
-    },
-    {
-      question: "Qui ipsam ullam dolorem reprehenderit qui maxime?",
-      answer:
-        "At consequatur quam a dolores repudiandae qui nisi enim et similique provident in deleniti ipsum ut ipsam quibusdam sit dolorem ratione. Id molestias optio qui laborum alias et iure impedit ab sunt quia eos eius doloribus est voluptas alias qui voluptatum repellendus.",
+        "After successful booking, you'll receive an e-ticket via email or a mobile ticket on your device. Make sure to bring the ticket, either printed or digital, to the event for entry.",
     },
   ];
 

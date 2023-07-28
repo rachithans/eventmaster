@@ -62,6 +62,7 @@ function RegistrationForm() {
         }
       }
       else{
+        alert("Registration Successful");
         navigate("/");
       }
     } catch (error) {
@@ -116,7 +117,7 @@ function RegistrationForm() {
                 placeholder="Password"
               />
               <Form.Control.Feedback type="invalid">
-                Password must contain at least 8 characters, 1 number, 1 upper and 1 lowercase!
+                Password must contain at least 8 characters,1 special character from '@#$%^&+=',  1 number, 1 upper and 1 lowercase!
               </Form.Control.Feedback>
             </Form.Group>
 
