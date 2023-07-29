@@ -4,7 +4,7 @@ import { BarElement, LinearScale, CategoryScale, Chart } from 'chart.js';
 
 Chart.register(CategoryScale, LinearScale, BarElement);
 
-const ChartComponent = () => {
+const ChartComponent = ({ userId }) => {
   const [chartData, setChartData] = useState(null);
 
   useEffect(() => {
@@ -13,7 +13,7 @@ const ChartComponent = () => {
 
   const fetchChartData = async () => {
     try {
-      const response = await fetch('https://eventmaster.onrender.com/organiserDashboard/eventRevenue/');
+      const response = await fetch(`https://eventmaster.onrender.com/organiserDashboard/eventRevenue?userId=${userId}`);
       const jsonData = await response.json();
       // Assuming your API response has the same format as your static data
       setChartData({

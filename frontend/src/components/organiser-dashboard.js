@@ -9,16 +9,15 @@ import { useState, useEffect } from "react";
 import Revenue from "./oraganiser-dashboard/revenue";
 import FeedbacksClass from "./oraganiser-dashboard/feedback";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
-import axios from "axios"
 
 
-function Organiser_Dashboard() {
+function OrganiserDashboard({userId}) {
   useEffect(() => {
     fetchOverallDetails();
   });
 
   async function fetchOverallDetails(){
-   const response = await fetch('https://eventmaster.onrender.com/organiserDashboard/organiser-dashboard/')
+   const response = await fetch(`https://eventmaster.onrender.com/organiserDashboard/organiser-dashboard?userId=${userId}`)
     const data = await response.json()
     setTotalTickets(data.totalTickets);
     setTotalEvents(data.totalEvents);
@@ -159,9 +158,9 @@ if(totalEvents==0){
         class="jumbotron "
         style={{ marginLeft: "10%", marginRight: "10%", backgroundColor: "" }}
       >
-        {testVisible && <Organiser_events />}
-        {revnueVisible && <Revenue />}
-        {feedbackVisible && <FeedbacksClass />}
+        {testVisible && <Organiser_events userId={userId} />}
+        {revnueVisible && <Revenue userId={userId} />}
+        {feedbackVisible && <FeedbacksClass userId={userId}/>}
       </div>
 
     </div>
@@ -169,4 +168,4 @@ if(totalEvents==0){
         }
 }
 
-export default Organiser_Dashboard;
+export default OrganiserDashboard;

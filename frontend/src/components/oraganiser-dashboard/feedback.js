@@ -8,7 +8,7 @@ import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 
 
-function Organiser_Feedback() {
+function Organiser_Feedback({ userId }) {
   const [cardExpandStates, setCardExpandStates] = useState({});
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true); // Add a loading state
@@ -26,7 +26,7 @@ function Organiser_Feedback() {
 
   async function fetchReviews() {
     try {
-      const response = await fetch('https://eventmaster.onrender.com/organiserDashboard/eventsList/')
+      const response = await fetch(`https://eventmaster.onrender.com/organiserDashboard/eventsList?userId=${userId}`)
       const jsonData = await response.json();
       setData(jsonData.events);
       setLoading(false); // Set loading to false once data is fetched
