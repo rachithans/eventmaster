@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-function Organiser_events() {
+function Organiser_events({ userId }) {
   const [data, setData] = useState(null);
 
   useEffect(() => {
@@ -10,7 +10,7 @@ function Organiser_events() {
 
   async function fetchEventsList() {
     try {
-      const response = await fetch("https://eventmaster.onrender.com/organiserDashboard/EventsList/");
+      const response = await fetch(`https://eventmaster.onrender.com/organiserDashboard/EventsList?userId=${userId}`);
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }

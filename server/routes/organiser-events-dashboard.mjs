@@ -1,15 +1,18 @@
 import express from "express";
 import db from "../db/conn.mjs";
-
+import { ObjectId } from "mongodb/lib/bson.js";
 
 const router = express.Router();
 
 
 router.get("/organiser-dashboard", async (req, res) => {
     try {
+        
         const collection = await db.collection("Organizers");
-        const organizerID = 1;
-        const organizer = await collection.findOne({ organizerID });
+        const  organizerId   = 1;
+        const objUserId = new ObjectId(req.query.userId)
+
+        const organizer = await collection.findOne({  userID: objUserId});
     
         if (!organizer) {
           return res.status(200).json({ events: [] });
@@ -30,7 +33,7 @@ router.get("/organiser-dashboard", async (req, res) => {
         return res.status(200).json({  totalTickets, averageOverallRating,totalCollection,totalEvents });  
       } catch (error) {
         console.error("Error while fetching events:", error);
-        return res.status(500).json({ error: "Internal Server Error" });
+        return res.status(500).json({ error: "Internal Server Error" + error });
       }
     
   });
@@ -39,9 +42,10 @@ router.get("/organiser-dashboard", async (req, res) => {
 router.get("/eventsList", async (req, res) => {
     try {
         const collection = await db.collection("Organizers");
+        const { userId }  = req.params;
+        const objUserId = new ObjectId(req.query.userId)
         const organizerID = 1;
-        const organizer = await collection.findOne({ organizerID });
-    
+        const organizer = await collection.findOne({ userID: objUserId });
         if (!organizer) {
           return res.status(200).json({ events: [] });
         }
@@ -63,8 +67,9 @@ router.get("/eventsList", async (req, res) => {
     try {
         const collection = await db.collection("Organizers");
         const organizerID = 1;
+        const objUserId = new ObjectId(req.query.userId)
         var projection = { _id: 0, eventId: 1 }; // Include only the "eventId" field and exclude the "_id" field
-        const organizer = await collection.findOne({ organizerID },projection);
+        const organizer = await collection.findOne({ userID: objUserId },projection);
     
         if (!organizer) {
           return res.status(200).json({ events: [] });
@@ -92,8 +97,10 @@ const totalCollection = matchingEvents.map(event => event.totalCollection);
     try {
         const collection = await db.collection("Organizers");
         const organizerID = 1;
+        const objUserId = new ObjectId(req.query.userId)
+
         const projection = { _id: 0, eventId: 1 }; // Include only the "eventId" field and exclude the "_id" field
-        const organizer = await collection.findOne({ organizerID },projection);
+        const organizer = await collection.findOne({ userID: objUserId },projection);
     
         if (!organizer) {
           return res.status(200).json({ events: [] });

@@ -9,7 +9,7 @@ import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { useState, useEffect } from "react";
 
 
-function Organiser_events() {
+function Organiser_events({ userId }) {
 
   const [cardExpandStates, setCardExpandStates] = useState({});
 
@@ -26,7 +26,7 @@ function Organiser_events() {
   }, []);
 
   async function fetchEvents() {
-    const response = await fetch('https://eventmaster.onrender.com/organiserDashboard/eventsList/')
+    const response = await fetch(`https://eventmaster.onrender.com/organiserDashboard/eventsList?userId=${userId}`)
     const jsonData = await response.json();
     setData(jsonData.events);
   }
