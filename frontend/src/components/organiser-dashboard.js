@@ -1,3 +1,5 @@
+//Author: Rachit Hans
+
 import "bootstrap/dist/css/bootstrap.min.css";
 
 import Organiser_events from "./oraganiser-dashboard/organiser_events";
@@ -29,10 +31,10 @@ function OrganiserDashboard({userId}) {
   const [testVisible, setTestVisible] = useState(false);
   const [revnueVisible, setRevenueVisible] = useState(false);
   const [feedbackVisible, setfeedbackVisible] = useState(false);
-  const [totalTickets, setTotalTickets] = useState(0); // Initialize with a default value
-  const [totalEvents, setTotalEvents] = useState(0); // Initialize with a default value
-  const [totalCollection, setTotalCollection] = useState(0); // Initialize with a default value
-  const [EventsData, setEventsData] = useState(null); // Initialize with a default value
+  const [totalTickets, setTotalTickets] = useState(0); 
+  const [totalEvents, setTotalEvents] = useState(0);
+  const [totalCollection, setTotalCollection] = useState(0); 
+  const [EventsData, setEventsData] = useState(null); 
   const [overallRating, setOverallRating] =  useState(0); 
 
 
