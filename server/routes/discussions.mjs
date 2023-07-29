@@ -1,3 +1,6 @@
+//Author : Ayush Awasthi
+//Date created : 25th July, 2023
+
 import express from "express";
 import db from "../db/conn.mjs";
 import { ObjectId } from 'mongodb';
@@ -6,14 +9,14 @@ const router = express.Router();
 // Create a new collection for discussions if it doesn't exist
 db.createCollection("Discussions").catch((err) => {
   if (err.codeName === "NamespaceExists") {
-    // Collection already exists, no need to do anything
+    // Since the collection already exists we do not need to make any changes
   } else {
     console.error("Error creating 'Discussions' collection:", err);
   }
 });
 
 
-// This section will help you get discussion details by id.
+// This section helps get discussion.
 router.get("/discussions/", async (req, res) => {
   const { email } = req.params;
 
@@ -33,12 +36,12 @@ router.get("/discussions/", async (req, res) => {
   }
 });
 
-// This section will help you create a new discussion.
+// This section helps create a new discussion.
 router.post("/discussions/:userId", async (req, res) => {
   try {
     const { email, content } = req.body;
     const userId = req.params;
-    // Validate the incoming data (you can add more validation if needed)
+    // Validate the incoming data 
     if ( !content || !email) {
       return res.status(400).json({ message: "Missing required fields" });
     }
@@ -59,7 +62,7 @@ router.post("/discussions/:userId", async (req, res) => {
   }
 });
 
-// This section will help you fetch all discussions.
+// This section helps fetch all discussions.
 router.get("/discussions", async (req, res) => {
   try {
     const collection = await db.collection("Discussions");

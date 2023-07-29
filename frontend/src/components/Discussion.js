@@ -1,13 +1,12 @@
-// https://stackoverflow.com/questions/41936524/validation-of-form-input-fields-in-react
-// Accessed on: 10 June, 2023
-// How to use html validation
+//Author : Ayush Awasthi
+//Date created : 25th July, 2023
 
-// https://dev.to/esedev/how-to-pass-and-access-data-from-one-route-to-another-with-uselocation-usenavigate-usehistory-hooks-1g5m
-// Accessed on: 10 Jun, 2023
-// Used to learn about how to redirect from one page to another 
+// https://chat.openai.com
+//Accessed on 26th July, 2023
+// Used to solve some errors I was facing in the POST request
 
 // https://react-bootstrap.github.io/components 
-// Accessed on: 24th July, 2023
+// Accessed on: 26th July, 2023
 
 
 import React, { useState, useEffect } from "react";
@@ -16,14 +15,16 @@ import axios from "axios";
 
 
 const Discussion = ({ userId }) => {
+  //array to store the comments fetched from the server
   const [comments, setComments] = useState([]);
+  // string to store the text of the comment typed by the user
   const [newComment, setNewComment] = useState("");
 
   useEffect(() => {
     fetchComments();
   }, []);
 
-  //The following function helps to fetch all comments by previous users
+  //The following function makes a GET request to the server to obtain comments
   const fetchComments = async () => {
     try {
       const response = await axios.get("https://eventmaster.onrender.com/discussion/discussions");
@@ -33,7 +34,7 @@ const Discussion = ({ userId }) => {
     }
   };
 
-  //The following function helps to add the comment made by the user
+  //The following function makes a POST request to the server
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (newComment.trim() !== "") {
