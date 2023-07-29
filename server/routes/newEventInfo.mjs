@@ -31,6 +31,7 @@ async function updateOrganizerWithEventId(organizerId, eventId) {
   }
 
 // This section will help you create a new record.
+// This section also inserts new Events, and adds the events ID in the organizer collection.
 router.post("/create", async (req, res) => {
 
     try{
@@ -65,6 +66,23 @@ router.post("/create", async (req, res) => {
         };
         let result = await collection.insertOne(newDocument);
         res.send(result).status(204);
+
+        const collectionOrg = await db.collection("Organizers");
+        const objUserId = new ObjectId(req.body.organizerID);
+        const orgUser = await collectionOrg.findOne({ userID: objUserId });
+
+        if(orgUser === null){
+            const allOrgs = await collectionOrg.find().toArray();
+            const createOrg = {
+                    organizerID: allOrgs[allOrgs.length - 1].organizerID+1,
+                    userID: objUserId,
+                    eventIDs:[newEventID]
+            } 
+            await collectionOrg.insertOne(createOrg);
+            orgUser = await collectionOrg.findOne({ userID: objUserId });
+
+        }
+        
         await updateOrganizerWithEventId(req.body.organizerID, newEventID);
         }catch(error){
             console.log(error);

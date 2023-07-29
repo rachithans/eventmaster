@@ -1,10 +1,12 @@
+// Author: Sahil Sorathiya
+
 import express from "express";
 import db from "../db/conn.mjs";
 import { ObjectId } from "mongodb";
 
 const router = express.Router();
 
-// This section will help you get a list of all the records.
+// This function is used to get all booking done by the user
 router.get("/mybookings", async (req, res) => {
   try {
     let collection = await db.collection("Events");
@@ -14,6 +16,16 @@ router.get("/mybookings", async (req, res) => {
     let objUserId = new ObjectId(req.query.userId);
 
     let attendee = await collectionAttnd.findOne({ userID: objUserId });
+    if (attendee === null) {
+      const allAttendees = await collectionAttnd.find().toArray();
+      const createAttendee = {
+        attendeeID: allAttendees[allAttendees.length - 1].attendeeID + 1,
+        userID: objUserId,
+        bookedTickets: [],
+      };
+      await collectionAttnd.insertOne(createAttendee);
+      attendee = await collectionAttnd.findOne({ userID: objUserId });
+    }
     const attended = attendee.bookedTickets.map((ticket) => ticket.eventID);
 
     // https://upmostly.com/tutorials/react-filter-filtering-arrays-in-react-with-examples
@@ -33,6 +45,7 @@ router.get("/mybookings", async (req, res) => {
   }
 });
 
+// This fucntion is used to cancel thebooking by the user using userid and event id
 router.post("/eventcancellation", async (req, res) => {
   try {
     const { userId, eventId } = req.body;
@@ -63,6 +76,8 @@ router.post("/eventcancellation", async (req, res) => {
   }
 });
 
+
+// This function isused to modify the event booking by the user
 router.post("/eventmodification", async (req, res) => {
   try {
     const { userId, eventId, qty } = req.body;

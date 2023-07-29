@@ -23,7 +23,7 @@ function LoginForm({ onLogin }) {
     };
 
     try {
-      const response = await fetch('http://localhost:5050/loginInfo/loginUser', {
+      const response = await fetch('https://eventmaster.onrender.com/loginInfo/loginUser', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -35,10 +35,14 @@ function LoginForm({ onLogin }) {
         setInvalid((Invalid) => ({ ...Invalid, check: true }));
         return;
       }
+      else{
+        alert("Login Successful");
+      }
 
       const data = await response.json();
       const token = data.token;
       localStorage.setItem('token', token);
+      localStorage.setItem('email', formData.get("email"));
       onLogin(token); // Call the onLogin function to handle successful login
       navigate("/");
     } catch (error) {

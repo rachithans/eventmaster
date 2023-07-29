@@ -1,3 +1,5 @@
+// Author: Sahil Sorathiya
+
 // https://www.mongodb.com/languages/mern-stack-tutorial
 // Accessed on: 27 July,2023
 // learned about MERN Stack
@@ -28,6 +30,7 @@ router.get("/eventlist", async (req, res) => {
       await collectionAttnd.insertOne(createAttendee);
       attendee = await collectionAttnd.findOne({ userID: objUserId });
     }
+    
     const attended = attendee
       ? attendee.bookedTickets.map((ticket) => ticket.eventID)
       : [];

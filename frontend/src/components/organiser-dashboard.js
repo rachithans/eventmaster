@@ -1,3 +1,5 @@
+//Author: Rachit Hans
+
 import "bootstrap/dist/css/bootstrap.min.css";
 
 import Organiser_events from "./oraganiser-dashboard/organiser_events";
@@ -9,16 +11,15 @@ import { useState, useEffect } from "react";
 import Revenue from "./oraganiser-dashboard/revenue";
 import FeedbacksClass from "./oraganiser-dashboard/feedback";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
-import axios from "axios"
 
 
-function Organiser_Dashboard() {
+function OrganiserDashboard({userId}) {
   useEffect(() => {
     fetchOverallDetails();
   });
 
   async function fetchOverallDetails(){
-   const response = await fetch('http://localhost:5050/organiserDashboard/organiser-dashboard/')
+   const response = await fetch(`https://eventmaster.onrender.com/organiserDashboard/organiser-dashboard?userId=${userId}`)
     const data = await response.json()
     setTotalTickets(data.totalTickets);
     setTotalEvents(data.totalEvents);
@@ -30,10 +31,10 @@ function Organiser_Dashboard() {
   const [testVisible, setTestVisible] = useState(false);
   const [revnueVisible, setRevenueVisible] = useState(false);
   const [feedbackVisible, setfeedbackVisible] = useState(false);
-  const [totalTickets, setTotalTickets] = useState(0); // Initialize with a default value
-  const [totalEvents, setTotalEvents] = useState(0); // Initialize with a default value
-  const [totalCollection, setTotalCollection] = useState(0); // Initialize with a default value
-  const [EventsData, setEventsData] = useState(null); // Initialize with a default value
+  const [totalTickets, setTotalTickets] = useState(0); 
+  const [totalEvents, setTotalEvents] = useState(0);
+  const [totalCollection, setTotalCollection] = useState(0); 
+  const [EventsData, setEventsData] = useState(null); 
   const [overallRating, setOverallRating] =  useState(0); 
 
 
@@ -159,9 +160,9 @@ if(totalEvents==0){
         class="jumbotron "
         style={{ marginLeft: "10%", marginRight: "10%", backgroundColor: "" }}
       >
-        {testVisible && <Organiser_events />}
-        {revnueVisible && <Revenue />}
-        {feedbackVisible && <FeedbacksClass />}
+        {testVisible && <Organiser_events userId={userId} />}
+        {revnueVisible && <Revenue userId={userId} />}
+        {feedbackVisible && <FeedbacksClass userId={userId}/>}
       </div>
 
     </div>
@@ -169,4 +170,4 @@ if(totalEvents==0){
         }
 }
 
-export default Organiser_Dashboard;
+export default OrganiserDashboard;

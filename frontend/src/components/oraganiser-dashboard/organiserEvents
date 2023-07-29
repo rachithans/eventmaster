@@ -1,21 +1,21 @@
+//Author: Rachit Hans
 import React, { useState, useEffect } from "react";
 
-function Organiser_events() {
+function Organiser_events({ userId }) {
   const [data, setData] = useState(null);
 
   useEffect(() => {
-    // Fetch data from the API when the component mounts
     fetchEventsList();
   }, []);
 
   async function fetchEventsList() {
     try {
-      const response = await fetch("http://localhost:5050/organiserDashboard/EventsList/");
+      const response = await fetch(`https://eventmaster.onrender.com/organiserDashboard/EventsList?userId=${userId}`);
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }
       const eventData = await response.json();
-      setData(eventData.data.events); // Set the data in the state
+      setData(eventData.data.events); 
     } catch (error) {
       console.error("Error fetching events data:", error);
     }
@@ -29,7 +29,6 @@ function Organiser_events() {
             <div key={index}>
               <p>Total Events: {item.totalEvents}</p>
               <p>Other Data: {item.otherData}</p>
-              {/* Add other JSX elements to render data from the JSON object */}
             </div>
           ))}
         </div>

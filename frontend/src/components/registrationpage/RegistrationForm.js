@@ -47,7 +47,7 @@ function RegistrationForm() {
     }
     
     try {
-      const response = await fetch('http://localhost:5050/loginInfo/register', {
+      const response = await fetch('https://eventmaster.onrender.com/loginInfo/register', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -62,6 +62,7 @@ function RegistrationForm() {
         }
       }
       else{
+        alert("Registration Successful");
         navigate("/");
       }
     } catch (error) {
@@ -116,7 +117,7 @@ function RegistrationForm() {
                 placeholder="Password"
               />
               <Form.Control.Feedback type="invalid">
-                Password must contain at least 8 characters, 1 number, 1 upper and 1 lowercase!
+                Password must contain at least 8 characters,1 special character from '@#$%^&+=',  1 number, 1 upper and 1 lowercase!
               </Form.Control.Feedback>
             </Form.Group>
 

@@ -1,3 +1,4 @@
+//Author: Rachit Hans
 import React, { useState, useEffect } from "react";
 import { Card } from "react-bootstrap";
 import { Collapse } from "react-collapse";
@@ -8,7 +9,7 @@ import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 
 
-function Organiser_Feedback() {
+function Organiser_Feedback({ userId }) {
   const [cardExpandStates, setCardExpandStates] = useState({});
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true); // Add a loading state
@@ -26,19 +27,19 @@ function Organiser_Feedback() {
 
   async function fetchReviews() {
     try {
-      const response = await fetch('http://localhost:5050/organiserDashboard/eventsList/')
+      const response = await fetch(`https://eventmaster.onrender.com/organiserDashboard/eventsList?userId=${userId}`)
       const jsonData = await response.json();
       setData(jsonData.events);
-      setLoading(false); // Set loading to false once data is fetched
+      setLoading(false); 
       console.log(jsonData.events);
     } catch (error) {
       console.error("Error fetching event reviews:", error);
-      setLoading(false); // Set loading to false in case of an error
+      setLoading(false); 
     }
   }
 
   if (loading) {
-    return <div>Loading...</div>; // Show a loading message while fetching data
+    return <div>Loading...</div>; 
   }
 
   return (
