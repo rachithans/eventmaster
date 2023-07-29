@@ -1,3 +1,5 @@
+// Author: Sahil Sorathiya
+
 import express from "express";
 import db from "../db/conn.mjs";
 import { ObjectId } from "mongodb";
@@ -14,6 +16,16 @@ router.get("/mybookings", async (req, res) => {
     let objUserId = new ObjectId(req.query.userId);
 
     let attendee = await collectionAttnd.findOne({ userID: objUserId });
+    if (attendee === null) {
+      const allAttendees = await collectionAttnd.find().toArray();
+      const createAttendee = {
+        attendeeID: allAttendees[allAttendees.length - 1].attendeeID + 1,
+        userID: objUserId,
+        bookedTickets: [],
+      };
+      await collectionAttnd.insertOne(createAttendee);
+      attendee = await collectionAttnd.findOne({ userID: objUserId });
+    }
     const attended = attendee.bookedTickets.map((ticket) => ticket.eventID);
 
     // https://upmostly.com/tutorials/react-filter-filtering-arrays-in-react-with-examples
