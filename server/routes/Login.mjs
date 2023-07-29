@@ -84,8 +84,12 @@ router.post("/loginUser", async (req, res) => {
   else{
     try{
       const user = await db.collection("LoginInfo").findOne({email});
+      const user1 = await db.collection("LoginInfo").findOne({password});
       if(!user) {
         return res.status(400).send("Invalid email");
+      }
+      if(!user1) {
+        return res.status(400).send("Invalid password");
       }
       if(await bcrypt.compare(password, user.password)) {
         const token = jwt.sign({id: user._id, isAdmin: user.isAdmin}, process.env.JWT_SECRET, {expiresIn: "1d"});
