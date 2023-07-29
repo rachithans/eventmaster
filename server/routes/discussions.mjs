@@ -1,6 +1,10 @@
 //Author : Ayush Awasthi
 //Date created : 25th July, 2023
 
+// Tutorial 7: https://dal.brightspace.com/d2l/le/content/274269/viewContent/3608669/View
+// Tutorial 5: https://dal.brightspace.com/d2l/le/content/274269/viewContent/3608654/View
+// Used the above tutorials to configure API
+
 import express from "express";
 import db from "../db/conn.mjs";
 import { ObjectId } from 'mongodb';
