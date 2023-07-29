@@ -1,3 +1,4 @@
+//Author: Rachit Hans
 import React, { Component } from "react";
 import { Card } from "react-bootstrap";
 import { Collapse } from "react-collapse";
@@ -42,7 +43,6 @@ function Organiser_events({ userId }) {
         <div className="container EventList" style={{ marginBottom: "20%" }}>
         {data.map((event, index) => (
           <div key={index}>
-            {/* Add more properties here as needed */}
             <Card className="text-center">
             <Card.Header
               style={{ textAlign: "left" }}

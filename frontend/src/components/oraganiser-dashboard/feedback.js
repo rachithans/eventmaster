@@ -1,3 +1,4 @@
+//Author: Rachit Hans
 import React, { useState, useEffect } from "react";
 import { Card } from "react-bootstrap";
 import { Collapse } from "react-collapse";
@@ -29,16 +30,16 @@ function Organiser_Feedback({ userId }) {
       const response = await fetch(`https://eventmaster.onrender.com/organiserDashboard/eventsList?userId=${userId}`)
       const jsonData = await response.json();
       setData(jsonData.events);
-      setLoading(false); // Set loading to false once data is fetched
+      setLoading(false); 
       console.log(jsonData.events);
     } catch (error) {
       console.error("Error fetching event reviews:", error);
-      setLoading(false); // Set loading to false in case of an error
+      setLoading(false); 
     }
   }
 
   if (loading) {
-    return <div>Loading...</div>; // Show a loading message while fetching data
+    return <div>Loading...</div>; 
   }
 
   return (
