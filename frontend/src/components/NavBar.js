@@ -45,11 +45,6 @@ function NavBar({ loggedIn, isAdmin, onLogout }) {
                       </Nav.Link>
                     )}
                     { (
-                      <Nav.Link className="mx-3" as={Link} to="/ManageEvents">
-                      Manage Events
-                      </Nav.Link>
-                    )}
-                    {(location === "/") && (
                       <Nav.Link className="mx-3" as={Link} to="/createEvent">
                       Create Event
                       </Nav.Link>
