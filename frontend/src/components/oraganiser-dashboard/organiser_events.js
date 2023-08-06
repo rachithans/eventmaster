@@ -1,3 +1,4 @@
+//Author: Rachit Hans
 import React, { Component } from "react";
 import { Card } from "react-bootstrap";
 import { Collapse } from "react-collapse";
@@ -9,7 +10,7 @@ import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { useState, useEffect } from "react";
 
 
-function Organiser_events() {
+function Organiser_events({ userId }) {
 
   const [cardExpandStates, setCardExpandStates] = useState({});
 
@@ -26,7 +27,7 @@ function Organiser_events() {
   }, []);
 
   async function fetchEvents() {
-    const response = await fetch('http://localhost:5050/organiserDashboard/eventsList/')
+    const response = await fetch(`https://eventmaster.onrender.com/organiserDashboard/eventsList?userId=${userId}`)
     const jsonData = await response.json();
     setData(jsonData.events);
   }
@@ -42,7 +43,6 @@ function Organiser_events() {
         <div className="container EventList" style={{ marginBottom: "20%" }}>
         {data.map((event, index) => (
           <div key={index}>
-            {/* Add more properties here as needed */}
             <Card className="text-center">
             <Card.Header
               style={{ textAlign: "left" }}

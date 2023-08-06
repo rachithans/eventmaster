@@ -6,7 +6,7 @@ import Faq from "./components/Faq";
 import NavBar from "./components/NavBar";
 import createFooter from "./components/Footer";
 import ContactUs from "./components/ContactUs";
-import organiser_Dashboard from "./components/organiser-dashboard"
+import OrganiserDashboard from "./components/organiser-dashboard"
 
 import jwt_decode from 'jwt-decode';
 import React, { useState } from 'react';
@@ -16,6 +16,8 @@ import ForgotUser from "./components/loginpage/ForgotUser";
 import ProfilePage from "./components/Profile";
 import EventList from "./components/EventList";
 import MyBooking from "./components/MyBooking";
+import NewEvent from "./components/newevent/CreateEventForm";
+import Discussion from "./components/Discussion";
 
 
 const App = () => {
@@ -60,10 +62,12 @@ const App = () => {
           <Route path="/register" Component={Register} />
           <Route path="/Faq" Component={Faq} />
           <Route path="/ContactUs" Component={ContactUs} />
+          <Route path="/Discussion" element={<Discussion userId={userId}/>}/>
           <Route path="/forgotUserCredentials" Component={ForgotUser} />
-          <Route path="/organiser-dashboard" Component={organiser_Dashboard} />
+          <Route path="/organiser-dashboard" element={<OrganiserDashboard userId={userId} />}/>
           <Route path="/EventsList" element={<EventList userId={userId}/>}/>
           <Route path="/MyBookings" element={<MyBooking userId={userId}/>}/>
+          <Route path="/createEvent" element={<NewEvent userId={userId}/>} />
         </Routes>
         {createFooter()}
       </div>
