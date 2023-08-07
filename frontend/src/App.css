@@ -37,6 +37,13 @@
     border: 2px solid #2176FF;
   }
 
+  #submitButton:disabled {
+    background-color: #ced4da;
+    color: #6c757d;
+    cursor: not-allowed;
+  }
+
+
   .cancel-button {
     background-color: #E74C3C;
     color: white;

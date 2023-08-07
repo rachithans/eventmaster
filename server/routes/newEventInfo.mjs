@@ -43,7 +43,7 @@ router.post("/create", async (req, res) => {
         while (!isUnique) {
             newEventID = generateRandomEventID();
 
-            const existingEvent = await collection.findOne({ eventID: newEventID });
+            const existingEvent = await collection.findOne({ eventId: newEventID });
 
             if (!existingEvent) {
                 isUnique = true;
@@ -51,7 +51,7 @@ router.post("/create", async (req, res) => {
         }
 
         const newDocument = {
-            eventID: newEventID,
+            eventId: newEventID,
             eventVenue: req.body.location,
             eventDate: new Date(req.body.date),
             ticketsBooked: 0,
@@ -79,7 +79,7 @@ router.post("/create", async (req, res) => {
                     eventIDs:[newEventID]
             } 
             await collectionOrg.insertOne(createOrg);
-            orgUser = await collectionOrg.findOne({ userID: objUserId });
+            orgUser = await collectionOrg.findOne({ userId: objUserId });
 
         }
         
