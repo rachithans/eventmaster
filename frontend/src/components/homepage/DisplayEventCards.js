@@ -20,7 +20,7 @@ function DisplayEvents() {
             <Card>
               <Card.Img variant="top" src={Holi} />
               <Card.Body>
-                <Card.Title>Card Title</Card.Title>
+                <Card.Title>Festival of Colors</Card.Title>
                 <Card.Text>Festival of Colors</Card.Text>
               </Card.Body>
             </Card>
@@ -30,7 +30,7 @@ function DisplayEvents() {
             <Card>
               <Card.Img variant="top" src={BeachParty} />
               <Card.Body>
-                <Card.Title>Card Title</Card.Title>
+                <Card.Title>Color Festival</Card.Title>
                 <Card.Text>Beach Party</Card.Text>
               </Card.Body>
             </Card>
@@ -40,7 +40,7 @@ function DisplayEvents() {
             <Card>
               <Card.Img variant="top" src={Conference} />
               <Card.Body>
-                <Card.Title>Card Title</Card.Title>
+                <Card.Title>Collision</Card.Title>
                 <Card.Text>Conference</Card.Text>
               </Card.Body>
             </Card>
@@ -50,7 +50,7 @@ function DisplayEvents() {
             <Card>
               <Card.Img variant="top" src={Diwali} />
               <Card.Body>
-                <Card.Title>Card Title</Card.Title>
+                <Card.Title>Diwali</Card.Title>
                 <Card.Text>Festival of lights</Card.Text>
               </Card.Body>
             </Card>
@@ -60,7 +60,7 @@ function DisplayEvents() {
             <Card>
               <Card.Img variant="top" src={Soccer} />
               <Card.Body>
-                <Card.Title>Card Title</Card.Title>
+                <Card.Title>FIFA</Card.Title>
                 <Card.Text>Soccer Match</Card.Text>
               </Card.Body>
             </Card>
@@ -70,7 +70,7 @@ function DisplayEvents() {
             <Card>
               <Card.Img variant="top" src={RetroNight} />
               <Card.Body>
-                <Card.Title>Card Title</Card.Title>
+                <Card.Title>Dance Party</Card.Title>
                 <Card.Text>Join for a Retro Night</Card.Text>
               </Card.Body>
             </Card>
