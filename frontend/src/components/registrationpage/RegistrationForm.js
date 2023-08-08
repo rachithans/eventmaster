@@ -113,6 +113,7 @@ function RegistrationForm() {
                 isInvalid={Invalid.password}
                 required
                 name="formPassword"
+                minLength={8}
                 type="password"
                 placeholder="Password"
               />
