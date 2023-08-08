@@ -84,14 +84,17 @@ export default function MyBooking({ userId }) {
     if (count[eventId] === checkCount[eventId]) {
       setModalTitle("Please Modify Tickets");
       setModalBody([
-        "Please user '-' to decrease the number of tickets or '+' to increase the number of tickets.",
+        "Please use '-' to decrease the number of tickets or '+' to increase the number of tickets.",
       ]);
-    } else if (qty > 0) {
+      
+    } 
+    else if (qty > 0) {
       const data = {
         userId: userId,
         eventId: eventId,
         qty: qty,
       };
+    
 
       try {
         await fetch(
@@ -122,7 +125,16 @@ export default function MyBooking({ userId }) {
         ``,
       ]);
     }
+
+    if(qty === 1 && count[eventId] === checkCount[eventId]){
+        setModalTitle("Please Modify Tickets");
+        setModalBody([
+          "Please use '+' to increase the number of tickets.",
+        ]);
+      }
   };
+
+  
 
   const splitdate = (date) => {
     var eventDate = new Date(date);
