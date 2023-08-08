@@ -12,7 +12,7 @@ export default function MyBooking({ userId }) {
   // function used to get all booking list
   const getRecords = async () => {
     const response = await fetch(
-      `https://eventmaster.onrender.com/bookings/mybookings?userId=${userId}`
+      `https://eventmasterapi.onrender.com/bookings/mybookings?userId=${userId}`
     );
     const records = await response.json();
     if (records.length === 0) {
@@ -57,7 +57,7 @@ export default function MyBooking({ userId }) {
 
     try {
       await fetch(
-        "https://eventmaster.onrender.com/bookings/eventcancellation",
+        "https://eventmasterapi.onrender.com/bookings/eventcancellation",
         {
           method: "POST",
           headers: {
@@ -98,7 +98,7 @@ export default function MyBooking({ userId }) {
 
       try {
         await fetch(
-          "https://eventmaster.onrender.com/bookings/eventmodification",
+          "https://eventmasterapi.onrender.com/bookings/eventmodification",
           {
             method: "POST",
             headers: {

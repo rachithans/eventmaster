@@ -27,7 +27,7 @@ function Organiser_Feedback({ userId }) {
 
   async function fetchReviews() {
     try {
-      const response = await fetch(`https://eventmaster.onrender.com/organiserDashboard/eventsList?userId=${userId}`)
+      const response = await fetch(`https://eventmasterapi.onrender.com/organiserDashboard/eventsList?userId=${userId}`)
       const jsonData = await response.json();
       setData(jsonData.events);
       setLoading(false); 

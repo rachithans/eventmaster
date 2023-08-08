@@ -54,7 +54,7 @@ export default function NewEvent({ userId }) {
         setSuccessMessage('Event created successfully!');
          // Perform your form submission logic here
 
-         await fetch("https://eventmaster.onrender.com/newEventInfo/create", {
+         await fetch("https://eventmasterapi.onrender.com/newEventInfo/create", {
             method: "POST",
              headers: {
                 "Content-Type": "application/json",

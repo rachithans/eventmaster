@@ -14,7 +14,7 @@ const ChartComponent = ({ userId }) => {
 
   const fetchChartData = async () => {
     try {
-      const response = await fetch(`https://eventmaster.onrender.com/organiserDashboard/eventRevenue?userId=${userId}`);
+      const response = await fetch(`https://eventmasterapi.onrender.com/organiserDashboard/eventRevenue?userId=${userId}`);
       const jsonData = await response.json();
       //refrred from https://www.turing.com/kb/ways-to-create-reactjs-bar-chart
       setChartData({

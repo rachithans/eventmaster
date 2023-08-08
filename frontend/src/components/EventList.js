@@ -12,7 +12,7 @@ export default function EventList({ userId }) {
   //function is used to get all the events
   const getRecords = async () => {
     const response = await fetch(
-      `https://eventmaster.onrender.com/events/eventlist?userId=${userId}`
+      `https://eventmasterapi.onrender.com/events/eventlist?userId=${userId}`
     );
     const records = await response.json();
     setRecords(records);
@@ -58,7 +58,7 @@ export default function EventList({ userId }) {
       };
 
       try {
-        await fetch("https://eventmaster.onrender.com/events/eventbooking", {
+        await fetch("https://eventmasterapi.onrender.com/events/eventbooking", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -277,6 +277,7 @@ export default function EventList({ userId }) {
                           <div>{modalBody[0]}</div>
                         ) : (
                           <div>
+                            {modalBody}
                             <div className="form-group m-2">
                               <label htmlFor="cardNumber">Card Number</label>
                               <input
