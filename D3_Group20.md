@@ -17,24 +17,35 @@
 
 ## Testing
 
-*Basic*
+_Basic_
 
 1. Open the netlify link given above.
 2. You will fall on Home page of the website.
 3. There you can two other links which are Contact Us and Faqs link.
 4. Go to the Contact us page. Here you will be able to send the message to the developer with you name, number and email.
 5. Go to the Faqs page. Here you can access different question. For now, dummy text is used to show the content of it.
-6. Also you can create or register on the website.
 
+<!-- Below is the testing for individual features -->
 
-*Booking system*
+_Login/Logout/Register and Profile Management_
 
-For login use:  email => sahils@gmail.com   Password => Dal@6699
-Or  create new acount as attendee
+1. Load the website using the given link on netlify
+2. Cick on Register button on top
+3. It should load the registration page, type in your information for registration and remember your password because there is not way to see the password later then. An appropriate message is shown if you are registered.
+4. To check the registration, go to login page now and enter the id and password. You should be logged in and it will alert the user that login is successfull.
+5. Then click logout, it should log the user out. You will be redirected to home page. You can see that all the tabs are of homepage.
+6. Then click login again to go to login page, then click forgot password. It will redirect to forgot password page, then type in the email address you picked with a new password. After clicking change password it should then redirect the user to login page, where you can then test the changed password.
+7. Now to check the profile page, click on profile tab after logged in. It should show you the details for the current logged in user.
+8. Moreover, after logging in, you should be able to see profile management working, where if you registered as a user (attendee) you would be able to see different tabs vs you registering as an admin (organizer).
+
+_Booking system_
+
+For login use: email => sahils@gmail.com Password => Dal@6699
+Or create new acount as attendee
 
 Test 1: Open the website -> go to "Event List" -> try booking with 0 registration -> it will show error message.
 
-Test 2: Open the website -> go to "Event list" -> increment the number of reservation-> click on "Book Now" button -> it will show booking successful message with the total price. And event will beadded to my booking list. 
+Test 2: Open the website -> go to "Event list" -> increment the number of reservation-> click on "Book Now" button -> it will show booking successful message with the total price. And event will beadded to my booking list.
 
 Test 3: Open the website -> go to" My Bookings" -> increment or decrement the number of registration -> click on "Modify Booking" button -> it will show modification successful message with the new total price.
 
@@ -47,6 +58,7 @@ Test 6:All the tasks are also updating the database collections. When user booke
 ## Deployment
 
 Front-End
+
 1. Create a react app using `npx create-reate-app my-app` in terminal.
 2. Make changes or add file to the main folder.
 3. Run `npm run build` to build the app from which build folder will be published.
@@ -54,9 +66,9 @@ Front-End
 5. Click on open production delopy button to check the deployment.
 
 Back-End
+
 1. Uploded server to Github
 2. Server is hosted on render by linking the github with the Render account.
-
 
 ## Built With
 
@@ -90,108 +102,66 @@ Back-End
 18. https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date -- for accessing the date
 19. https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/padStart -- for padding the time
 20. https://render.com/ -- for server hosting
+21. https://www.mongodb.com/languages/mern-stack-tutorial - For learning MERN stack and mongo methods
+22. https://css-tricks.com/react-authentication-access-control/#:~:text=JWT%20access%20tokens&text=JWTs%20are%20compact%2C%20URL%2Dsafe,for%20authentication%20and%20access%20control.&text=It%27s%20important%20to%20note%20that,JWT%20can%20read%20its%20contents. - For learning how to use access control and tokens
+23. https://stackoverflow.com/questions/64566405/react-router-dom-v6-usenavigate-passing-value-to-another-component - For learning how to use react hooks - useLocation,useNavigate for passing state variables.
+24. https://javascript.plainenglish.io/formdata-interface-fe86ec02e01f - For learning about built in interface in JS for managing form data in key value pairs.
 
 ### LoginForm.js
 
 General components are taken from the react-bootstrap website linked above. I will mention specific parts which are used from few websites.
 
-_Lines 7-11 && 47-50 && 54-107_
+_Lines 54-100_
 
-For line 47-50
-
-```
-const passwordChecker = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/;
-// eslint-disable-next-line
-const emailChecker = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+For line 60-103
 
 ```
-
-For line 50-53
-
-```
-const handleChange = (event) => {
-        const { name, value } = event.target;
-        setFormData((formData)=>({...formData, [name]: value}));
-    };
-```
-
-For line 54-107
-
-```
-<div className='container m-auto'>
-    <div className='my-5 col-md-8  col-lg-6 p-4 rounded border mt-5 mx-auto'>
-    <h2 className='text-center'>Login</h2>
-    <Form onSubmit={handleSubmit} noValidate>
-        <Form.Group className="mb-3" controlId="emailField">
-            <Form.Label>Email address</Form.Label>
-            <Form.Control
+<>
+      <div className="container m-auto">
+        <div className="my-5 col-md-8  col-lg-6 p-4 rounded border mt-5 mx-auto">
+          <h2 className="text-center">Login</h2>
+          {passwordChangedMessage && (
+            <div className="alert alert-success">{passwordChangedMessage}</div>
+          )}
+          {Invalid.check && (<div className="alert alert-success">Incorrect ID or Email</div>)}
+          <Form onSubmit={handleSubmit} noValidate>
+            <Form.Group className="mb-3" controlId="emailField">
+              <Form.Label>Email address</Form.Label>
+              <Form.Control
                 isInvalid={Invalid.email}
                 required
-                name='email'
+                name="email"
                 type="email"
-                value={formData.email}
                 placeholder="Enter email"
-                onChange={handleChange}
-            />
-            <Form.Control.Feedback type='invalid'>
-                "Incorrect Email! Please type again."
-            </Form.Control.Feedback>
-        </Form.Group>
+              />
+              <Form.Control.Feedback type="invalid">
+                Incorrect Email! Please type again.
+              </Form.Control.Feedback>
+            </Form.Group>
 
-        <Form.Group className="mb-3" controlId="passwordField" id='passwordGroup'>
-            <Form.Label>Password</Form.Label>
-            <Form.Control
+            <Form.Group className="mb-3" controlId="passwordField" id="passwordGroup">
+              <Form.Label>Password</Form.Label>
+              <Form.Control
                 isInvalid={Invalid.password}
                 required
-                name='password'
+                name="password"
                 type="password"
-                value={formData.password}
-                minLength={8}
                 placeholder="Password"
-                onChange={handleChange}
-            />
-            <Form.Control.Feedback type='invalid'>
-                "Password must contain at least 8 characters, 1 number, 1 upper and 1 lowercase!"
-            </Form.Control.Feedback>
-        </Form.Group>
-        <Button variant="primary" type="submit">
-            Login Now
-        </Button>
-        <Button variant="danger" type="reset" className='ms-0 d-block d-sm-inline ms-sm-2 mt-2 mt-sm-0 w-sm-50'>
-            Forgot Credentials?
-        </Button>
-    </Form>
-    </div>
-</div>
-```
-
-The code above was created by adapting the code from line 7-11 [Github](https://github.com/abhishek305/simple-react-signup-form-with-validation/blob/main/src/Components/form-component.js) as shown below:
-
-```
-const emailValidator = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-const passwordValidator = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/;
-
-```
-
-The code above was created by adapting the code from line 47-50 [CodeBucks](https://dev.to/codebucks/form-validation-in-reactjs-by-building-reusable-custom-hook-1bg7) as shown below:
-
-```
-    const handleChange = (event) => {
-        //To stop default events
-        event.persist();
-
-        let name = event.target.name;
-        let val = event.target.value;
-
-        validate(event,name,val);
-        //Let's set these values in state
-
-        setValues({
-            ...values,   //spread operator to store old values
-            [name]:val,
-        })
-
-    }
+              />
+              <Form.Control.Feedback type="invalid">
+                Password must contain at least 8 characters, 1 number, 1 upper and 1 lowercase!
+              </Form.Control.Feedback>
+            </Form.Group>
+            <Button variant="primary" type="submit">
+              Login Now
+            </Button>
+            <Button variant="danger" as={Link} to="/forgotUserCredentials" className="ms-0 d-block d-sm-inline ms-sm-2 mt-2 mt-sm-0 w-sm-50">
+              Forgot Credentials?
+            </Button>
+          </Form>
+        </div>
+      </div>
+    </>
 ```
 
 The code above was created by adapting the code from line 54-107 [react-bootstrap](https://react-bootstrap.netlify.app/docs/forms/validation) as shown below:
@@ -301,12 +271,6 @@ For CodeBucks:
 - <!---Why---> [CodeBucks](https://dev.to/codebucks/form-validation-in-reactjs-by-building-reusable-custom-hook-1bg7)'s Code was used because it was required to grab data from the form and update the useState method so that it can be used to check if user has added appropriate value in the password and email field.
 - <!---How---> [CodeBucks](https://dev.to/codebucks/form-validation-in-reactjs-by-building-reusable-custom-hook-1bg7)'s Code was modified by changing the whole structure and then dynamically updating the values by using [name].
 
-For Github:
-
-- <!---How---> The code in [Github](https://github.com/abhishek305/simple-react-signup-form-with-validation/blob/main/src/Components/form-component.js) was implemented by using the regex pattern
-- <!---Why---> [Github](https://github.com/abhishek305/simple-react-signup-form-with-validation/blob/main/src/Components/form-component.js)'s Code was used because for testing the password and email against the regex pattern.
-- <!---How---> [Github](https://github.com/abhishek305/simple-react-signup-form-with-validation/blob/main/src/Components/form-component.js)'s Code was modified by using it in a different application, but the regex pattern for both email and password was available open source to be used. I used it without changing because it is very general regex pattern that is available. I asked for permission for direct use from TA Mugdha on date: May 30th, 2023.
-
 For react-bootstrap:
 
 - <!---How---> The code in [react-bootstrap](https://react-bootstrap.netlify.app/docs/forms/validation) was implemented by using the components provided by react-bootstrap in my project.
@@ -315,46 +279,69 @@ For react-bootstrap:
 
 ### RegistrationForm.js
 
-_Lines 15 - 51_
+_Lines 78 - 137_
 
 ```
-<div className="container my-5 col-md-6  col-lg-6 p-4 rounded border mt-5">
-    <h2 className="text-center">Registration</h2>
-    <Form onSubmit={handleSubmit}>
-        <Form.Group className="mb-3" controlId="formName">
-        <Form.Label>Name</Form.Label>
-        <Form.Control required type="text" placeholder="Enter Name" />
-        </Form.Group>
+<>
+      <div className="container my-5 col-md-6  col-lg-6 p-4 rounded border mt-5">
+        <h2 className="text-center">Registration</h2>
+        {userAlreadyPresent && (
+            <div className="alert alert-success">{"User already exists, please try again"}</div>
+          )}
+        <Form onSubmit={handleSubmit} noValidate>
+          <Form.Group className="mb-3" controlId="formName">
+            <Form.Label>Name</Form.Label>
+            <Form.Control required type="text" placeholder="Enter Name" name="formName"/>
+          </Form.Group>
 
-        <Form.Group className="mb-3" controlId="formUserName">
-        <Form.Label>UserName</Form.Label>
-        <Form.Control required type="text" placeholder="Enter UserName" />
-        </Form.Group>
+          <Form.Group className="mb-3" controlId="formUserName">
+            <Form.Label>UserName</Form.Label>
+            <Form.Control required type="text" placeholder="Enter UserName" name="formUserName"/>
+          </Form.Group>
 
-        <Form.Group className="mb-3" controlId="formEmail">
-        <Form.Label>Email Address</Form.Label>
-        <Form.Control required type="email" placeholder="Enter Email" />
-        </Form.Group>
+          <Form.Group className="mb-3" controlId="formEmail">
+              <Form.Label>Email address</Form.Label>
+              <Form.Control
+                isInvalid={Invalid.email}
+                required
+                name="formEmail"
+                type="email"
+                placeholder="Enter email"
+              />
+              <Form.Control.Feedback type="invalid">
+                Incorrect Email! Please type again.
+              </Form.Control.Feedback>
+            </Form.Group>
 
-        <Form.Group className="mb-3" controlId="formPassword">
-        <Form.Label>Password</Form.Label>
-        <Form.Control required type="password" placeholder="Password" />
-        </Form.Group>
+          <Form.Group className="mb-3" controlId="formPassword" id="passwordGroup">
+              <Form.Label>Password</Form.Label>
+              <Form.Control
+                isInvalid={Invalid.password}
+                required
+                name="formPassword"
+                type="password"
+                placeholder="Password"
+              />
+              <Form.Control.Feedback type="invalid">
+                Password must contain at least 8 characters, 1 number, 1 upper and 1 lowercase!
+              </Form.Control.Feedback>
+            </Form.Group>
 
-        <Form.Group className="mb-3" controlId="account_type">
-        <Form.Label>User Type</Form.Label>
-        <Form.Select>
-            <option value="">-- Select User Type --</option>
-            <option value="option1">Organizer</option>
-            <option value="option2">Attendee</option>
-        </Form.Select>
-        </Form.Group>
+          <Form.Group className="mb-3" controlId="account_type">
+            <Form.Label>User Type</Form.Label>
+            <Form.Select required type="text" placeholder="Select User Type" name="account_type">
+              <option value="">-- Select User Type --</option>
+              <option value="Organizer">Organizer</option>
+              <option value="Attendee">Attendee</option>
+            </Form.Select>
+          </Form.Group>
 
-        <Button variant="primary" type="submit">
-        Register Now
-        </Button>
-    </Form>
-</div>
+          <Button variant="primary" type="submit">
+            Register Now
+          </Button>
+        </Form>
+      </div>
+    </>
 
 ```
 
@@ -457,12 +444,224 @@ function FormExample() {
 }
 
 export default FormExample;
-
 ```
+
+#### For react-boostrap:
 
 - <!---How---> The code in [react-bootstrap](https://react-bootstrap.netlify.app/docs/forms/validation) was implemented by using the components provided by react-bootstrap in my project.
 - <!---Why---> [react-bootstrap](https://react-bootstrap.netlify.app/docs/forms/validation)'s Code was used because I wanted to implement forms using react-bootstrap
 - <!---How---> [react-bootstrap](https://react-bootstrap.netlify.app/docs/forms/validation)'s Code was modified by changing the values to how I wanted it and modifying attributes for validation.
+
+_Lines 18 - 21_
+
+```
+// eslint-disable-next-line
+    const passwordChecker = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])[0-9a-zA-Z@#$%^&+=]{4,}$/;
+    // eslint-disable-next-line
+    const emailChecker = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+```
+
+These lines were modified from the code provided in the [github](https://github.com/abhishek305/simple-react-signup-form-with-validation/blob/main/src/Components/form-component.js) as shown below:
+
+```
+const emailValidator = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+const passwordValidator = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/;
+```
+
+#### For Github:
+
+- <!---How---> The code in [Github](https://github.com/abhishek305/simple-react-signup-form-with-validation/blob/main/src/Components/form-component.js) was implemented by using the regex pattern
+- <!---Why---> [Github](https://github.com/abhishek305/simple-react-signup-form-with-validation/blob/main/src/Components/form-component.js)'s Code was used because for testing the password and email against the regex pattern.
+- <!---How---> [Github](https://github.com/abhishek305/simple-react-signup-form-with-validation/blob/main/src/Components/form-component.js)'s Code was modified by using it in a different application, but the regex pattern for both email and password was available open source to be used. I used it without changing because it is very general regex pattern that is available. I asked for permission for direct use from TA Mugdha on date: May 30th, 2023.
+
+### Logininfo.mjs
+
+_Lines 14 - 130_
+
+```
+// This section will help you get user details by id.
+router.get("/users/:id", async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const objectId = new ObjectId(id);
+    const collection = await db.collection("LoginInfo");
+    const user = await collection.findOne({ _id: objectId });
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    // Removing sensitive information
+    const { password, ...userData } = user;
+
+    res.json(userData);
+  } catch (error) {
+    console.error("Error fetching user details:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
+// This section will help you create a new record.
+router.post("/register", async (req, res) => {
+
+  try{
+    // Check if the user already exists
+    let collection = await db.collection("LoginInfo");
+    let user = await collection.findOne({username: req.body.username});
+    if(user) {
+      return res.status(400).send("User already exists");
+    }
+
+    user = await collection.findOne({email: req.body.email});
+    if(user) {
+      return res.status(400).send("User already exists");
+    }
+
+    // Hash the password
+    if(req.body.userType === "Organizer"){
+      req.body.userType = 1;
+    }
+    else{
+      req.body.userType = 0;
+    }
+    const hashedPassword = await bcrypt.hash(req.body.password, saltRounds);
+    let newDocument = {
+    username: req.body.username,
+    password: hashedPassword,
+    isAdmin: req.body.userType,
+    name: req.body.name,
+    email: req.body.email
+  };
+    let result = await collection.insertOne(newDocument);
+    res.send(result).status(204);
+  }
+  catch (error){
+    console.log(error);
+    res.send("Internal server error").status(500);
+  }
+
+});
+
+// This section will help you login in.
+router.post("/loginUser", async (req, res) => {
+  const {email, password} = req.body;
+  if (!email || !password) {
+    return res.status(400).send("Please provide email and password");
+  }
+  else{
+    try{
+      const user = await db.collection("LoginInfo").findOne({email});
+      if(!user) {
+        return res.status(400).send("Invalid email");
+      }
+      if(await bcrypt.compare(password, user.password)) {
+        const token = jwt.sign({id: user._id, isAdmin: user.isAdmin}, process.env.JWT_SECRET, {expiresIn: "1d"});
+        return res.status(200).json({token});
+      }
+    }
+    catch(error){
+      console.log(error);
+      res.send("Internal server error").status(500);
+    }
+  }
+});
+
+// This section will help you update your password
+router.post("/forgotPassword", async (req, res) => {
+  try{
+    // Check if the user already exists
+    let collection = await db.collection("LoginInfo");
+    const user = await collection.findOne({email: req.body.email});
+    if(!user) {
+      return res.status(400).send("User not found");
+    }
+
+    // Hash the password
+    const hashedPassword = await bcrypt.hash(req.body.password, saltRounds);
+    // Update the user's password
+    let result = await collection.updateOne({email: req.body.email}, {$set: {password: hashedPassword}});
+    res.send(result).status(204);
+  }
+  catch (error){
+    console.log(error);
+    res.send("Internal server error").status(500);
+  }
+
+});
+```
+
+The code above was created by adapting the code in [mongodb.com](https://www.mongodb.com/languages/mern-stack-tutorial) as shown below:
+
+```
+import express from "express";
+import db from "../db/conn.mjs";
+import { ObjectId } from "mongodb";
+
+const router = express.Router();
+
+// This section will help you get a list of all the records.
+router.get("/", async (req, res) => {
+  let collection = await db.collection("records");
+  let results = await collection.find({}).toArray();
+  res.send(results).status(200);
+});
+
+// This section will help you get a single record by id
+router.get("/:id", async (req, res) => {
+  let collection = await db.collection("records");
+  let query = {_id: new ObjectId(req.params.id)};
+  let result = await collection.findOne(query);
+
+  if (!result) res.send("Not found").status(404);
+  else res.send(result).status(200);
+});
+
+// This section will help you create a new record.
+router.post("/", async (req, res) => {
+  let newDocument = {
+    name: req.body.name,
+    position: req.body.position,
+    level: req.body.level,
+  };
+  let collection = await db.collection("records");
+  let result = await collection.insertOne(newDocument);
+  res.send(result).status(204);
+});
+
+// This section will help you update a record by id.
+router.patch("/:id", async (req, res) => {
+  const query = { _id: new ObjectId(req.params.id) };
+  const updates =  {
+    $set: {
+      name: req.body.name,
+      position: req.body.position,
+      level: req.body.level
+    }
+  };
+
+  let collection = await db.collection("records");
+  let result = await collection.updateOne(query, updates);
+
+  res.send(result).status(200);
+});
+
+// This section will help you delete a record
+router.delete("/:id", async (req, res) => {
+  const query = { _id: new ObjectId(req.params.id) };
+
+  const collection = db.collection("records");
+  let result = await collection.deleteOne(query);
+
+  res.send(result).status(200);
+});
+
+export default router;
+```
+
+- <!---How---> The code in [mongodb.com](https://www.mongodb.com/languages/mern-stack-tutorial) was implemented by using the knowledge about how to make a custom API using mongo db.
+- <!---Why---> [mongodb.com](https://www.mongodb.com/languages/mern-stack-tutorial)'s Code was used because I wanted to implement the API functionality for loggin in.
+- <!---How---> [mongodb.com](https://www.mongodb.com/languages/mern-stack-tutorial)'s Code was modified by changing the whole code structure and using my logic to implement the login functionality.
 
 ### App.js
 
@@ -630,10 +829,9 @@ The code above was created by adapting the code in [Bootstrap](https://getbootst
 - <!---Why---> [Bootstrap](https://getbootstrap.com/docs/4.0/components/forms/)'s Code was used to display the form for registration.
 - <!---How---> [Bootstrap](https://getbootstrap.com/docs/4.0/components/forms/)'s Code was modified by [Sahil Sorathiya](sahil.sorathiya@dal.ca).Few new input fields are added to it.
 
-
 ### Event.js
 
-*Lines 34 - 41*
+_Lines 34 - 41_
 
 ```
   const countDecrease = (eventId) => {
@@ -654,7 +852,7 @@ The code above was created by adapting the code in [Bootstrap](https://getbootst
 
 ```
 
-The code above was created by adapting the code in [Stackoverflow](https://stackoverflow.com/questions/47647269/how-to-get-spread-operator-updating-state-with-react) as shown below: 
+The code above was created by adapting the code in [Stackoverflow](https://stackoverflow.com/questions/47647269/how-to-get-spread-operator-updating-state-with-react) as shown below:
 
 ```
 this.setState(prevState => ({
@@ -664,8 +862,7 @@ this.setState(prevState => ({
 
 ```
 
-
-*Lines 52 - 84*
+_Lines 52 - 84_
 
 ```
  const handleBooking = async (eventId, qty, price) => {
@@ -704,15 +901,15 @@ this.setState(prevState => ({
 
 ```
 
-The code above was created by adapting the code in [MongoDB](https://www.mongodb.com/languages/mern-stack-tutorial) as shown below: 
+The code above was created by adapting the code in [MongoDB](https://www.mongodb.com/languages/mern-stack-tutorial) as shown below:
 
 ```
  async function onSubmit(e) {
    e.preventDefault();
- 
+
    // When a post request is sent to the create url, we'll add a new record to the database.
    const newPerson = { ...form };
- 
+
    await fetch("http://localhost:5050/record", {
      method: "POST",
      headers: {
@@ -728,8 +925,7 @@ The code above was created by adapting the code in [MongoDB](https://www.mongodb
 
 ```
 
-
-*Lines 141 - 158*
+_Lines 141 - 158_
 
 ```
 <div className=" text-center mx-auto my-4">
@@ -749,7 +945,7 @@ The code above was created by adapting the code in [MongoDB](https://www.mongodb
 
 ```
 
-The code above was created by adapting the code in [CodePen](https://codepen.io/rkoms/pen/OJbrGKX) as shown below: 
+The code above was created by adapting the code in [CodePen](https://codepen.io/rkoms/pen/OJbrGKX) as shown below:
 
 ```
 <div class="number">
@@ -760,10 +956,7 @@ The code above was created by adapting the code in [CodePen](https://codepen.io/
 
 ```
 
-
-
-
-*Lines 177 - 208*
+_Lines 177 - 208_
 
 ```
 <div className="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"> <div className="modal-dialog">
@@ -789,7 +982,7 @@ The code above was created by adapting the code in [CodePen](https://codepen.io/
 
 ```
 
-The code above was created by adapting the code in [Bootstrap](https://getbootstrap.com/docs/5.3/components/modal/) as shown below: 
+The code above was created by adapting the code in [Bootstrap](https://getbootstrap.com/docs/5.3/components/modal/) as shown below:
 
 ```
 <!-- Button trigger modal -->
@@ -818,10 +1011,9 @@ The code above was created by adapting the code in [Bootstrap](https://getbootst
 
 ```
 
-
 ### MyBooking.js
 
-*Lines 37 - 51*
+_Lines 37 - 51_
 
 ```
 const countDecrease = (eventId) => {
@@ -842,7 +1034,7 @@ setCount((initialCount) => ({
 
 ```
 
-The code above was created by adapting the code in [Stackoverflow](https://stackoverflow.com/questions/47647269/how-to-get-spread-operator-updating-state-with-react) as shown below: 
+The code above was created by adapting the code in [Stackoverflow](https://stackoverflow.com/questions/47647269/how-to-get-spread-operator-updating-state-with-react) as shown below:
 
 ```
 this.setState(prevState => ({
@@ -852,7 +1044,7 @@ this.setState(prevState => ({
 
 ```
 
-*Lines 53 - 126*
+_Lines 53 - 126_
 
 ```
 const handleCancellation = async (eventId, price) => {
@@ -932,15 +1124,15 @@ if (count[eventId] === checkCount[eventId]) {
 
 ```
 
-The code above was created by adapting the code in [MongoDB](https://www.mongodb.com/languages/mern-stack-tutorial) as shown below: 
+The code above was created by adapting the code in [MongoDB](https://www.mongodb.com/languages/mern-stack-tutorial) as shown below:
 
 ```
  async function onSubmit(e) {
    e.preventDefault();
- 
+
    // When a post request is sent to the create url, we'll add a new record to the database.
    const newPerson = { ...form };
- 
+
    await fetch("http://localhost:5050/record", {
      method: "POST",
      headers: {
@@ -956,7 +1148,7 @@ The code above was created by adapting the code in [MongoDB](https://www.mongodb
 
 ```
 
-*Lines 263 - 293, 218 - 248*
+_Lines 263 - 293, 218 - 248_
 
 ```
 <div
@@ -1016,25 +1208,23 @@ The code above was created by adapting the code in [Bootstrap](https://getbootst
 </div>
 ```
 
-
 ## Acknowledgments
 
-* abhishekh305, his github page helped me learn a lot about how form validation works
-* react-bootstrap documentation helped me learn a lot about how to use react.
-* [Esther Itolima](https://dev.to/esedev/how-to-pass-and-access-data-from-one-route-to-another-with-uselocation-usenavigate-usehistory-hooks-1g5m)'s post used to learn about how to redirect from one page to another and also how to pass the data.
-* [OriginalGriff](https://www.codeproject.com/Questions/1064433/Regex-which-will-accept-alphanumeric-with-special)'s post was used to to create regex for password that can also accept alpha numberics values and special characters.
-* [W3Schools](https://www.w3schools.com/tags/att_input_minlength.asp#:~:text=The%20minlength%20attribute%20specifies%20the,tel%2C%20email%2C%20and%20password.)'s tutorial was used to learned about how to apply lenght requirement in input field.
-* [tanguy_k](https://stackoverflow.com/questions/41936524/validation-of-form-input-fields-in-react)'s post was used to learn about to implement html validation.
-* [CodeWithHarry](https://www.youtube.com/watch?v=RGKi6LSPDLU&t=1s&ab_channel=CodeWithHarry)'s youtube tutorial video was used to gain basic understanding of react.
-* [CodePen](https://codepen.io/rkoms)'s code was you to take an idea about counter.
-* [Coolors](https://coolors.co/0a2239-2176ff-48a9a6-e74c3c-27ae60-2b303a-737373-f6f7fa) was used to create colour pallet.
-* [Bootstrap](https://getbootstrap.com/docs/5.0/getting-started/introduction/) was used to see different class of bootstrap framework.
-* This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-* [React](https://legacy.reactjs.org/docs/hooks-effect.html) was used to learn about use Effect.
-* [Render](https://render.com/) was used to host the server.
-* [MongoDB](https://www.mongodb.com/languages/mern-stack-tutorial) was used to learn about MERN stack.
-* [Netlify](https://www.netlify.com/) - Used for deployment of the project.
-
+- abhishekh305, his github page helped us learn a lot about how form validation works
+- react-bootstrap documentation helped us learn a lot about how to use react.
+- [Esther Itolima](https://dev.to/esedev/how-to-pass-and-access-data-from-one-route-to-another-with-uselocation-usenavigate-usehistory-hooks-1g5m)'s post used to learn about how to redirect from one page to another and also how to pass the data.
+- [OriginalGriff](https://www.codeproject.com/Questions/1064433/Regex-which-will-accept-alphanumeric-with-special)'s post was used to to create regex for password that can also accept alpha numberics values and special characters.
+- [W3Schools](https://www.w3schools.com/tags/att_input_minlength.asp#:~:text=The%20minlength%20attribute%20specifies%20the,tel%2C%20email%2C%20and%20password.)'s tutorial was used to learned about how to apply lenght requirement in input field.
+- [tanguy_k](https://stackoverflow.com/questions/41936524/validation-of-form-input-fields-in-react)'s post was used to learn about to implement html validation.
+- [CodeWithHarry](https://www.youtube.com/watch?v=RGKi6LSPDLU&t=1s&ab_channel=CodeWithHarry)'s youtube tutorial video was used to gain basic understanding of react.
+- [CodePen](https://codepen.io/rkoms)'s code was you to take an idea about counter.
+- [Coolors](https://coolors.co/0a2239-2176ff-48a9a6-e74c3c-27ae60-2b303a-737373-f6f7fa) was used to create colour pallet.
+- [Bootstrap](https://getbootstrap.com/docs/5.0/getting-started/introduction/) was used to see different class of bootstrap framework.
+- This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+- [React](https://legacy.reactjs.org/docs/hooks-effect.html) was used to learn about use Effect.
+- [Render](https://render.com/) was used to host the server.
+- [MongoDB](https://www.mongodb.com/languages/mern-stack-tutorial) was used to learn about MERN stack.
+- [Netlify](https://www.netlify.com/) - Used for deployment of the project.
 
 ## References
 
@@ -1044,3 +1234,5 @@ The code above was created by adapting the code in [Bootstrap](https://getbootst
 4. B. Jain, “CSCI 4177 INDIVIDUAL ASSIGNMENT 1.” Summer Term, Dalhousie University, [online document], 2023. [Accessed June 18, 2023]
 5. S. Sorathiya, R. Hans, B. Jain, A. Awasthi, M. Eltazy, Group 20“CSCI 4177 Project Proposal” Summer Term, Dalhousie University, [online document, code], 2023. [Accessed July 26, 2023]
 6. S. Sorathiya, “CSCI 4177 INDIVIDUAL ASSIGNMENT 3.” Summer Term, Dalhousie University, [online document], 2023. [Accessed July 20, 2023]
+7. B. Jain, “CSCI 4177 INDIVIDUAL ASSIGNMENT 2.” Summer Term, Dalhousie University, [online document], 2023. [Accessed Jul 24, 2023]
+8. B. Jain, “CSCI 4177 INDIVIDUAL ASSIGNMENT 3.” Summer Term, Dalhousie University, [online document], 2023. [Accessed Aug 8, 2023]
