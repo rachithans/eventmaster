@@ -55,6 +55,15 @@ Test 5: Open the website -> go to" My Bookings" -> select event with more than 0
 
 Test 6:All the tasks are also updating the database collections. When user booked thetickets, number of tickets booked, total revenue generated are updatedito events colection. Also booked tickets for attendeeisalso updatedin attendee collection.
 
+_Event Builder_
+
+1. Visit the Event Master website.
+2. Click on login and complete the login form using your credentials used at signup.
+3. Click on "Create Event" from the navbar
+4. Complete the "New Event" form.
+5. Click on "Create Event" button
+6. Green pop up will show and you will be redirected to home page if successful. Otherwise proper error message will show.
+
 ## Deployment
 
 Front-End
@@ -1230,6 +1239,59 @@ The code above was created by adapting the code in [Bootstrap](https://getbootst
 </div>
 ```
 
+### newEventInfo.mjs
+
+The overall structure and layout of this file was adopted and developed off of the file mern/server/routes/record.mjs from the MongoDB MERN stack tutorial. (https://www.mongodb.com/languages/mern-stack-tutorial) 
+
+_Lines 70-82 have been developed with the aid of line 17-30 from server/routes/Events.mjs created by Rachit Hans
+---
+const collectionOrg = await db.collection("Organizers");
+        const objUserId = new ObjectId(req.body.organizerID);
+        const orgUser = await collectionOrg.findOne({ userID: objUserId });
+
+        if(orgUser === null){
+            const allOrgs = await collectionOrg.find().toArray();
+            const createOrg = {
+                    organizerID: allOrgs[allOrgs.length - 1].organizerID+1,
+                    userID: objUserId,
+                    eventIDs:[newEventID]
+            } 
+            await collectionOrg.insertOne(createOrg);
+            orgUser = await collectionOrg.findOne({ userID: objUserId });
+
+        }
+---
+
+
+### CreateEventForm.js
+
+The overall structure and layout of this file was adopted and developed off of the file mern/client/src/components/create.js  from the MongoDB MERN stack tutorial. (https://www.mongodb.com/languages/mern-stack-tutorial)  
+
+Line 6-24 was adopted and developed directly using the above link as a walkthrough guide
+
+--
+export default function NewEvent({ userId }) {
+ const [form, setForm] = useState({
+   eventName: "",
+   description: "",
+   date: new Date(),
+   location: "",
+   capacity: "",
+   price: "",
+   organizerID: userId
+ });
+ const navigate = useNavigate();
+ const [errorMessage, setErrorMessage] = useState('');
+ const [successMessage, setSuccessMessage] = useState('');
+ 
+ // These methods will update the state properties.
+ function updateForm(value) {
+   return setForm((prev) => {
+     return { ...prev, ...value };
+   });
+ }
+--
+
 ## Acknowledgments
 
 - abhishekh305, his github page helped us learn a lot about how form validation works
@@ -1258,3 +1320,5 @@ The code above was created by adapting the code in [Bootstrap](https://getbootst
 6. S. Sorathiya, “CSCI 4177 INDIVIDUAL ASSIGNMENT 3.” Summer Term, Dalhousie University, [online document], 2023. [Accessed July 20, 2023]
 7. B. Jain, “CSCI 4177 INDIVIDUAL ASSIGNMENT 2.” Summer Term, Dalhousie University, [online document], 2023. [Accessed Jul 24, 2023]
 8. B. Jain, “CSCI 4177 INDIVIDUAL ASSIGNMENT 3.” Summer Term, Dalhousie University, [online document], 2023. [Accessed Aug 8, 2023]
+9. M. Eltazy, “CSCI 4177 INDIVIDUAL ASSIGNMENT 2.” Summer Term, Dalhousie University, [online document], 2023. [Accessed Jul 20, 2023]
+10. B. Eltazy, “CSCI 4177 INDIVIDUAL ASSIGNMENT 3.” Summer Term, Dalhousie University, [online document], 2023. [Accessed Aug 9, 2023]
