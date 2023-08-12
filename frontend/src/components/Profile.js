@@ -10,7 +10,7 @@ function ProfilePage({ loggedIn, isAdmin, userId}) {
     // Fetch user details from the API endpoint
     const fetchUserData = async () => {
       try {
-        const response = await fetch(`https://eventmaster.onrender.com/loginInfo/users/${id}`);
+        const response = await fetch(`https://eventmasterapi.onrender.com/loginInfo/users/${id}`);
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }

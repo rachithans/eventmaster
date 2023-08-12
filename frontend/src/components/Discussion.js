@@ -27,7 +27,7 @@ const Discussion = ({ userId }) => {
   //The following function makes a GET request to the server to obtain comments
   const fetchComments = async () => {
     try {
-      const response = await axios.get("https://eventmaster.onrender.com/discussion/discussions");
+      const response = await axios.get("https://eventmasterapi.onrender.com/discussion/discussions");
       setComments(response.data);
     } catch (error) {
       console.error("Error fetching comments:", error);
@@ -41,7 +41,7 @@ const Discussion = ({ userId }) => {
       try {
             const email = localStorage.getItem("email")
     
-        await axios.post("https://eventmaster.onrender.com/discussion/discussions/${userId}", { content: newComment , email:email});
+        await axios.post("https://eventmasterapi.onrender.com/discussion/discussions/${userId}", { content: newComment , email:email});
         setNewComment("");
         fetchComments();
       } catch (error) {

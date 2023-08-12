@@ -34,7 +34,7 @@ function ForgotUser() {
       };
 
       try {
-        const response = await fetch('https://eventmaster.onrender.com/loginInfo/forgotPassword', {
+        const response = await fetch('https://eventmasterapi.onrender.com/loginInfo/forgotPassword', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

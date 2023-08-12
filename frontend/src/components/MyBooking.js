@@ -12,7 +12,7 @@ export default function MyBooking({ userId }) {
   // function used to get all booking list
   const getRecords = async () => {
     const response = await fetch(
-      `https://eventmaster.onrender.com/bookings/mybookings?userId=${userId}`
+      `https://eventmasterapi.onrender.com/bookings/mybookings?userId=${userId}`
     );
     const records = await response.json();
     if (records.length === 0) {
@@ -57,7 +57,7 @@ export default function MyBooking({ userId }) {
 
     try {
       await fetch(
-        "https://eventmaster.onrender.com/bookings/eventcancellation",
+        "https://eventmasterapi.onrender.com/bookings/eventcancellation",
         {
           method: "POST",
           headers: {
@@ -84,18 +84,21 @@ export default function MyBooking({ userId }) {
     if (count[eventId] === checkCount[eventId]) {
       setModalTitle("Please Modify Tickets");
       setModalBody([
-        "Please user '-' to decrease the number of tickets or '+' to increase the number of tickets.",
+        "Please use '-' to decrease the number of tickets or '+' to increase the number of tickets.",
       ]);
-    } else if (qty > 0) {
+      
+    } 
+    else if (qty > 0) {
       const data = {
         userId: userId,
         eventId: eventId,
         qty: qty,
       };
+    
 
       try {
         await fetch(
-          "https://eventmaster.onrender.com/bookings/eventmodification",
+          "https://eventmasterapi.onrender.com/bookings/eventmodification",
           {
             method: "POST",
             headers: {
@@ -122,7 +125,16 @@ export default function MyBooking({ userId }) {
         ``,
       ]);
     }
+
+    if(qty === 1 && count[eventId] === checkCount[eventId]){
+        setModalTitle("Please Modify Tickets");
+        setModalBody([
+          "Please use '+' to increase the number of tickets.",
+        ]);
+      }
   };
+
+  
 
   const splitdate = (date) => {
     var eventDate = new Date(date);

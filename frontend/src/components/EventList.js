@@ -5,13 +5,14 @@ import React, { useEffect, useState } from "react";
 export default function EventList({ userId }) {
   const [records, setRecords] = useState([]);
   const [modalTitle, setModalTitle] = useState("");
-  const [modalBody, setModalBody] = useState("");
+  const [modalBody, setModalBody] = useState("", "", "error");
   const [count, setCount] = useState([]);
+  const [submit, setSubmit] = useState(true);
 
   //function is used to get all the events
   const getRecords = async () => {
     const response = await fetch(
-      `https://eventmaster.onrender.com/events/eventlist?userId=${userId}`
+      `https://eventmasterapi.onrender.com/events/eventlist?userId=${userId}`
     );
     const records = await response.json();
     setRecords(records);
@@ -25,7 +26,7 @@ export default function EventList({ userId }) {
 
   useEffect(() => {
     getRecords();
-  },[userId]);
+  }, [userId]);
 
   // https://stackoverflow.com/questions/55342406/updating-and-merging-state-object-using-react-usestate-hook
   // https://stackoverflow.com/questions/47647269/how-to-get-spread-operator-updating-state-with-react
@@ -57,25 +58,32 @@ export default function EventList({ userId }) {
       };
 
       try {
-        await fetch(
-          "https://eventmaster.onrender.com/events/eventbooking",
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(data),
-          }
-        );
-        setModalTitle("Booking Successful!!");
-        setModalBody([
-          "Your ticket are booked. Enjoy your  event.",
-          `Total Price ($${price * qty}) = Qty(${qty}) X Price($${price})`,
-        ]);
+        await fetch("https://eventmasterapi.onrender.com/events/eventbooking", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        });
       } catch (error) {
         setModalTitle("Booking Failed!!");
         setModalBody(["Please try again.", ``]);
       }
+    }
+
+    clearForm();
+
+    setTimeout(200);
+    getRecords();
+  };
+
+  const getPrice = (qty, price) => {
+    if (qty > 0) {
+      setModalTitle("Payment Details");
+      setModalBody([
+        "Your ticket are booked. Enjoy your  event.",
+        `Total Price ($${price * qty}) = Qty(${qty}) X Price($${price})`,
+      ]);
     } else {
       setModalTitle("Please Enter Number of Tickets");
       setModalBody(["Use '+' button to enter number of tickets.", ``]);
@@ -102,14 +110,93 @@ export default function EventList({ userId }) {
     ];
 
     return [
-      `${eventDate.getUTCFullYear()}, ${
-        months[eventDate.getUTCMonth()]
+      `${eventDate.getUTCFullYear()}, ${months[eventDate.getUTCMonth()]
       } ${eventDate.getUTCDate()}`,
       `${eventDate.getUTCHours()}:${eventDate
         .getUTCMinutes()
         .toString()
         .padStart(2, "0")}`,
     ];
+  };
+
+  const clearForm = () => {
+    document.getElementById("cardNumberValidation").textContent = "";
+    document.getElementById("cardNumber").value = "";
+
+    document.getElementById("cardCvvValidation").textContent = "";
+    document.getElementById("cvv").value = "";
+
+    document.getElementById("nameValidation").textContent = "";
+    document.getElementById("cardHolderName").value = "";
+
+    document.getElementById("dateValidation").textContent = "";
+    document.getElementById("expiryDate").value = "";
+
+    setSubmit(true);
+
+    console.log("document.getElementById().value");
+  };
+
+  const validateCardNumber = () => {
+    const cardNumberInput = document.getElementById("cardNumber").value;
+    if (/\d{16}/.test(cardNumberInput)) {
+      document.getElementById("cardNumberValidation").textContent = "";
+    } else {
+      document.getElementById("cardNumberValidation").textContent =
+        "Please enter 16 digit number only.";
+    }
+    validate();
+  };
+
+  const validateCvv = () => {
+    const cvvInput = document.getElementById("cvv").value;
+    if (/\d{3}/.test(cvvInput)) {
+      document.getElementById("cardCvvValidation").textContent = "";
+    } else {
+      document.getElementById("cardCvvValidation").textContent =
+        "Please enter 3 digit number only.";
+    }
+    validate();
+  };
+
+  const validateName = () => {
+    const nameInput = document.getElementById("cardHolderName").value;
+    if (/[a-zA-Z\s]+/.test(nameInput)) {
+      document.getElementById("nameValidation").textContent = "";
+    } else {
+      document.getElementById("nameValidation").textContent =
+        "Please enter alphabets only.";
+    }
+    validate();
+  };
+
+  const validateDate = () => {
+    const dateInput = document.getElementById("expiryDate").value;
+    if (/[0-9\/]+/.test(dateInput)) {
+      document.getElementById("dateValidation").textContent = "";
+    } else {
+      document.getElementById("dateValidation").textContent =
+        "Please enter valid date";
+    }
+    validate();
+  };
+
+  const validate = () => {
+    const cvvInput = document.getElementById("cvv").value;
+    const cardNumberInput = document.getElementById("cardNumber").value;
+    const nameInput = document.getElementById("cardHolderName").value;
+    const dateInput = document.getElementById("expiryDate").value;
+
+    if (
+      /\d{3}/.test(cvvInput) &&
+      /\d{16}/.test(cardNumberInput) &&
+      /[a-zA-Z\s]+/.test(nameInput) &&
+      /[0-9\/{1}]+/.test(dateInput)
+    ) {
+      setSubmit(false);
+    } else {
+      setSubmit(true);
+    }
   };
 
   return (
@@ -157,23 +244,19 @@ export default function EventList({ userId }) {
                   </button>
                 </div>
                 <button className="normal-button">Ask Questions</button>
-                <div className=""><button
-                  className="booking-button"
-                  onClick={() =>
-                    handleBooking(
-                      record.eventId,
-                      count[record.eventId],
-                      record.ticketPrice
-                    )
-                  }
-                  data-bs-toggle="modal"
-                  data-bs-target="#exampleModal"
-                >
-                  Book Now
-                </button></div>
-                
+                <div className="">
+                  <button
+                    className="booking-button"
+                    onClick={() =>
+                      getPrice(count[record.eventId], record.ticketPrice)
+                    }
+                    data-bs-toggle="modal"
+                    data-bs-target="#exampleModal"
+                  >
+                    Book Now
+                  </button>
+                </div>
 
-                {/* https://getbootstrap.com/docs/5.3/components/modal/ */}
                 <div
                   className="modal fade"
                   id="exampleModal"
@@ -189,24 +272,125 @@ export default function EventList({ userId }) {
                         </h1>
                       </div>
                       <div className="modal-body">
-                        <p>{modalBody[0]}</p>
-                        <p>{modalBody[1]}</p>
+                        {modalBody[0] ===
+                          "Use '+' button to enter number of tickets." ? (
+                          <div>{modalBody[0]}</div>
+                        ) : (
+                          <div>
+                            {modalBody}
+                            <div className="form-group m-2">
+                              <label htmlFor="cardNumber">Card Number</label>
+                              <input
+                                type="integer"
+                                className="form-control"
+                                id="cardNumber"
+                                placeholder="Enter 16 digits card number"
+                                maxLength="16"
+                                onInput={validateCardNumber}
+                                required
+                              />
+                              <div
+                                id="cardNumberValidation"
+                                className="form-text text-danger"
+                              ></div>
+                            </div>
+                            <div className="form-group m-2">
+                              <label htmlFor="cardHolderName">
+                                Card Holder Name
+                              </label>
+                              <input
+                                type="text"
+                                className="form-control"
+                                id="cardHolderName"
+                                placeholder="Enter card holder name"
+                                onInput={validateName}
+                                required
+                              />
+                              <div
+                                id="nameValidation"
+                                className="form-text text-danger"
+                              ></div>
+                            </div>
+                            <div className="form-group m-2">
+                              <label htmlFor="expiryDate">Expiry Date</label>
+                              <input
+                                type="text"
+                                className="form-control"
+                                id="expiryDate"
+                                placeholder="MM/YY"
+                                onInput={validateDate}
+                                required
+                              />
+                              <div
+                                id="dateValidation"
+                                className="form-text text-danger"
+                              ></div>
+                            </div>
+                            <div className="form-group m-2">
+                              <label htmlFor="cvv">CVV</label>
+                              <input
+                                type="text"
+                                className="form-control"
+                                id="cvv"
+                                placeholder="CVV"
+                                maxLength="3"
+                                onInput={validateCvv}
+                                required
+                              />
+                              <div
+                                id="cardCvvValidation"
+                                className="form-text text-danger"
+                              ></div>
+                            </div>
+                          </div>
+                        )}
                       </div>
+
                       <div className="modal-footer">
-                        <button
-                          type="button"
-                          className="bg-primary"
-                          data-bs-dismiss="modal"
-                          onClick={getRecords}
-                        >
-                          Close
-                        </button>
+                        {modalBody[0] ===
+                          "Use '+' button to enter number of tickets." ? (
+                          <button
+                            type="button"
+                            className="normal-button"
+                            data-bs-dismiss="modal"
+                          >
+                            Close
+                          </button>
+                        ) : (
+                          <div>
+                            <button
+                              type="button"
+                              className="normal-button"
+                              onClick={clearForm}
+                              data-bs-dismiss="modal"
+                            >
+                              Close
+                            </button>
+                            <button
+                              type="submit"
+                              id="submitButton"
+                              className="booking-button"
+                              onClick={() => {
+                                handleBooking(
+                                  record.eventId,
+                                  count[record.eventId],
+                                  record.ticketPrice
+                                );
+                              }}
+                              data-bs-dismiss="modal"
+                              disabled={submit ? true : false}
+                            >
+                              Submit Payment
+                            </button>
+                          </div>
+                        )}
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
+
             <p className="mt-2">{record.description}</p>
             <p>
               <b className="price">${record.ticketPrice}</b>/ticket
