@@ -1253,7 +1253,7 @@ The code above was created by adapting the code in [Bootstrap](https://getbootst
 The overall structure and layout of this file was adopted and developed off of the file mern/server/routes/record.mjs from the MongoDB MERN stack tutorial. (https://www.mongodb.com/languages/mern-stack-tutorial) 
 
 _Lines 70-82 have been developed with the aid of line 17-30 from server/routes/Events.mjs created by Rachit Hans
----
+```
 const collectionOrg = await db.collection("Organizers");
         const objUserId = new ObjectId(req.body.organizerID);
         const orgUser = await collectionOrg.findOne({ userID: objUserId });
@@ -1269,7 +1269,7 @@ const collectionOrg = await db.collection("Organizers");
             orgUser = await collectionOrg.findOne({ userID: objUserId });
 
         }
----
+```
 
 
 ### CreateEventForm.js
@@ -1278,7 +1278,7 @@ The overall structure and layout of this file was adopted and developed off of t
 
 Line 6-24 was adopted and developed directly using the above link as a walkthrough guide
 
---
+```
 export default function NewEvent({ userId }) {
  const [form, setForm] = useState({
    eventName: "",
@@ -1299,7 +1299,8 @@ export default function NewEvent({ userId }) {
      return { ...prev, ...value };
    });
  }
---
+}
+```
 
 ## Acknowledgments
 
