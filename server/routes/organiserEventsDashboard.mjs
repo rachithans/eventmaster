@@ -5,8 +5,8 @@ import { ObjectId } from "mongodb/lib/bson.js";
 
 const router = express.Router();
 
-
-router.get("/organiser-dashboard", async (req, res) => {
+//This function gets the overall information of organiser-dashboard
+router.get("/organiserDashboard", async (req, res) => {
     try {
         
         const collection = await db.collection("Organizers");
@@ -39,7 +39,7 @@ router.get("/organiser-dashboard", async (req, res) => {
     
   });
   
-  
+  // this function gets the list of the events hostes by organiser
 router.get("/eventsList", async (req, res) => {
     try {
         const collection = await db.collection("Organizers");
@@ -64,6 +64,8 @@ router.get("/eventsList", async (req, res) => {
       }
     
   });
+
+  //this functoin gets the information of revenue generated in each event
   router.get("/eventRevenue", async (req, res) => {
     try {
         const collection = await db.collection("Organizers");
@@ -94,6 +96,8 @@ const totalCollection = matchingEvents.map(event => event.totalCollection);
       }
     
   });
+
+  //this function gets the events reviews 
   router.get("/eventReviews", async (req, res) => {
     try {
         const collection = await db.collection("Organizers");

@@ -40,7 +40,7 @@ function NavBar({ loggedIn, isAdmin, onLogout }) {
                       </Nav.Link>
                     )}
                     {(
-                      <Nav.Link className="mx-3" as={Link} to="/organiser-dashboard">
+                      <Nav.Link className="mx-3" as={Link} to="/organiserDashboard">
                       Dashboard
                       </Nav.Link>
                     )}

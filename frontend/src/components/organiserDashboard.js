@@ -19,7 +19,7 @@ function OrganiserDashboard({userId}) {
   });
 
   async function fetchOverallDetails(){
-   const response = await fetch(`https://eventmasterapi.onrender.com/organiserDashboard/organiser-dashboard?userId=${userId}`)
+   const response = await fetch(`https://eventmasterapi.onrender.com/organiserDashboard/organiserDashboard?userId=${userId}`)
     const data = await response.json()
     setTotalTickets(data.totalTickets);
     setTotalEvents(data.totalEvents);
@@ -98,7 +98,8 @@ if(totalEvents==0){
             </div>
           </div>
           <div class="card col-6" style={{ width: "18rem" }}>
-            <p style={{ fontSize: "3rem" }}>           {overallRating == 5 &&(
+            <p style={{ fontSize: "3rem" }}>   
+        {overallRating == 5 &&(
           <span className="ms-2" >
             <FontAwesomeIcon icon={faStar} />
             <FontAwesomeIcon icon={faStar} />
