@@ -1,7 +1,7 @@
 //Author: Rachit Hans
 import React, { useState, useEffect } from "react";
 
-function Organiser_events({ userId }) {
+function organiserEvents({ userId }) {
   const [data, setData] = useState(null);
 
   useEffect(() => {
@@ -39,4 +39,4 @@ function Organiser_events({ userId }) {
   );
 }
 
-export default Organiser_events;
+export default organiserEvents;

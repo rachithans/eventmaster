@@ -2,14 +2,14 @@
 
 import "bootstrap/dist/css/bootstrap.min.css";
 
-import Organiser_events from "./oraganiser-dashboard/organiser_events";
+import Events from "./oraganiserDashboard/events";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faListCheck } from "@fortawesome/free-solid-svg-icons";
 import { faDollarSign } from "@fortawesome/free-solid-svg-icons";
 import { faComment } from "@fortawesome/free-solid-svg-icons";
 import { useState, useEffect } from "react";
-import Revenue from "./oraganiser-dashboard/revenue";
-import FeedbacksClass from "./oraganiser-dashboard/feedback";
+import Revenue from "./oraganiserDashboard/revenue";
+import FeedbacksClass from "./oraganiserDashboard/feedback";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 
 
@@ -161,7 +161,7 @@ if(totalEvents==0){
         class="jumbotron "
         style={{ marginLeft: "10%", marginRight: "10%", backgroundColor: "" }}
       >
-        {testVisible && <Organiser_events userId={userId} />}
+        {testVisible && <Events userId={userId} />}
         {revnueVisible && <Revenue userId={userId} />}
         {feedbackVisible && <FeedbacksClass userId={userId}/>}
       </div>

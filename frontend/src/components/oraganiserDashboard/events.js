@@ -10,7 +10,7 @@ import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { useState, useEffect } from "react";
 
 
-function Organiser_events({ userId }) {
+function events({ userId }) {
 
   const [cardExpandStates, setCardExpandStates] = useState({});
 
@@ -73,4 +73,4 @@ function Organiser_events({ userId }) {
   
 }
 
-export default Organiser_events;
+export default events;
